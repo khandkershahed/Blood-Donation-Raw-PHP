@@ -11,5 +11,5 @@ session_unset();
 session_destroy();
 
 // Redirect to the login page or home page after logout
-header("Location: login.php");
+header("Location: /login.php");
 exit();

@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Redirect to dashboard.php after successful registration
     $_SESSION['success'] = "Registration successful. Please log in.!";
-    header("Location: login.php");
+    header("Location: /login.php");
     exit();
 }
 ?>

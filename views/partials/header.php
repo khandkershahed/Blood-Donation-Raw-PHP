@@ -52,7 +52,7 @@
                  <div class="col-xl-8 col-lg-8 d-none d-xxl-block d-xl-block">
                      <ul class="main_menu">
                          <li><a href="<?= ROOT_URL ?>">Home</a></li>
-                         <li><a href="<?= ROOT_URL ?>volunteer.php">Volunteer</a></li>
+                         <!-- <li><a href="<?= ROOT_URL ?>volunteer.php">Volunteer</a></li> -->
                          <li><a href="<?= ROOT_URL ?>user/findDonor.php">Find Donor</a></li>
                          <li><a href="<?= ROOT_URL ?>about.php">About</a></li>
                          <li><a href="<?= ROOT_URL ?>contact.php">Contact</a></li>

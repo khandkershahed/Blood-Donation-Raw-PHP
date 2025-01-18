@@ -2,7 +2,7 @@
 require 'config/database.php';
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
   // Redirect the user to the login page if they are not logged in
-  header('Location: login.php');
+  header('Location: /login.php');
   exit();
 }
 
