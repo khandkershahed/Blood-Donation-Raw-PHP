@@ -15,7 +15,7 @@ include '../views/partials/header.php';
                 <h2>Login</h2>
                 <ul>
                     <li><a href="<?= ROOT_URL ?>">Home</a></li>
-                    <li class="active">Login Now</li>
+                    <li class="active">Admin Login Now</li>
                 </ul>
             </div>
         </div>
@@ -42,7 +42,7 @@ include '../views/partials/header.php';
                         <div class="card border-0 rounded-0 shadow-sm">
                             <div class="card-body p-5">
                                 <div class="mb-4">
-                                    <h2>L<span class="text-danger">ogi</span>n!</h2>
+                                    <h2><span class="text-danger">Ad</span>min L<span class="text-danger">ogi</span>n!</h2>
                                 </div>
                                 <div>
                                     <h4 class="mb-4">
