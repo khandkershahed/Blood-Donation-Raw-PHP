@@ -1,0 +1,15 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Rewriting rule for /user/ URLs (e.g., /user/abc -> user/abc)
+RewriteRule ^user/(.*)$ /user/$1 [L]
+
+# Custom error page for 404 errors (if a page is not found)
+ErrorDocument 404 /404.php
+
+# Optionally: Log all errors (you can adjust the level)
+LogLevel warn
+
+# Enable pretty permalinks (optional, for example, for clean URLs without .php extensions)
+# If you're using URLs like /page/ instead of /page.php
+RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [NC,L]

@@ -1,20 +1,10 @@
 <?php
 require 'config/constants.php';
-
-$username_email = $_SESSION['signin-data']['username_email'] ?? null;
-$password = $_SESSION['signin-data']['password'] ?? null;
-
-//delete session
-unset($_SESSION['signin-data']);
-
-?>
-
-<?php
+if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] = true) {
+    header("Location: dashboard.php");
+    exit();
+}
 include 'views/partials/head.php';
-?>
-
-<!-- header start -->
-<?php
 include 'views/partials/header.php';
 ?>
 
@@ -37,21 +27,15 @@ include 'views/partials/header.php';
 <!-- Login box section start -->
 <section>
     <div class="container account-page py-5">
-        <?php if (isset($_SESSION['signup-success'])) : ?>
-            <div class="alert_message success">
-                <p>
-                    <?= $_SESSION['signup-success']; ?>
-                    <?php unset($_SESSION['signup-success']); ?>
-                </p>
-            </div>
-        <?php elseif (isset($_SESSION['signin'])) : ?>
-            <div class="alert_message error">
+        <?php if (isset($_SESSION['signin'])) : ?>
+            <div class="alert alert-danger">
                 <p>
                     <?= $_SESSION['signin']; ?>
                     <?php unset($_SESSION['signin']); ?>
                 </p>
             </div>
         <?php endif; ?>
+        
         <div class="row gx-0">
             <div class="col-lg-5">
                 <div>
@@ -76,9 +60,10 @@ include 'views/partials/header.php';
                                     <input
                                         type="email"
                                         class="form-control cst-input mb-3"
-                                        id="StreetAddress" name="username_email" value="<?= $username_email  ?>"
+                                        id="StreetAddress" name="username_email"
+                                        value="<?= isset($username_email) ? $username_email : '' ?>"
                                         aria-describedby="user email"
-                                        placeholder="user email" required/>
+                                        placeholder="user email" required />
                                 </div>
                                 <div class="my-4 mt-3">
                                     <label for=""><small>Password</small></label>
@@ -94,8 +79,9 @@ include 'views/partials/header.php';
                                             type="password"
                                             class="form-control"
                                             placeholder="*******"
-                                            aria-label="" name="password" value="<?= $password  ?>"
-                                            aria-describedby="basic-addon1" required/>
+                                            aria-label="" name="password"
+                                            value="<?= isset($password) ? $password : '' ?>"
+                                            aria-describedby="basic-addon1" required />
                                     </div>
                                 </div>
                                 <div
@@ -134,12 +120,9 @@ include 'views/partials/header.php';
         </div>
     </div>
 </section>
-<!-- Login box section start -->
+<!-- Login box section end -->
 
 <?php
 include 'views/partials/footer.php';
-?>
-
-<?php
 include 'views/partials/script.php';
 ?>

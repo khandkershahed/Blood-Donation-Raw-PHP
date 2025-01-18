@@ -11,7 +11,21 @@
 <script src="<?= ROOT_URL ?>public/frontend/js/waypoints.js"></script>
 <script src="<?= ROOT_URL ?>public/frontend/js/script.js"></script>
 
+<script>
+    // Timeout for success message
+    <?php if ($successMessage): ?>
+        setTimeout(function() {
+            document.getElementById('successMessage').style.display = 'none';
+        }, 5000); // 5000 milliseconds = 5 seconds
+    <?php endif; ?>
 
+    // Timeout for error messages
+    <?php if (!empty($errors)): ?>
+        setTimeout(function() {
+            document.getElementById('errorMessages').style.display = 'none';
+        }, 5000); // 5000 milliseconds = 5 seconds
+    <?php endif; ?>
+</script>
 
 </body>
 

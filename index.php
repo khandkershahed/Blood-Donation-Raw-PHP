@@ -37,7 +37,7 @@ include 'views/partials/header.php';
               Your Blood Can Save Lives and Bring Hope to Those in Need
             </h2>
             <a href="donor-login.html" class="explore_now red_btn">Donate Now</a>
-            <a href="contact.html" class="explore_now black_btn">Contact Us</a>
+            <a href="<?= ROOT_URL ?>contact.php" class="explore_now black_btn">Contact Us</a>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ include 'views/partials/header.php';
             <h4>Request Blood, Get Help</h4>
             <h2>If You Are in Need, We Are Here to Help You Find Donors</h2>
             <a href="receiver-login.html" class="explore_now red_btn">Find a Donor</a>
-            <a href="contact.html" class="explore_now black_btn">Get in Touch</a>
+            <a href="<?= ROOT_URL ?>contact.php" class="explore_now black_btn">Get in Touch</a>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ include 'views/partials/header.php';
             <h4>Join the Blood Donation Community</h4>
             <h2>Your Generosity Can Make a Life-Changing Difference</h2>
             <a href="donor-login.html" class="explore_now red_btn">Become a Donor</a>
-            <a href="contact.html" class="explore_now black_btn">Reach Out to Us</a>
+            <a href="<?= ROOT_URL ?>contact.php" class="explore_now black_btn">Reach Out to Us</a>
           </div>
         </div>
       </div>
@@ -597,7 +597,7 @@ include 'views/partials/header.php';
       </div>
       <div
         class="col-xl-3 col-lg-3 col-12 text-xl-end text-lg-end text-center">
-        <a href="contact.html">Contact Us</a>
+        <a href="<?= ROOT_URL ?>contact.php">Contact Us</a>
       </div>
     </div>
   </div>

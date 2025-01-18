@@ -1,11 +1,15 @@
 <?php
-
+// Start session if it's not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 require 'config/constants.php';
+// Unset all session variables to log the user out
+session_unset();
 
-// destroy all session and redirect user to home page
+// Destroy the session to remove session data from the server
 session_destroy();
 
-header('location: ' . ROOT_URL);
-die();
-
-?>
+// Redirect to the login page or home page after logout
+header("Location: login.php");
+exit();

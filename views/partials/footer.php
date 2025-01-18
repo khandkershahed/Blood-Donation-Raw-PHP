@@ -30,11 +30,11 @@
                         </ul>
                         <ul
                             class="page_link d-flex justify-content-xxl-end justify-content-xl-end justify-content-lg-end justify-content-center gap-2 flex-wrap">
-                            <li><a href="privacypolicy.html">Privacy Policy</a></li>
+                            <li><a href="<?= ROOT_URL ?>privacy.php">Privacy Policy</a></li>
                             <li><a href="#">/</a></li>
-                            <li><a href="terms.html">Terms & Condition</a></li>
+                            <li><a href="<?= ROOT_URL ?>terms.php">Terms & Condition</a></li>
                             <li><a href="#">/</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="<?= ROOT_URL ?>faq.php">FAQ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
 <div class="offcanvas offcanvas-start" id="offcanvas-mobile">
     <div class="offcanvas-body">
         <div class="mobile-menu">
-            <a href="index.html" class="py-3">
+            <a href="<?= ROOT_URL ?>" class="py-3">
                 <h3 class="text-danger">Blood Boonds</h3>
             </a>
             <button
@@ -82,72 +82,18 @@
                     <div id="flush-collapseOne" class="accordion-collapse collapse">
                         <div class="accordion-body">
                             <ul>
-                                <li><a href="index.html">Home Page 1</a></li>
-                                <li><a href="index-2.html">Home Page 2</a></li>
-                                <li><a href="index-3.html">Home Page 3</a></li>
+                                <li><a href="<?= ROOT_URL ?>">Home</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li class="accordion-item">
-                    <h2><a href="about.html">About</a></h2>
+                    <h2><a href="<?= ROOT_URL ?>about.php">About</a></h2>
                 </li>
+                
+                
                 <li class="accordion-item">
-                    <h2>
-                        <button
-                            class="accordion-button collapsed p-3"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapsetwo"
-                            aria-expanded="false">
-                            Pages
-                        </button>
-                    </h2>
-                    <div id="flush-collapsetwo" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <ul>
-                                <li><a href="service.html">service</a></li>
-                                <li><a href="service-details.html">service Details</a></li>
-                                <li><a href="faq.html">Faq</a></li>
-                                <li><a href="javascript:void(0)">Find Donor</a></li>
-                                <li><a href="donate.html">Donate</a></li>
-                                <li><a href="register.html">Registation</a></li>
-                                <li><a href="privacypolicy.html">Privacy policy</a></li>
-                                <li><a href="terms.html">Terms & Condition</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="accordion-item">
-                    <h2>
-                        <button
-                            class="accordion-button collapsed p-3"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapsethree"
-                            aria-expanded="false">
-                            Blog
-                        </button>
-                    </h2>
-                    <div id="flush-collapsethree" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <ul>
-                                <li><a href="blog-default.html">Blog</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
-                                <li>
-                                    <a href="blog-details-left-sidebar.html">Blog Left</a>
-                                </li>
-                                <li>
-                                    <a href="blog-details-right-sidebar.html">Blog Right</a>
-                                </li>
-                                <li><a href="blog-style1.html">Blog Style 1</a></li>
-                                <li><a href="blog-style2.html">Blog Style 2</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="accordion-item">
-                    <h2><a href="contact.html">Contact</a></h2>
+                    <h2><a href="<?= ROOT_URL ?>contact.php">Contact</a></h2>
                 </li>
             </ul>
         </div>
