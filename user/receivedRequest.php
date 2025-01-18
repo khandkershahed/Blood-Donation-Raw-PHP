@@ -6,7 +6,7 @@ require_once __DIR__ . '/../config/database.php';
 // Check if the user is logged in
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
     // Redirect to login page if not logged in
-    header('Location: login.php');
+    header('Location: /login.php');
     exit();
 }
 
