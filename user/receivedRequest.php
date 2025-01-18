@@ -17,23 +17,41 @@ if (empty($_SESSION['csrf_token'])) {
 // Get the user ID from the session
 $user_id = $_SESSION['user_id'];
 
+// Check if the form is submitted to update status
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+    // Get the request ID and new status
+    $request_id = $_POST['request_id'];
+    $new_status = $_POST['status'];
+
+    try {
+        // Update the request status in the database
+        $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
+        $stmt = $pdo->prepare($updateQuery);
+        $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
+        $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+        // Execute the update
+        if ($stmt->execute()) {
+            // Success - you can also set a success message or redirect
+            $message = "Status updated successfully!";
+        } else {
+            // Failure
+            $message = "Failed to update the status.";
+        }
+    } catch (PDOException $e) {
+        // Handle error
+        $message = "Error: " . $e->getMessage();
+    }
+}
+
+// Fetch all requests sent by the logged-in user
 try {
-    // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
     $query = "SELECT * FROM requests WHERE donor_id = :user_id";
-    
-    // Prepare the statement
     $stmt = $pdo->prepare($query);
-    
-    // Bind the user_id parameter to prevent SQL injection
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
-    // Execute the query
     $stmt->execute();
-
-    // Fetch the filtered requests
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Check if no requests are found
     $no_requests = count($requests) == 0;
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -54,7 +72,7 @@ try {
         <div class="container-fluid">
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Given Requests</h4>
+                    <h4 class="fs-18 fw-semibold m-0">Received Requests</h4>
                 </div>
 
                 <div class="text-end">
@@ -62,7 +80,7 @@ try {
                         <li class="breadcrumb-item">
                             <a href="javascript: void(0);">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">Given Requests</li>
+                        <li class="breadcrumb-item active">Received Requests</li>
                     </ol>
                 </div>
             </div>
@@ -71,12 +89,22 @@ try {
         <div class="row">
             <div class="col-lg-12">
                 <!-- All Requests -->
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger"><?= $_SESSION['error'];
+                                                    unset($_SESSION['error']); ?></div>
+                <?php elseif (isset($_SESSION['message'])): ?>
+                    <div class="alert alert-success"><?= $_SESSION['message'];
+                                                        unset($_SESSION['message']); ?></div>
+                <?php endif; ?>
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">My All Requests Lists</h5>
+                        <h5 class="card-title mb-0">My All Received Requests Lists</h5>
                     </div>
                     <!-- end card header -->
                     <div class="card-body">
+                        <?php if (isset($message)): ?>
+                            <div class="alert alert-info"><?php echo htmlspecialchars($message); ?></div>
+                        <?php endif; ?>
                         <?php if ($no_requests): ?>
                             <p>No requests found.</p>
                         <?php else: ?>
@@ -116,17 +144,17 @@ try {
                                             <td><?php echo htmlspecialchars($request['created_at']); ?></td>
                                             <td>
                                                 <!-- Update Status Form -->
-                                                <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
+                                                <form action="" method="POST" style="display:inline;">
                                                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                                     <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                                                    
+
                                                     <!-- Status Dropdown -->
                                                     <select class="form-select" name="status" required>
                                                         <option value="pending" <?php echo ($request['status'] === 'pending') ? 'selected' : ''; ?>>Pending</option>
                                                         <option value="accepted" <?php echo ($request['status'] === 'accepted') ? 'selected' : ''; ?>>Accepted</option>
                                                         <option value="rejected" <?php echo ($request['status'] === 'rejected') ? 'selected' : ''; ?>>Rejected</option>
                                                     </select>
-                                                    
+
                                                     <!-- Submit Button -->
                                                     <button type="submit" class="btn btn-sm btn-primary mt-2">Update Status</button>
                                                 </form>

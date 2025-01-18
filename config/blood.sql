@@ -88,3 +88,17 @@ CREATE TABLE requests (
     FOREIGN KEY (requester_id) REFERENCES users(id),
 );
 
+CREATE TABLE admins (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) DEFAULT NULL,
+  username varchar(255) DEFAULT NULL,
+  password varchar(255) DEFAULT NULL,
+  phone varchar(15) DEFAULT NULL,
+  email varchar(255) DEFAULT NULL,
+  status varchar(100) DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO `admins` (`id`, `name`, `username`, `password`, `phone`, `email`, `status`) 
+VALUES
+(1, 'Blood Admin', NULL, '$2y$10$BUy7mTqah08MgChWrItBb.zBZcP6c9go54hNPyed/NUT027J2par.', '01754348949', 'admin@admin.com', 'active');

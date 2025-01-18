@@ -39,7 +39,7 @@
             <span> All Donor </span>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="<?= ROOT_URL ?>user/myprofile.php" class="tp-link">
             <i data-feather="user-check"></i>
             <span>My Profile</span>
@@ -50,35 +50,36 @@
             <i data-feather="users"></i>
             <span> All Receiver </span>
           </a>
-        </li>
-        <li>
-          <a href="<?= ROOT_URL ?>user/findDonor.php" class="tp-link">
-            <i data-feather="search"></i>
-            <span> Find Donor</span>
-          </a>
-        </li>
+        </li> -->
+
         <?php
         // Assuming the user's data is already set in session, including registration_type
         $registration_type = $_SESSION['registration_type'] ?? ''; // This will fetch 'donor', 'receiver', or 'both'
         if ($user_logged_in):
         ?>
-            <?php if ($registration_type === 'receiver' || $registration_type === 'both'): ?>
-              <li>
-                <a href="<?= ROOT_URL ?>user/givenRequest.php" class="tp-link">
-                  <i data-feather="droplet"></i>
-                  <span>Given Requests</span>
-                </a>
-              </li>
-            <?php endif; ?>
+          <?php if ($registration_type === 'receiver' || $registration_type === 'both'): ?>
+            <li>
+              <a href="<?= ROOT_URL ?>user/findDonor.php" class="tp-link">
+                <i data-feather="search"></i>
+                <span> Find Donor</span>
+              </a>
+            </li>
+            <li>
+              <a href="<?= ROOT_URL ?>user/givenRequest.php" class="tp-link">
+                <i data-feather="droplet"></i>
+                <span>Given Requests</span>
+              </a>
+            </li>
+          <?php endif; ?>
 
-            <?php if ($registration_type === 'donor' || $registration_type === 'both'): ?>
-              <li>
-                <a href="<?= ROOT_URL ?>user/receivedRequest.php" class="tp-link">
-                  <i data-feather="droplet"></i>
-                  <span>Received Requests</span>
-                </a>
-              </li>
-            <?php endif; ?>
+          <?php if ($registration_type === 'donor' || $registration_type === 'both'): ?>
+            <li>
+              <a href="<?= ROOT_URL ?>user/receivedRequest.php" class="tp-link">
+                <i data-feather="droplet"></i>
+                <span>Received Requests</span>
+              </a>
+            </li>
+          <?php endif; ?>
         <?php endif; ?>
       </ul>
     </div>

@@ -26,7 +26,8 @@ $city = isset($_POST['city']) ? $_POST['city'] : '';
 // Fetch users from the database based on the filter
 try {
     // Start building the query
-    $query = "SELECT * FROM users WHERE 1=1 WHERE registration_type IN ('donor', 'both')";  // Default condition to fetch all records
+    $query = "SELECT * FROM users WHERE registration_type IN ('donor', 'both')";
+ // Default condition to fetch all records
 
     // Add conditions based on filters
     if ($blood_type) {
