@@ -18,8 +18,8 @@ if (empty($_SESSION['csrf_token'])) {
 $user_id = $_SESSION['user_id'];
 
 // Set default filter values (no filter)
-$blood_type = isset($_POST['blood_type']) ? $_POST['blood_type'] : '';
-$availability = isset($_POST['availability']) ? $_POST['availability'] : '';
+$blood_type = isset($_POST['blood_type']) && !empty($_POST['blood_type']) ? $_POST['blood_type'] : '';
+$availability = isset($_POST['availability']) && !empty($_POST['availability']) ? $_POST['availability'] : '';
 $area = isset($_POST['area']) ? $_POST['area'] : '';
 $city = isset($_POST['city']) ? $_POST['city'] : '';
 
@@ -109,7 +109,7 @@ try {
                             <!-- Blood Type Filter -->
                             <div class="col-lg-2">
                                 <select class="form-select" name="blood_type" data-placeholder="Select Blood Group" aria-label="Select Blood Group">
-                                    <option></option>
+                                    <option value="">Select Blood Group</option>
                                     <option value="A+" <?php echo $blood_type == "A+" ? 'selected' : ''; ?>>A+</option>
                                     <option value="A-" <?php echo $blood_type == "A-" ? 'selected' : ''; ?>>A-</option>
                                     <option value="B+" <?php echo $blood_type == "B+" ? 'selected' : ''; ?>>B+</option>
