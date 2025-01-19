@@ -27,7 +27,7 @@ $city = isset($_POST['city']) ? $_POST['city'] : '';
 try {
     // Start building the query
     $query = "SELECT * FROM users WHERE registration_type IN ('donor', 'both')";
- // Default condition to fetch all records
+    // Default condition to fetch all records
 
     // Add conditions based on filters
     if ($blood_type) {
@@ -178,7 +178,7 @@ try {
                                                     <p class="mt-1 mb-0"><?php echo $user['street_address_1']; ?></p>
                                                 </div>
                                                 <div class="">
-                                                    <button type="button" class="btn btn-sm btn-light me-2" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $user['id']; ?>">
+                                                    <button type="button" <?php if ($user['availability'] === 'unavailable'): ?> disabled <?php endif; ?> class="btn btn-sm btn-light me-2" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $user['id']; ?>">
                                                         Request
                                                     </button>
                                                     <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-primary">Call Now</a>
