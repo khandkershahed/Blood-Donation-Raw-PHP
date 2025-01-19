@@ -16,3 +16,10 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_PORT', '3306');
 define('DB_NAME', 'blood');
+
+// define('ROOT_URL', 'https://demo.digixsolve.com/');
+// define('DB_HOST', '127.0.0.1');
+// define('DB_USER', 'digixsolve_shahed');
+// define('DB_PASS', 'Shahed@123');
+// define('DB_PORT', '3306');
+// define('DB_NAME', 'digixsolve_demo');
