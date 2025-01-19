@@ -202,5 +202,6 @@ try {
     </div>
 </div>
 
+
 <!-- Include footer -->
 <?php include '../views/admin_partials/footer.php'; ?>
