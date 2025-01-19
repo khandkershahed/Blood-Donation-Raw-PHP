@@ -128,10 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert data into the database
-    $sql = "INSERT INTO users (blood_type, first_name, last_name, date_of_birth, password, contact_number, email, street_address_1, street_address_2, city, area, last_donated_date, weight, donated_before, registration_type)
-            VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contact_number, :email, :street_address_1, :street_address_2, :city, :area, :last_donated_date, :weight, :donated_before, :registration_type)";
+    // Insert data into the database, include :availability in the SQL query
+    $sql = "INSERT INTO users (blood_type, first_name, last_name, date_of_birth, password, contact_number, email, street_address_1, street_address_2, city, area, last_donated_date, weight, donated_before, registration_type, availability)
+VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contact_number, :email, :street_address_1, :street_address_2, :city, :area, :last_donated_date, :weight, :donated_before, :registration_type, :availability)";
 
+    // Prepare the statement
     $stmt = $pdo->prepare($sql);
+
+    // Execute with all parameters, including :availability
     $stmt->execute([
         ':blood_type'        => $blood_type,
         ':first_name'        => $first_name,
@@ -148,8 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':weight'            => $weight,
         ':donated_before'    => $donated_before,
         ':registration_type' => $registration_type,
-        ':availability'      => $availability
+        ':availability'      => $availability // Make sure to include this parameter here
     ]);
+
 
     // Redirect to dashboard.php after successful registration
     $_SESSION['success'] = "Registration successful. Please log in.!";
