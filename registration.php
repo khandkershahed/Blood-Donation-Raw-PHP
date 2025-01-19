@@ -199,38 +199,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="street_address_1" class="mb-2">Street Address 1</label>
                     <input type="text" name="street_address_1" class="form-control" placeholder="Street Address One" value="<?= $street_address_1; ?>" required>
                 </div>
-                <div class="col-lg-12">
-                    <label for="street_address_2" class="mb-2">Street Address 2</label>
-                    <input type="text" name="street_address_2" class="form-control" placeholder="Street Address Two" value="<?= $street_address_2; ?>" required>
-                </div>
                 <div class="col-lg-6">
                     <label for="city" class="mb-2">City</label>
                     <input type="text" name="city" class="form-control" placeholder="City" value="<?= $city; ?>" required>
                 </div>
                 <div class="col-lg-6">
                     <label for="area" class="mb-2">Area</label>
-                    <input type="text" name="area" class="form-control" placeholder="Area" value="<?= $area; ?>" required>
+                    <input type="text" name="area" class="form-control" placeholder="Eg:Mohammadpur " value="<?= $area; ?>" required>
                 </div>
             </div>
-
-            <!-- Additional Information Section -->
-            <div class="row mb-4">
-                <div class="col-lg-4">
-                    <label for="last_donated_date" class="mb-2">Last Donated Date</label>
-                    <input type="date" name="last_donated_date" class="form-control" value="<?= $last_donated_date; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="weight" class="mb-2">Weight (kg)</label>
-                    <input type="number" name="weight" class="form-control" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="donated_before" class="mb-2">Have you donated before?</label><br>
-                    <input type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
-                    <input type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
-                </div>
-            </div>
-
-            <!-- Registration Type Section -->
             <div class="row mb-4">
                 <div class="col-lg-12">
                     <label for="registration_type" class="mb-2">Registration Type</label><br>
@@ -239,6 +216,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="checkbox" name="registration_type[]" value="both" <?= (strpos($registration_type, 'both') !== false) ? 'checked' : ''; ?>> Both Donor and Receiver
                 </div>
             </div>
+            <!-- Additional Information Section -->
+            <div class="row mb-4">
+                <div class="col-lg-4">
+                    <label for="donated_before" class="mb-2">Have you donated before?</label><br>
+                    <input type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
+                    <input type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
+                </div>
+                <div class="col-lg-4">
+                    <label for="last_donated_date" class="mb-2">Last Donated Date</label>
+                    <input type="date" name="last_donated_date" class="form-control" value="<?= $last_donated_date; ?>" required>
+                </div>
+                <div class="col-lg-4">
+                    <label for="weight" class="mb-2">Weight (kg)</label>
+                    <input type="number" name="weight" class="form-control" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
+                </div>
+
+            </div>
+
+            <!-- Registration Type Section -->
+
 
             <!-- Submit Button -->
             <div class="row mb-4">
