@@ -39,13 +39,13 @@
             <span> All Donor </span>
           </a>
         </li>
-        <!-- <li>
+        <li>
           <a href="<?= ROOT_URL ?>user/myprofile.php" class="tp-link">
             <i data-feather="user-check"></i>
             <span>My Profile</span>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="<?= ROOT_URL ?>user/allReceiver.php" class="tp-link">
             <i data-feather="users"></i>
             <span> All Receiver </span>

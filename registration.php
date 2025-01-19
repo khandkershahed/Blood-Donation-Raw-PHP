@@ -11,6 +11,21 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
+$blood_type = '';
+$first_name = '';
+$last_name = '';
+$date_of_birth = '';
+$password = '';
+$contact_number = '';
+$email = '';
+$street_address_1 = '';
+$street_address_2 = '';
+$city = '';
+$area = '';
+$last_donated_date = '';
+$weight = '';
+$donated_before = '';
+$registration_type = '';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -74,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Insert data into the database
     $sql = "INSERT INTO users (blood_type, first_name, last_name, date_of_birth, password, contact_number, email, street_address_1, street_address_2, city, area, last_donated_date, weight, donated_before, registration_type)
             VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contact_number, :email, :street_address_1, :street_address_2, :city, :area, :last_donated_date, :weight, :donated_before, :registration_type)";
-    
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ':blood_type' => $blood_type,
@@ -122,13 +137,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container py-4 bg-light">
         <!-- Error or Success Message -->
         <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+            <div class="alert alert-danger"><?= $_SESSION['error'];
+                                            unset($_SESSION['error']); ?></div>
         <?php elseif (isset($_SESSION['success'])): ?>
-            <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
+            <div class="alert alert-success"><?= $_SESSION['success'];
+                                                unset($_SESSION['success']); ?></div>
         <?php endif; ?>
 
         <form method="POST" action="registration.php">
-        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
             <!-- Blood Type Section -->
             <div class="row mb-4">
                 <div class="col-lg-12">
@@ -182,38 +199,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="street_address_1" class="mb-2">Street Address 1</label>
                     <input type="text" name="street_address_1" class="form-control" placeholder="Street Address One" value="<?= $street_address_1; ?>" required>
                 </div>
-                <div class="col-lg-12">
-                    <label for="street_address_2" class="mb-2">Street Address 2</label>
-                    <input type="text" name="street_address_2" class="form-control" placeholder="Street Address Two" value="<?= $street_address_2; ?>" required>
-                </div>
                 <div class="col-lg-6">
                     <label for="city" class="mb-2">City</label>
                     <input type="text" name="city" class="form-control" placeholder="City" value="<?= $city; ?>" required>
                 </div>
                 <div class="col-lg-6">
                     <label for="area" class="mb-2">Area</label>
-                    <input type="text" name="area" class="form-control" placeholder="Area" value="<?= $area; ?>" required>
+                    <input type="text" name="area" class="form-control" placeholder="Eg:Mohammadpur " value="<?= $area; ?>" required>
                 </div>
             </div>
-
-            <!-- Additional Information Section -->
-            <div class="row mb-4">
-                <div class="col-lg-4">
-                    <label for="last_donated_date" class="mb-2">Last Donated Date</label>
-                    <input type="date" name="last_donated_date" class="form-control" value="<?= $last_donated_date; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="weight" class="mb-2">Weight (kg)</label>
-                    <input type="number" name="weight" class="form-control" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="donated_before" class="mb-2">Have you donated before?</label><br>
-                    <input type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
-                    <input type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
-                </div>
-            </div>
-
-            <!-- Registration Type Section -->
             <div class="row mb-4">
                 <div class="col-lg-12">
                     <label for="registration_type" class="mb-2">Registration Type</label><br>
@@ -222,6 +216,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="checkbox" name="registration_type[]" value="both" <?= (strpos($registration_type, 'both') !== false) ? 'checked' : ''; ?>> Both Donor and Receiver
                 </div>
             </div>
+            <!-- Additional Information Section -->
+            <div class="row mb-4">
+                <div class="col-lg-4">
+                    <label for="donated_before" class="mb-2">Have you donated before?</label><br>
+                    <input type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
+                    <input type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
+                </div>
+                <div class="col-lg-4">
+                    <label for="last_donated_date" class="mb-2">Last Donated Date</label>
+                    <input type="date" name="last_donated_date" class="form-control" value="<?= $last_donated_date; ?>" required>
+                </div>
+                <div class="col-lg-4">
+                    <label for="weight" class="mb-2">Weight (kg)</label>
+                    <input type="number" name="weight" class="form-control" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
+                </div>
+
+            </div>
+
+            <!-- Registration Type Section -->
+
 
             <!-- Submit Button -->
             <div class="row mb-4">
