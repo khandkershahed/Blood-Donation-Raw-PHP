@@ -44,7 +44,7 @@ include 'views/admin_partials/sidebar.php';
                   <p class="mb-0 text-dark fs-15">Total Given Requests</p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center pt-2">
-                  <h3 class="mb-0 fs-22 text-dark me-3">3,456</h3>
+                  <h3 class="mb-0 fs-22 text-dark me-3">0</h3>
                   <div class="text-center">
                     <p class="text-dark fs-13 mb-0">Last 30 days</p>
                   </div>
@@ -68,7 +68,7 @@ include 'views/admin_partials/sidebar.php';
                   <p class="mb-0 text-dark fs-15">Total Get Requests</p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center pt-2">
-                  <h3 class="mb-0 fs-22 text-dark me-3">2,839</h3>
+                  <h3 class="mb-0 fs-22 text-dark me-3">0</h3>
                   <div class="text-center">
                     <p class="text-dark fs-13 mb-0">Last 30 days</p>
                   </div>
