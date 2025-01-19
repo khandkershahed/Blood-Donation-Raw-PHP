@@ -161,8 +161,8 @@ try {
                                         <div class="card-body">
                                             <div class="text-center">
                                                 <div class="mt-2 mb-3">
-                                                    <span class="badge <?php echo $user['availability'] == 'yes' ? 'bg-success' : 'bg-danger'; ?> rounded-2 text-white mb-2 fw-normal">
-                                                        <?php echo $user['availability'] == 'yes' ? 'Available' : 'Not Available'; ?>
+                                                    <span class="badge <?php echo $user['availability'] == 'available' ? 'bg-success' : 'bg-danger'; ?> rounded-2 text-white mb-2 fw-normal">
+                                                        <?php echo $user['availability'] == 'available' ? 'Available' : 'Not Available'; ?>
                                                     </span>
                                                     <h4 class="m-0 fw-medium text-dark fs-16 text-center">Blood Group : <span class="badge bg-secondary rounded-2 text-white mb-2 fw-normal">
                                                             <?php echo $user['blood_type']; ?>
