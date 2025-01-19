@@ -48,9 +48,8 @@ CREATE TABLE users (
     last_donated_date DATE,
     weight DECIMAL(5,2),
     donated_before ENUM('yes', 'no'),
-    registration_type ENUM('receiver', 'donor', 'both') 
+    registration_type ENUM('receiver', 'donor', 'both')
 );
-
 
 CREATE TABLE contact_messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,20 +61,19 @@ CREATE TABLE contact_messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create the notifications table
-CREATE TABLE `notifications` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `user_id` INT NOT NULL,   -- The recipient user ID (the donor)
-    `message` TEXT NOT NULL,   -- The notification message
-    `status` ENUM('unread', 'read') DEFAULT 'unread', -- Notification status
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Time of notification
-    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Last updated time
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,   -- The recipient user ID (the donor)
+    message TEXT NOT NULL,   -- The notification message
+    status ENUM('unread', 'read') DEFAULT 'unread', -- Notification status
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Time of notification
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Last updated time
 );
 
 CREATE TABLE requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     donor_id INT NOT NULL,
-    requester_id INT(255) NOT NULL,
+    requester_id INT NOT NULL,
     requester_name VARCHAR(255) NOT NULL,
     requester_phone VARCHAR(15) NOT NULL,
     blood_type VARCHAR(10) NOT NULL,
@@ -85,20 +83,21 @@ CREATE TABLE requests (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
     FOREIGN KEY (donor_id) REFERENCES users(id),
-    FOREIGN KEY (requester_id) REFERENCES users(id),
+    FOREIGN KEY (requester_id) REFERENCES users(id)
 );
 
 CREATE TABLE admins (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(255) DEFAULT NULL,
-  username varchar(255) DEFAULT NULL,
-  password varchar(255) DEFAULT NULL,
-  phone varchar(15) DEFAULT NULL,
-  email varchar(255) DEFAULT NULL,
-  status varchar(100) DEFAULT NULL,
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) DEFAULT NULL,
+  username VARCHAR(255) DEFAULT NULL,
+  password VARCHAR(255) DEFAULT NULL,
+  phone VARCHAR(15) DEFAULT NULL,
+  email VARCHAR(255) DEFAULT NULL,
+  status VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
+-- Insert sample admin data
 INSERT INTO `admins` (`id`, `name`, `username`, `password`, `phone`, `email`, `status`) 
 VALUES
 (1, 'Blood Admin', NULL, '$2y$10$BUy7mTqah08MgChWrItBb.zBZcP6c9go54hNPyed/NUT027J2par.', '01754348949', 'admin@admin.com', 'active');

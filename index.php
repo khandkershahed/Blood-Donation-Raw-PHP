@@ -122,9 +122,9 @@ include 'views/partials/header.php';
       <div
         class="col-xl-6 col-lg-6 col-md-6 col-12 mb-5 mb-xl-0 mb-lg-0 mb-md-0">
         <div class="help_wrap position-relative">
-          <img src="assets/images/a2.png" class="help_3" alt="" />
-          <img src="assets/images/a2.jpg" class="help_4" alt="" />
-          <img src="assets/images/help2.png" alt="" class="help_over" />
+          <img src="<?= ROOT_URL ?>public/frontend/images/a2.png" class="help_3" alt="" />
+          <img src="<?= ROOT_URL ?>public/frontend/images/a2.jpg" class="help_4" alt="" />
+          <img src="<?= ROOT_URL ?>public/frontend/images/help2.png" alt="" class="help_over" /> 
         </div>
       </div>
       <div class="col-xl-6 col-lg-6 col-md-6 col-12">
@@ -208,10 +208,10 @@ include 'views/partials/header.php';
         <div class="register_donate_item">
           <div class="donate_item_top">
             <div class="donate_img">
-              <img src="assets/images/r1.jpg" alt="" />
+              <img src="<?= ROOT_URL ?>public/frontend/images/r1.jpg" alt="" />
             </div>
             <div class="donate_content text-center">
-              <span><img src="assets/images/icon/d1.png" alt="" /></span>
+              <span><img src="<?= ROOT_URL ?>public/frontend/images/icon/d1.png" alt="" /></span>
               <a href="service-details.html">
                 <h5>Donate Blood, Save Lives</h5>
               </a>
@@ -228,10 +228,10 @@ include 'views/partials/header.php';
         <div class="register_donate_item">
           <div class="donate_item_top">
             <div class="donate_img">
-              <img src="assets/images/r2.jpg" alt="" />
+              <img src="<?= ROOT_URL ?>public/frontend/images/r2.jpg" alt="" />
             </div>
             <div class="donate_content text-center">
-              <span><img src="assets/images/icon/d2.png" alt="" /></span>
+              <span><img src="<?= ROOT_URL ?>public/frontend/images/icon/d2.png" alt="" /></span>
               <a href="service-details.html">
                 <h5>Find Blood Near You</h5>
               </a>
@@ -248,10 +248,10 @@ include 'views/partials/header.php';
         <div class="register_donate_item">
           <div class="donate_item_top">
             <div class="donate_img">
-              <img src="assets/images/r3.jpg" alt="" />
+              <img src="<?= ROOT_URL ?>public/frontend/images/r3.jpg" alt="" />
             </div>
             <div class="donate_content text-center">
-              <span><img src="assets/images/icon/d3.png" alt="" /></span>
+              <span><img src="<?= ROOT_URL ?>public/frontend/images/icon/d3.png" alt="" /></span>
               <a href="service-details.html">
                 <h5>Receive Blood When Needed</h5>
               </a>
@@ -285,7 +285,7 @@ include 'views/partials/header.php';
         <div class="what_progress">
           <ul>
             <img
-              src="assets/images/p_line.png"
+              src="<?= ROOT_URL ?>public/frontend/images/p_line.png"
               class="progress_line"
               alt="" />
             <li>
@@ -432,7 +432,7 @@ include 'views/partials/header.php';
               </div>
               <div class="user mt-30">
                 <img
-                  src="assets/images/about/user.png"
+                  src="<?= ROOT_URL ?>public/frontend/images/about/user.png"
                   alt="images not found" />
                 <h6 class="mt-30 text-white">
                   John Alexis <span>Blood Donor</span>
@@ -461,7 +461,7 @@ include 'views/partials/header.php';
               </div>
               <div class="user mt-30">
                 <img
-                  src="assets/images/about/user.png"
+                  src="<?= ROOT_URL ?>public/frontend/images/about/user.png"
                   alt="images not found" />
                 <h6 class="mt-30 text-white">
                   Sarah Lee <span>Blood Receiver</span>
@@ -489,7 +489,7 @@ include 'views/partials/header.php';
               </div>
               <div class="user mt-30">
                 <img
-                  src="assets/images/about/user.png"
+                  src="<?= ROOT_URL ?>public/frontend/images/about/user.png"
                   alt="images not found" />
                 <h6 class="mt-30 text-white">
                   Michael Roberts <span>Blood Donor</span>
@@ -515,7 +515,7 @@ include 'views/partials/header.php';
               </div>
               <div class="user mt-30">
                 <img
-                  src="assets/images/about/user.png"
+                  src="<?= ROOT_URL ?>public/frontend/images/about/user.png"
                   alt="images not found" />
                 <h6 class="mt-30 text-white">
                   Emily Davis <span>Blood Receiver</span>
@@ -543,20 +543,20 @@ include 'views/partials/header.php';
 
       <div class="gallary_slider slider-spacing custom_dots">
         <div class="gallary_item">
-          <img src="assets/images/h2_g1.jpg" alt="" />
-          <a href="assets/images/h2_g1.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
+          <img src="<?= ROOT_URL ?>public/frontend/images/h2_g1.jpg" alt="" />
+          <a href="<?= ROOT_URL ?>public/frontend/images/h2_g1.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
         </div>
         <div class="gallary_item">
-          <img src="assets/images/h2_g2.jpg" alt="" />
-          <a href="assets/images/h2_g2.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
+          <img src="<?= ROOT_URL ?>public/frontend/images/h2_g2.jpg" alt="" />
+          <a href="<?= ROOT_URL ?>public/frontend/images/h2_g2.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
         </div>
         <div class="gallary_item">
-          <img src="assets/images/h2_g3.jpg" alt="" />
-          <a href="assets/images/h2_g3.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
+          <img src="<?= ROOT_URL ?>public/frontend/images/h2_g3.jpg" alt="" />
+          <a href="<?= ROOT_URL ?>public/frontend/images/h2_g3.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
         </div>
         <div class="gallary_item">
-          <img src="assets/images/h2_g1.jpg" alt="" />
-          <a href="assets/images/h2_g1.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
+          <img src="<?= ROOT_URL ?>public/frontend/images/h2_g1.jpg" alt="" />
+          <a href="<?= ROOT_URL ?>public/frontend/images/h2_g1.jpg" data-fancybox="gallery"><i class="fa-solid fa-plus"></i></a>
         </div>
       </div>
     </div>
@@ -577,7 +577,7 @@ include 'views/partials/header.php';
               href="https://youtu.be/kOISEM6L4xk?si=zORepQ4JBnmvLS9v"
               data-fancybox=""
               class="red_bg d-inline-flex align-items-center justify-content-center"><i class="fa-solid fa-play"></i></a>
-            <img src="assets/images/b1.png" alt="" />
+            <img src="<?= ROOT_URL ?>public/frontend/images/b1.png" alt="" />
           </div>
         </div>
       </div>

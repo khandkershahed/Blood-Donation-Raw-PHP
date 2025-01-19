@@ -11,6 +11,21 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
+$blood_type = '';
+$first_name = '';
+$last_name = '';
+$date_of_birth = '';
+$password = '';
+$contact_number = '';
+$email = '';
+$street_address_1 = '';
+$street_address_2 = '';
+$city = '';
+$area = '';
+$last_donated_date = '';
+$weight = '';
+$donated_before = '';
+$registration_type = '';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -74,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Insert data into the database
     $sql = "INSERT INTO users (blood_type, first_name, last_name, date_of_birth, password, contact_number, email, street_address_1, street_address_2, city, area, last_donated_date, weight, donated_before, registration_type)
             VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contact_number, :email, :street_address_1, :street_address_2, :city, :area, :last_donated_date, :weight, :donated_before, :registration_type)";
-    
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ':blood_type' => $blood_type,
@@ -122,13 +137,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container py-4 bg-light">
         <!-- Error or Success Message -->
         <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+            <div class="alert alert-danger"><?= $_SESSION['error'];
+                                            unset($_SESSION['error']); ?></div>
         <?php elseif (isset($_SESSION['success'])): ?>
-            <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
+            <div class="alert alert-success"><?= $_SESSION['success'];
+                                                unset($_SESSION['success']); ?></div>
         <?php endif; ?>
 
         <form method="POST" action="registration.php">
-        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
             <!-- Blood Type Section -->
             <div class="row mb-4">
                 <div class="col-lg-12">
