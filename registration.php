@@ -35,25 +35,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Collect and sanitize user input
-    $blood_type = $_POST['blood_type'] ?? '';
-    $first_name = htmlspecialchars($_POST['first_name'] ?? '');
-    $last_name = htmlspecialchars($_POST['last_name'] ?? '');
-    $date_of_birth = $_POST['date_of_birth'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $contact_number = $_POST['contact_number'] ?? '';
-    $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
-    $street_address_1 = htmlspecialchars($_POST['street_address_1'] ?? '');
-    $street_address_2 = htmlspecialchars($_POST['street_address_2'] ?? '');
-    $city = htmlspecialchars($_POST['city'] ?? '');
-    $area = htmlspecialchars($_POST['area'] ?? '');
+    $blood_type        = $_POST['blood_type'] ?? '';
+    $first_name        = htmlspecialchars($_POST['first_name'] ?? '');
+    $last_name         = htmlspecialchars($_POST['last_name'] ?? '');
+    $date_of_birth     = $_POST['date_of_birth'] ?? '';
+    $password          = $_POST['password'] ?? '';
+    $contact_number    = $_POST['contact_number'] ?? '';
+    $email             = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
+    $street_address_1  = htmlspecialchars($_POST['street_address_1'] ?? '');
+    $street_address_2  = htmlspecialchars($_POST['street_address_2'] ?? '');
+    $city              = htmlspecialchars($_POST['city'] ?? '');
+    $area              = htmlspecialchars($_POST['area'] ?? '');
     $last_donated_date = $_POST['last_donated_date'] ?? '';
-    $weight = $_POST['weight'] ?? '';
-    $donated_before = $_POST['donated_before'] ?? '';
+    $weight            = $_POST['weight'] ?? '';
+    $donated_before    = $_POST['donated_before'] ?? '';
     $registration_type = isset($_POST['registration_type']) ? implode(', ', $_POST['registration_type']) : '';
 
     // Basic form validation
-    if (!$first_name || !$last_name || !$date_of_birth || !$password || !$contact_number || !$email || !$street_address_1 || !$street_address_2 || !$city || !$area || !$last_donated_date || !$weight || !$donated_before || !$registration_type) {
-        $_SESSION['error'] = "Please fill in all fields correctly.";
+    $missing_fields = [];
+
+    // Check if each field is empty and add the missing field to the array
+    if (empty($first_name)) {
+        $missing_fields[] = 'First Name';
+    }
+    if (empty($last_name)) {
+        $missing_fields[] = 'Last Name';
+    }
+    if (empty($date_of_birth)) {
+        $missing_fields[] = 'Date of Birth';
+    }
+    if (empty($password)) {
+        $missing_fields[] = 'Password';
+    }
+    if (empty($contact_number)) {
+        $missing_fields[] = 'Contact Number';
+    }
+    if (empty($email)) {
+        $missing_fields[] = 'Email';
+    }
+    if (empty($street_address_1)) {
+        $missing_fields[] = 'Street Address 1';
+    }
+    if (empty($city)) {
+        $missing_fields[] = 'City';
+    }
+    if (empty($area)) {
+        $missing_fields[] = 'Area';
+    }
+    if (empty($registration_type)) {
+        $missing_fields[] = 'Registration Type';
+    }
+
+    // If there are missing fields, show an error message with the list of missing fields
+    if (!empty($missing_fields)) {
+        $missing_fields_list = implode(', ', $missing_fields);
+        $_SESSION['error'] = "Please fill in the following fields: $missing_fields_list.";
         header('Location: registration.php');
         exit();
     }
@@ -92,20 +128,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
-        ':blood_type' => $blood_type,
-        ':first_name' => $first_name,
-        ':last_name' => $last_name,
-        ':date_of_birth' => $date_of_birth,
-        ':password' => $hashed_password,
-        ':contact_number' => $contact_number,
-        ':email' => $email,
-        ':street_address_1' => $street_address_1,
-        ':street_address_2' => $street_address_2,
-        ':city' => $city,
-        ':area' => $area,
+        ':blood_type'        => $blood_type,
+        ':first_name'        => $first_name,
+        ':last_name'         => $last_name,
+        ':date_of_birth'     => $date_of_birth,
+        ':password'          => $hashed_password,
+        ':contact_number'    => $contact_number,
+        ':email'             => $email,
+        ':street_address_1'  => $street_address_1,
+        ':street_address_2'  => $street_address_2,
+        ':city'              => $city,
+        ':area'              => $area,
         ':last_donated_date' => $last_donated_date,
-        ':weight' => $weight,
-        ':donated_before' => $donated_before,
+        ':weight'            => $weight,
+        ':donated_before'    => $donated_before,
         ':registration_type' => $registration_type
     ]);
 
