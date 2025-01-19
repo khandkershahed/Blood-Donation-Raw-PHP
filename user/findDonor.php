@@ -125,8 +125,8 @@ try {
                             <div class="col-lg-2">
                                 <select class="form-select" name="availability" aria-label="Select Availability">
                                     <option selected disabled>Select Available Or Not</option>
-                                    <option value="yes" <?php echo $availability == "yes" ? 'selected' : ''; ?>>Available</option>
-                                    <option value="no" <?php echo $availability == "no" ? 'selected' : ''; ?>>Not Available</option>
+                                    <option value="available" <?php echo $availability == "available" ? 'selected' : ''; ?>>Available</option>
+                                    <option value="unavailable" <?php echo $availability == "unavailable" ? 'selected' : ''; ?>>Not Available</option>
                                 </select>
                             </div>
 
@@ -141,6 +141,7 @@ try {
                             <!-- Submit Button -->
                             <div class="col-lg-2">
                                 <button type="submit" class="btn btn-primary">Filter</button>
+                                <a htrf="<?= ROOT_URL ?>user/findDonor.php" class="ms-3 btn btn-primary">Clear Filter</a>
                             </div>
                         </div>
                     </form>
