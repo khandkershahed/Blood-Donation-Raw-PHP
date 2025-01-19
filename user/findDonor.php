@@ -178,11 +178,19 @@ try {
                                                     <p class="mt-1 mb-0"><?php echo $user['street_address_1']; ?></p>
                                                 </div>
                                                 <div class="">
-                                                    <button type="button" <?php if ($user['availability'] === 'unavailable'): ?> disabled <?php endif; ?> class="btn btn-sm btn-light me-2" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $user['id']; ?>">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-light me-2"
+                                                        <?php if ($user['availability'] == 'unavailable'): ?>
+                                                        disabled
+                                                        style="opacity: 0.5; cursor: not-allowed;"
+                                                        <?php endif; ?>
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#request-blood-<?php echo $user['id']; ?>">
                                                         Request
                                                     </button>
                                                     <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-primary">Call Now</a>
                                                 </div>
+
 
                                                 <div class="modal fade" id="request-blood-<?php echo $user['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
