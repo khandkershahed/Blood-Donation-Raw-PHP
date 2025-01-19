@@ -184,8 +184,10 @@ try {
                                                         disabled
                                                         style="opacity: 0.5; cursor: not-allowed;"
                                                         <?php endif; ?>
+                                                        <?php if ($user['availability'] == 'available'): ?>
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#request-blood-<?php echo $user['id']; ?>">
+                                                        data-bs-target="#request-blood-<?php echo $user['id']; ?>"
+                                                        <?php endif; ?>>
                                                         Request
                                                     </button>
                                                     <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-primary">Call Now</a>
