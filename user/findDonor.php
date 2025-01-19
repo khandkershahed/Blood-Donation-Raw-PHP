@@ -194,8 +194,9 @@ try {
                                                             <div class="modal-body">
                                                                 <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST">
                                                                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                                                                    <input type="hidden" name="donor_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                                                    <input type="hidden" name="requester_id" value="<?php echo $user['id']; ?>">
+                                                                    <input type="hidden" name="requester_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                                                    <input type="hidden" name="donor_id" value="<?php echo $user['id']; ?>">
+                                                                    <!-- <input type="hidden" name="requester_id" value="<?php echo $user['id']; ?>"> -->
 
                                                                     <div class="mb-3">
                                                                         <input type="text" class="form-control" name="name" placeholder="Your Name" required />
