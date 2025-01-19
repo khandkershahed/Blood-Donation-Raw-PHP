@@ -180,7 +180,7 @@ try {
                                                 <div class="">
                                                     <button type="button"
                                                         class="btn btn-sm btn-light me-2"
-                                                        <?php if ($user['availability'] == 'unavailable'): ?>
+                                                        <?php if ($user['availability'] != 'available'): ?>
                                                         disabled
                                                         style="opacity: 0.5; cursor: not-allowed;"
                                                         <?php endif; ?>
