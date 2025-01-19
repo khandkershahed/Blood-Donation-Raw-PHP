@@ -26,6 +26,7 @@ $last_donated_date = '';
 $weight = '';
 $donated_before = '';
 $registration_type = '';
+$availability = '';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -49,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $last_donated_date = $_POST['last_donated_date'] ?? '';
     $weight            = $_POST['weight'] ?? '';
     $donated_before    = $_POST['donated_before'] ?? '';
+    $availability      = $_POST['availability'] ?? '';
     $registration_type = isset($_POST['registration_type']) ? implode(', ', $_POST['registration_type']) : '';
 
     // Basic form validation
@@ -84,6 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (empty($registration_type)) {
         $missing_fields[] = 'Registration Type';
+    }
+    if (empty($availability)) {
+        $missing_fields[] = 'availability';
     }
 
     // If there are missing fields, show an error message with the list of missing fields
@@ -142,7 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':last_donated_date' => $last_donated_date,
         ':weight'            => $weight,
         ':donated_before'    => $donated_before,
-        ':registration_type' => $registration_type
+        ':registration_type' => $registration_type,
+        ':availability'      => $availability
     ]);
 
     // Redirect to dashboard.php after successful registration
@@ -186,14 +192,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="row mb-4">
                 <div class="col-lg-12">
                     <label for="blood_type" class="mb-2">What is your Blood type?</label><br>
-                    <input type="radio" id="O_positive" name="blood_type" value="A+" <?= (isset($blood_type) && $blood_type == 'A+') ? 'checked' : ''; ?> required> O (+ve)
-                    <input type="radio" id="A_positive" name="blood_type" value="A-" <?= (isset($blood_type) && $blood_type == 'A-') ? 'checked' : ''; ?> required> A (+ve)
-                    <input type="radio" id="B_positive" name="blood_type" value="B+" <?= (isset($blood_type) && $blood_type == 'B+') ? 'checked' : ''; ?> required> B (+ve)
-                    <input type="radio" id="AB_positive" name="blood_type" value="B-" <?= (isset($blood_type) && $blood_type == 'B-') ? 'checked' : ''; ?> required> AB (+ve)
-                    <input type="radio" id="O_negative" name="blood_type" value="AB+" <?= (isset($blood_type) && $blood_type == 'AB+') ? 'checked' : ''; ?> required> O (-ve)
-                    <input type="radio" id="A_negative" name="blood_type" value="AB-" <?= (isset($blood_type) && $blood_type == 'AB-') ? 'checked' : ''; ?> required> A (-ve)
-                    <input type="radio" id="B_negative" name="blood_type" value="O+" <?= (isset($blood_type) && $blood_type == 'O+') ? 'checked' : ''; ?> required> B (-ve)
-                    <input type="radio" id="AB_negative" name="blood_type" value="O-" <?= (isset($blood_type) && $blood_type == 'O-') ? 'checked' : ''; ?> required> AB (-ve)
+                    <input class="ms-3" type="radio" id="O_positive" name="blood_type" value="A+" <?= (isset($blood_type) && $blood_type == 'A+') ? 'checked' : ''; ?> required> O (+ve)
+                    <input class="ms-3" type="radio" id="A_positive" name="blood_type" value="A-" <?= (isset($blood_type) && $blood_type == 'A-') ? 'checked' : ''; ?> required> A (+ve)
+                    <input class="ms-3" type="radio" id="B_positive" name="blood_type" value="B+" <?= (isset($blood_type) && $blood_type == 'B+') ? 'checked' : ''; ?> required> B (+ve)
+                    <input class="ms-3" type="radio" id="AB_positive" name="blood_type" value="B-" <?= (isset($blood_type) && $blood_type == 'B-') ? 'checked' : ''; ?> required> AB (+ve)
+                    <input class="ms-3" type="radio" id="O_negative" name="blood_type" value="AB+" <?= (isset($blood_type) && $blood_type == 'AB+') ? 'checked' : ''; ?> required> O (-ve)
+                    <input class="ms-3" type="radio" id="A_negative" name="blood_type" value="AB-" <?= (isset($blood_type) && $blood_type == 'AB-') ? 'checked' : ''; ?> required> A (-ve)
+                    <input class="ms-3" type="radio" id="B_negative" name="blood_type" value="O+" <?= (isset($blood_type) && $blood_type == 'O+') ? 'checked' : ''; ?> required> B (-ve)
+                    <input class="ms-3" type="radio" id="AB_negative" name="blood_type" value="O-" <?= (isset($blood_type) && $blood_type == 'O-') ? 'checked' : ''; ?> required> AB (-ve)
                 </div>
             </div>
 
@@ -207,18 +213,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="last_name" class="mb-2">Last Name</label>
                     <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="<?= htmlspecialchars($last_name); ?>" required>
                 </div>
-                <div class="col-lg-4">
-                    <label for="date_of_birth" class="mb-2">Date of Birth</label>
-                    <input type="date" name="date_of_birth" class="form-control" value="<?= $date_of_birth; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="password" class="mb-2">Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="contact_number" class="mb-2">Contact Number</label>
-                    <input type="text" name="contact_number" class="form-control" placeholder="01***********" value="<?= $contact_number; ?>" required>
-                </div>
             </div>
 
             <!-- Contact Information Section -->
@@ -227,37 +221,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="email" class="mb-2">Email</label>
                     <input type="email" name="email" class="form-control" placeholder="blooddoors@gmail.com" value="<?= $email; ?>" required>
                 </div>
+                <div class="col-lg-4">
+                    <label for="password" class="mb-2">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
             </div>
-
-            <!-- Address Information Section -->
             <div class="row mb-4">
-                <div class="col-lg-12">
-                    <label for="street_address_1" class="mb-2">Street Address 1</label>
-                    <input type="text" name="street_address_1" class="form-control" placeholder="Street Address One" value="<?= $street_address_1; ?>" required>
+                <div class="col-lg-6">
+                    <label for="registration_type" class="mb-2">Registration Type</label><br>
+                    <input class="ms-3" type="checkbox" name="registration_type[]" value="donor" <?= (strpos($registration_type, 'donor') !== false) ? 'checked' : ''; ?>> Donor
+                    <input class="ms-3" type="checkbox" name="registration_type[]" value="receiver" <?= (strpos($registration_type, 'receiver') !== false) ? 'checked' : ''; ?>> Receiver
+                    <input class="ms-3" type="checkbox" name="registration_type[]" value="both" <?= (strpos($registration_type, 'both') !== false) ? 'checked' : ''; ?>> Both Donor and Receiver
                 </div>
                 <div class="col-lg-6">
+                    <label for="availability" class="mb-2">Availability</label><br>
+                    <input class="ms-3" type="radio" name="availability" value="available" <?= (strpos($availability, 'available') !== false) ? 'checked' : ''; ?>> Available
+                    <input class="ms-3" type="radio" name="availability" value="unavailable" <?= (strpos($availability, 'unavailable') !== false) ? 'checked' : ''; ?>> Unavailable
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-4">
+                    <label for="street_address_1" class="mb-2">Street Address</label>
+                    <input type="text" name="street_address_1" class="form-control" placeholder="Street Address" value="<?= $street_address_1; ?>" required>
+                </div>
+                <div class="col-lg-4">
                     <label for="city" class="mb-2">City</label>
                     <input type="text" name="city" class="form-control" placeholder="City" value="<?= $city; ?>" required>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label for="area" class="mb-2">Area</label>
                     <input type="text" name="area" class="form-control" placeholder="Eg:Mohammadpur " value="<?= $area; ?>" required>
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-lg-12">
-                    <label for="registration_type" class="mb-2">Registration Type</label><br>
-                    <input type="checkbox" name="registration_type[]" value="donor" <?= (strpos($registration_type, 'donor') !== false) ? 'checked' : ''; ?>> Donor
-                    <input type="checkbox" name="registration_type[]" value="receiver" <?= (strpos($registration_type, 'receiver') !== false) ? 'checked' : ''; ?>> Receiver
-                    <input type="checkbox" name="registration_type[]" value="both" <?= (strpos($registration_type, 'both') !== false) ? 'checked' : ''; ?>> Both Donor and Receiver
+                <div class="col-lg-4">
+                    <label for="date_of_birth" class="mb-2">Date of Birth</label>
+                    <input type="date" name="date_of_birth" class="form-control" value="<?= $date_of_birth; ?>" required>
+                </div>
+                <div class="col-lg-4">
+                    <label for="contact_number" class="mb-2">Contact Number</label>
+                    <input type="text" name="contact_number" class="form-control" placeholder="01***********" value="<?= $contact_number; ?>" required>
                 </div>
             </div>
+            <!-- Address Information Section -->
+
+
             <!-- Additional Information Section -->
             <div class="row mb-4">
                 <div class="col-lg-4">
                     <label for="donated_before" class="mb-2">Have you donated before?</label><br>
-                    <input type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
-                    <input type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
+                    <input class="ms-3" type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
+                    <input class="ms-3" type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
                 </div>
                 <div class="col-lg-4">
                     <label for="last_donated_date" class="mb-2">Last Donated Date</label>
