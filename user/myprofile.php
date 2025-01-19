@@ -174,6 +174,18 @@ include '../views/admin_partials/sidebar.php';
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group mb-3">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="contact_number">Contact Number</label>
+                                            <input type="text" class="form-control" id="contact_number" name="contact_number" value="<?php echo $_SESSION['contact_number']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-3">
                                             <label for="blood_type" class="mb-2">What is your Blood type?</label><br>
                                             <input class="ms-3 mt-2" type="radio" id="O_positive" name="blood_type" value="A+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'A+') ? 'checked' : ''; ?> required> A+
                                             <input class="ms-3 mt-2" type="radio" id="A_positive" name="blood_type" value="A-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'A-') ? 'checked' : ''; ?> required> A-
@@ -185,66 +197,77 @@ include '../views/admin_partials/sidebar.php';
                                             <input class="ms-3 mt-2" type="radio" id="AB_negative" name="blood_type" value="O-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'O-') ? 'checked' : ''; ?> required> O-
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group mb-3">
-                                            <label for="email">Email Address</label>
-                                            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email']; ?>">
+                                            <label for="availability">Availability</label>
+                                            <select class="form-select" id="availability" name="availability">
+                                                <option value="available" <?php echo ($_SESSION['availability'] === 'available') ? 'selected' : ''; ?>>Available</option>
+                                                <option value="unavailable" <?php echo ($_SESSION['availability'] === 'unavailable') ? 'selected' : ''; ?>>Unavailable</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-3">
+                                            <label for="registration_type">Registration Type</label>
+                                            <select class="form-select" id="registration_type" name="registration_type">
+                                                <option value="donor" <?php echo ($_SESSION['registration_type'] === 'donor') ? 'selected' : ''; ?>>Donor</option>
+                                                <option value="receiver" <?php echo ($_SESSION['registration_type'] === 'receiver') ? 'selected' : ''; ?>>Receiver</option>
+                                                <option value="both" <?php echo ($_SESSION['registration_type'] === 'both') ? 'selected' : ''; ?>>Both</option>
+                                            </select>
                                         </div>
                                     </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="contact_number">Contact Number</label>
-                                        <input type="text" class="form-control" id="contact_number" name="contact_number" value="<?php echo $_SESSION['contact_number']; ?>">
+
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-3">
+                                            <label for="street_address_1">Street Address</label>
+                                            <input type="text" class="form-control" id="street_address_1" name="street_address_1" value="<?php echo $_SESSION['street_address_1']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-3">
+                                            <label for="city">City</label>
+                                            <input type="text" class="form-control" id="city" name="city" value="<?php echo $_SESSION['city']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group mb-3">
+                                            <label for="area">Area</label>
+                                            <input type="text" class="form-control" id="area" name="area" value="<?php echo $_SESSION['area']; ?>">
+                                        </div>
                                     </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="street_address_1">Street Address 1</label>
-                                        <input type="text" class="form-control" id="street_address_1" name="street_address_1" value="<?php echo $_SESSION['street_address_1']; ?>">
-                                    </div>
 
-                                    <div class="form-group mb-3">
+                                    <!-- <div class="form-group mb-3">
                                         <label for="street_address_2">Street Address 2</label>
                                         <input type="text" class="form-control" id="street_address_2" name="street_address_2" value="<?php echo $_SESSION['street_address_2']; ?>">
+                                    </div> -->
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="weight">Weight</label>
+                                            <input type="text" class="form-control" id="weight" name="weight" value="<?php echo $_SESSION['weight']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="donated_before">Donated Before?</label>
+                                            <select class="form-select" id="donated_before" name="donated_before">
+                                                <option value="yes" <?php echo ($_SESSION['donated_before'] === 'yes') ? 'selected' : ''; ?>>Yes</option>
+                                                <option value="no" <?php echo ($_SESSION['donated_before'] === 'no') ? 'selected' : ''; ?>>No</option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" name="city" value="<?php echo $_SESSION['city']; ?>">
-                                    </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="area">Area</label>
-                                        <input type="text" class="form-control" id="area" name="area" value="<?php echo $_SESSION['area']; ?>">
-                                    </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="weight">Weight</label>
-                                        <input type="text" class="form-control" id="weight" name="weight" value="<?php echo $_SESSION['weight']; ?>">
-                                    </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="availability">Availability</label>
-                                        <select class="form-control" id="availability" name="availability">
-                                            <option value="available" <?php echo ($_SESSION['availability'] === 'available') ? 'selected' : ''; ?>>Available</option>
-                                            <option value="unavailable" <?php echo ($_SESSION['availability'] === 'unavailable') ? 'selected' : ''; ?>>Unavailable</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label for="donated_before">Donated Before?</label>
-                                        <select class="form-control" id="donated_before" name="donated_before">
-                                            <option value="yes" <?php echo ($_SESSION['donated_before'] === 'yes') ? 'selected' : ''; ?>>Yes</option>
-                                            <option value="no" <?php echo ($_SESSION['donated_before'] === 'no') ? 'selected' : ''; ?>>No</option>
-                                        </select>
-                                    </div>
 
-                                    <div class="form-group mb-3">
-                                        <label for="registration_type">Registration Type</label>
-                                        <select class="form-control" id="registration_type" name="registration_type">
-                                            <option value="donor" <?php echo ($_SESSION['registration_type'] === 'donor') ? 'selected' : ''; ?>>Donor</option>
-                                            <option value="receiver" <?php echo ($_SESSION['registration_type'] === 'receiver') ? 'selected' : ''; ?>>Receiver</option>
-                                            <option value="both" <?php echo ($_SESSION['registration_type'] === 'both') ? 'selected' : ''; ?>>Both</option>
-                                        </select>
-                                    </div>
+
+
+
+
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Update Profile</button>

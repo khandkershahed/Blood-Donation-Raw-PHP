@@ -107,24 +107,28 @@ try {
                             </div>
 
                             <!-- Blood Type Filter -->
+                            <?php
+                            $blood_type = isset($_POST['blood_type']) && !empty($_POST['bloodType']) ? $_POST['bloodType'] : '';
+                            ?>
                             <div class="col-lg-2">
-                                <select class="form-select" name="blood_type" data-placeholder="Select Blood Group" aria-label="Select Blood Group">
-                                    <option value="" <?php echo $blood_type == null ? 'selected' : ''; ?>>Select Blood Group</option>
-                                    <option value="A+" <?php echo $blood_type == "A+" ? 'selected' : ''; ?>>A+</option>
-                                    <option value="A-" <?php echo $blood_type == "A-" ? 'selected' : ''; ?>>A-</option>
-                                    <option value="B+" <?php echo $blood_type == "B+" ? 'selected' : ''; ?>>B+</option>
-                                    <option value="B-" <?php echo $blood_type == "B-" ? 'selected' : ''; ?>>B-</option>
-                                    <option value="AB+" <?php echo $blood_type == "AB+" ? 'selected' : ''; ?>>AB+</option>
-                                    <option value="AB-" <?php echo $blood_type == "AB-" ? 'selected' : ''; ?>>AB-</option>
-                                    <option value="O+" <?php echo $blood_type == "O+" ? 'selected' : ''; ?>>O+</option>
-                                    <option value="O-" <?php echo $blood_type == "O-" ? 'selected' : ''; ?>>O-</option>
+                                <select class="form-select" name="bloodType" aria-label="Select Blood Group">
+                                    <option value="" <?php echo $blood_type === '' ? 'selected' : ''; ?>>Select Blood Group</option>
+                                    <option value="A+" <?php echo $blood_type === "A+" ? 'selected' : ''; ?>>A+</option>
+                                    <option value="A-" <?php echo $blood_type === "A-" ? 'selected' : ''; ?>>A-</option>
+                                    <option value="B+" <?php echo $blood_type === "B+" ? 'selected' : ''; ?>>B+</option>
+                                    <option value="B-" <?php echo $blood_type === "B-" ? 'selected' : ''; ?>>B-</option>
+                                    <option value="AB+" <?php echo $blood_type === "AB+" ? 'selected' : ''; ?>>AB+</option>
+                                    <option value="AB-" <?php echo $blood_type === "AB-" ? 'selected' : ''; ?>>AB-</option>
+                                    <option value="O+" <?php echo $blood_type === "O+" ? 'selected' : ''; ?>>O+</option>
+                                    <option value="O-" <?php echo $blood_type === "O-" ? 'selected' : ''; ?>>O-</option>
                                 </select>
+
                             </div>
 
                             <!-- Availability Filter -->
                             <div class="col-lg-2">
                                 <select class="form-select" name="availability" aria-label="Select Availability">
-                                    <option selected disabled>Select Available Or Not</option>
+                                    <option value="" <?php echo empty($availability) ? 'selected' : ''; ?>>Select Available Or Not</option>
                                     <option value="available" <?php echo $availability == "available" ? 'selected' : ''; ?>>Available</option>
                                     <option value="unavailable" <?php echo $availability == "unavailable" ? 'selected' : ''; ?>>Not Available</option>
                                 </select>

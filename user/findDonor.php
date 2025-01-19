@@ -13,6 +13,7 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
+
 // Get the user ID from the session
 $user_id = $_SESSION['user_id'];
 
@@ -106,18 +107,22 @@ try {
                             </div>
 
                             <!-- Blood Type Filter -->
+                            <?php
+                            $blood_type = isset($_POST['blood_type']) && !empty($_POST['bloodType']) ? $_POST['bloodType'] : '';
+                            ?>
                             <div class="col-lg-2">
-                                <select class="form-select" name="blood_type" aria-label="Select Blood Group">
-                                    <option value="" <?php echo empty($blood_type) ? 'selected' : ''; ?>>Select Blood Group</option>
-                                    <option value="A+" <?php echo $blood_type == "A+" ? 'selected' : ''; ?>>A+</option>
-                                    <option value="A-" <?php echo $blood_type == "A-" ? 'selected' : ''; ?>>A-</option>
-                                    <option value="B+" <?php echo $blood_type == "B+" ? 'selected' : ''; ?>>B+</option>
-                                    <option value="B-" <?php echo $blood_type == "B-" ? 'selected' : ''; ?>>B-</option>
-                                    <option value="AB+" <?php echo $blood_type == "AB+" ? 'selected' : ''; ?>>AB+</option>
-                                    <option value="AB-" <?php echo $blood_type == "AB-" ? 'selected' : ''; ?>>AB-</option>
-                                    <option value="O+" <?php echo $blood_type == "O+" ? 'selected' : ''; ?>>O+</option>
-                                    <option value="O-" <?php echo $blood_type == "O-" ? 'selected' : ''; ?>>O-</option>
+                                <select class="form-select" name="bloodType" aria-label="Select Blood Group">
+                                    <option value="" <?php echo $blood_type === '' ? 'selected' : ''; ?>>Select Blood Group</option>
+                                    <option value="A+" <?php echo $blood_type === "A+" ? 'selected' : ''; ?>>A+</option>
+                                    <option value="A-" <?php echo $blood_type === "A-" ? 'selected' : ''; ?>>A-</option>
+                                    <option value="B+" <?php echo $blood_type === "B+" ? 'selected' : ''; ?>>B+</option>
+                                    <option value="B-" <?php echo $blood_type === "B-" ? 'selected' : ''; ?>>B-</option>
+                                    <option value="AB+" <?php echo $blood_type === "AB+" ? 'selected' : ''; ?>>AB+</option>
+                                    <option value="AB-" <?php echo $blood_type === "AB-" ? 'selected' : ''; ?>>AB-</option>
+                                    <option value="O+" <?php echo $blood_type === "O+" ? 'selected' : ''; ?>>O+</option>
+                                    <option value="O-" <?php echo $blood_type === "O-" ? 'selected' : ''; ?>>O-</option>
                                 </select>
+
                             </div>
 
                             <!-- Availability Filter -->
@@ -187,7 +192,65 @@ try {
                                                         <?php if ($user['availability'] == 'available'): ?>
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#request-blood-<?php echo $user['id']; ?>"
-                                                        <?php endif; ?>>Request Blood</button>
+                                                        <?php endif; ?>>
+                                                        Request
+                                                    </button>
+                                                    <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-primary">Call Now</a>
+                                                </div>
+
+
+                                                <div class="modal fade" id="request-blood-<?php echo $user['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalTitleId">Send Request To Donors</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST">
+                                                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                                                                    <input type="hidden" name="requester_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                                                    <input type="hidden" name="donor_id" value="<?php echo $user['id']; ?>">
+                                                                    <!-- <input type="hidden" name="requester_id" value="<?php echo $user['id']; ?>"> -->
+
+                                                                    <div class="mb-3">
+                                                                        <input type="text" class="form-control" name="name" placeholder="Your Name" required />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" required />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <select class="form-select" name="blood_type" required>
+                                                                            <option selected disabled>Select Blood Group</option>
+                                                                            <option value="A+" <?php echo ($user['blood_type'] === 'A+') ? 'selected' : ''; ?>>A+</option>
+                                                                            <option value="A-" <?php echo ($user['blood_type'] === 'A-') ? 'selected' : ''; ?>>A-</option>
+                                                                            <option value="B+" <?php echo ($user['blood_type'] === 'B+') ? 'selected' : ''; ?>>B+</option>
+                                                                            <option value="B-" <?php echo ($user['blood_type'] === 'B-') ? 'selected' : ''; ?>>B-</option>
+                                                                            <option value="AB+" <?php echo ($user['blood_type'] === 'AB+') ? 'selected' : ''; ?>>AB+</option>
+                                                                            <option value="AB-" <?php echo ($user['blood_type'] === 'AB-') ? 'selected' : ''; ?>>AB-</option>
+                                                                            <option value="O+" <?php echo ($user['blood_type'] === 'O+') ? 'selected' : ''; ?>>O+</option>
+                                                                            <option value="O-" <?php echo ($user['blood_type'] === 'O-') ? 'selected' : ''; ?>>O-</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <textarea class="form-control" name="message" placeholder="Additional details (e.g., hospital name, urgency level)" rows="4" required></textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <input type="text" class="form-control" name="location" placeholder="Hospital/Location" required />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <select class="form-select" name="urgency" required>
+                                                                            <option selected disabled>Urgency</option>
+                                                                            <option value="immediate">Immediate</option>
+                                                                            <option value="today">Today</option>
+                                                                            <option value="within_3_days">Within 3 Days</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Send Request</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,6 +265,11 @@ try {
     </div>
 </div>
 
+<!-- Blood Request Modal -->
 
-<!-- Include footer -->
-<?php include '../views/admin_partials/footer.php'; ?>
+
+<?php
+// Include footer and scripts
+include '../views/admin_partials/footer.php';
+include '../views/admin_partials/script.php';
+?>
