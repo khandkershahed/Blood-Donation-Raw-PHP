@@ -108,8 +108,8 @@ try {
 
                             <!-- Blood Type Filter -->
                             <div class="col-lg-2">
-                                <select class="form-select" name="blood_type" aria-label="Select Blood Group">
-                                    <option selected disabled>Select blood group</option>
+                                <select class="form-select" name="blood_type" data-placeholder="Select Blood Group" aria-label="Select Blood Group">
+                                    <option></option>
                                     <option value="A+" <?php echo $blood_type == "A+" ? 'selected' : ''; ?>>A+</option>
                                     <option value="A-" <?php echo $blood_type == "A-" ? 'selected' : ''; ?>>A-</option>
                                     <option value="B+" <?php echo $blood_type == "B+" ? 'selected' : ''; ?>>B+</option>
@@ -141,7 +141,7 @@ try {
                             <!-- Submit Button -->
                             <div class="col-lg-2">
                                 <button type="submit" class="btn btn-primary">Filter</button>
-                                <a htrf="<?= ROOT_URL ?>user/findDonor.php" class="ms-3 btn btn-primary">Clear Filter</a>
+                                <a href="<?= ROOT_URL ?>user/findDonor.php" class="ms-3 btn btn-primary">Clear Filter</a>
                             </div>
                         </div>
                     </form>
