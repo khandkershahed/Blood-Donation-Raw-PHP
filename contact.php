@@ -48,16 +48,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(4, $subject);
             $stmt->bindParam(5, $message);
 
+            // Try executing the query
             if ($stmt->execute()) {
+                // Set success message in session
                 $_SESSION['success_message'] = "Your message has been sent successfully!";
-                // Redirect to prevent resubmission on page refresh
-                header("Location: contact.php"); // Redirect to the same page to avoid resubmission
-                exit; // Ensure the script ends here after redirection
+                // Redirect to the same page to avoid resubmission on page refresh
+                header("Location: contact.php");
+                exit; // Ensure script stops here after redirection
             } else {
+                // General error message if insertion fails
                 $errors['general'] = "There was an error submitting your form. Please try again.";
             }
         } catch (PDOException $e) {
-            $errors['general'] = "Error: " . $e->getMessage();
+            // Catch any database-related error
+            error_log("Database error: " . $e->getMessage()); // Log the error for debugging
+            $errors['general'] = "Error: Unable to process your request at this time. Please try again later.";
+        } catch (Exception $e) {
+            // Catch any other general errors
+            error_log("General error: " . $e->getMessage()); // Log the error for debugging
+            $errors['general'] = "An unexpected error occurred. Please try again later.";
         }
     }
 }
@@ -72,8 +81,7 @@ include 'views/partials/head.php';
 include 'views/partials/header.php';
 ?>
 
-
-
+<!-- Breadcrumb Section -->
 <div class="breadcrumb_section overflow-hidden ptb-150">
     <div class="container">
         <div class="row justify-content-center">
@@ -88,6 +96,7 @@ include 'views/partials/header.php';
     </div>
 </div>
 
+<!-- Contact Form Section -->
 <section class="km__message__box ptb-120">
     <div class="container">
         <div class="km__contact__form">
@@ -96,10 +105,12 @@ include 'views/partials/header.php';
                     <div class="km__box__form">
                         <h4 class="mb-40">Get In Touch</h4>
 
+                        <!-- Success Message Display -->
                         <?php if ($successMessage): ?>
                             <div class="alert alert-success" id="successMessage"><?= $successMessage ?></div>
                         <?php endif; ?>
 
+                        <!-- Error Messages Display -->
                         <?php if (!empty($errors)): ?>
                             <div class="alert alert-danger" id="errorMessages">
                                 <ul>
@@ -110,6 +121,7 @@ include 'views/partials/header.php';
                             </div>
                         <?php endif; ?>
 
+                        <!-- Contact Form -->
                         <form action="contact.php" method="POST" class="km__main__form">
                             <div class="row">
                                 <div class="col-sm">
