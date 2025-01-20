@@ -26,6 +26,24 @@
         }, 5000); // 5000 milliseconds = 5 seconds
     <?php endif; ?>
 </script>
+<!-- Toggle Password -->
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("passwordInput");
+        var lockIcon = document.getElementById("lockIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text"; // Show the password
+            lockIcon.classList.remove("fa-lock");
+            lockIcon.classList.add("fa-unlock"); // Change the icon to eye-slash
+        } else {
+            passwordInput.type = "password"; // Hide the password
+            lockIcon.classList.remove("fa-unlock");
+            lockIcon.classList.add("fa-lock"); // Change the icon back to lock
+        }
+    }
+</script>
+<!-- Toggle Password End -->
 
 </body>
 

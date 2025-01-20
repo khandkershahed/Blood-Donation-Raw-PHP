@@ -9,7 +9,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requesterPhone, $bloodType, $message, $location, $urgency)
 {
     $mail = new PHPMailer(true);
-
+ 
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';

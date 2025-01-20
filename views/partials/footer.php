@@ -9,8 +9,8 @@
                             Every drop counts! By donating blood, you can help save lives and make a difference in someone's life. Join us in our mission to spread hope and support those in need.
                         </p>
                         <ul class="pt-3">
-                            <li><span>Phone:</span> 015 766 *****</li>
-                            <li><span>Email:</span> donor.reciver@gmail.com</li>
+                            <li><span>Phone:</span> +880 1705 5555 555</li>
+                            <li><span>Email:</span> bloodbonds@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <p>Copyright &copy; 2025 BloodProject. All rights reserved</p>
+                    <p>Copyright &copy; 2025 BloodBonds. All rights reserved</p>
                 </div>
             </div>
         </div>

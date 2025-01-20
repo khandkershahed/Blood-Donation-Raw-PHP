@@ -1,12 +1,4 @@
 @charset "UTF-8";
-/*
-Template Name: Hando - Responsive Bootstrap 5 Admin Dashboard
-Author: BloodBoonds
-Version: 1.0.0
-Website: https://BloodBoonds.com/
-Contact: BloodBoonds@gmail.com
-File: Main Css File
-*/
 @import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 :root {
   --bs-sidebar-bg: #fff;

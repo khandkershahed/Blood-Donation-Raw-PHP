@@ -5,13 +5,13 @@
                  <div class="col-xl-3 col-lg-3">
                      <div class="header_top_content">
                          <span><i class="fa-solid fa-phone"></i></span>
-                         <a href="tel:01977259912">+01 (977) 2599 12</a>
+                         <a href="tel:01977259912">+880 1705 5555 555</a>
                      </div>
                  </div>
                  <div class="col-xl-3 col-lg-3">
                      <div class="header_top_content">
                          <span><i class="fa-solid fa-envelope"></i></span>
-                         <a href="mailto:donate.recive@gmail.com">donate.recive@gmail.com</a>
+                         <a href="mailto:donate.recive@gmail.com">bloodbonds@gmail.com</a>
                      </div>
                  </div>
                  <div class="col-xl-3 col-lg-3">
@@ -45,7 +45,9 @@
                  <div class="col-xl-2 col-lg-2 col-md-4 col-6">
                      <div class="header_logo">
                          <a href="<?= ROOT_URL ?>">
-                             <h6 class="text-white">BloodBoonds</h6>
+                             <div>
+                                <img src="public/images/main-logo.png" alt="">
+                             </div>
                          </a>
                      </div>
                  </div>

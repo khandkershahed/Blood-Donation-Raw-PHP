@@ -10,7 +10,7 @@ Version: 1.0.0
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --primary-color: #ea062b;
+  --primary-color: #ad0d00;
   --secondary-color: #111111;
   --white: #fff;
   --gray: #e7e7e7;
@@ -1315,7 +1315,7 @@ header .header_top .header_top_content a {
   position: absolute;
   top: 0;
   left: 0;
-  background: var(--primary-color);
+  /* background: var(--primary-color); */
   height: 100%;
   width: 33%;
   z-index: -1;
@@ -1334,7 +1334,7 @@ header .header_top .header_top_content a {
   -webkit-box-pack: space-evenly;
   -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
-  padding-left: 85px;
+  padding-left: 180px;
 }
 
 @media (max-width: 1612px) {
@@ -4487,9 +4487,9 @@ footer .footer_bottom p {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translate(-50%, -50%);
-  height: 84%;
+  height: 77%;
   z-index: -1;
-  top: 50%;
+  top: 54%;
   width: 80px;
 }
 
@@ -6222,6 +6222,7 @@ footer .footer_bottom p {
   border: 1px solid var(--primary-color);
 }
 /* Custom Check Box */
+
 .register-checkbox input[type="checkbox"] {
   display: none;
   visibility: hidden;
@@ -6267,7 +6268,7 @@ footer .footer_bottom p {
   content: "";
   width: 100%;
   height: 100%;
-  background: #ea062b;
+  background: #ad0d00;
   display: block;
   transform: scale(0);
   opacity: 1;
@@ -6277,12 +6278,12 @@ footer .footer_bottom p {
   padding-left: 8px;
 }
 .register-checkbox .cbx:hover span:first-child {
-  border-color: #ea062b;
+  border-color: #ad0d00;
 }
 
 .register-checkbox .inp-cbx:checked + .cbx span:first-child {
-  background: #ea062b;
-  border-color: #ea062b;
+  background: #ad0d00;
+  border-color: #ad0d00;
   animation: wave-46 0.4s ease;
 }
 .register-checkbox .inp-cbx:checked + .cbx span:first-child svg {
@@ -6318,7 +6319,7 @@ footer .footer_bottom p {
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 2px solid #ea062b;
+  border: 2px solid #ad0d00;
   border-radius: 50%;
   position: relative;
   margin-right: 10px;
@@ -6330,13 +6331,13 @@ footer .footer_bottom p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  fill: #ea062b;
+  fill: #ad0d00;
   transition: transform 0.3s ease;
 }
 
 .inp-cbx:checked + .cbx span:first-child {
-  background-color: #ea062b;
-  border-color: #ea062b;
+  background-color: #ad0d00;
+  border-color: #ad0d00;
 }
 
 .inp-cbx:checked + .cbx span:first-child svg {
@@ -6379,4 +6380,10 @@ footer .footer_bottom p {
 .lock-icons {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+.profile-card{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 100%;
 }

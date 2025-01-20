@@ -79,36 +79,38 @@ try {
                                                         unset($_SESSION['message']); ?></div>
                 <?php endif; ?>
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">My All Requests Lists</h5>
-                    </div>
                     <!-- end card header -->
                     <div class="card-body">
+                        <h3 class="mb-3 text-center">My All Requests Lists</h3>
                         <?php if ($no_requests): ?>
                             <p>No requests found.</p>
                         <?php else: ?>
-                            <table class="table table-striped table-bordered dt-responsive nowrap">
+                            <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Request ID</th>
-                                        <th>Blood Type</th>
-                                        <th>Message</th>
-                                        <th>Location</th>
-                                        <th>Urgency</th>
-                                        <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <th class="text-center" style="width: 5%;">Sl ID</th>
+                                        <th class="text-center" style="width: 10%;">Requester ID</th>
+                                        <th class="text-center" style="width: 10%;">Blood Type</th>
+                                        <th class="text-center" style="width: 25%;">Message</th>
+                                        <th class="text-center" style="width: 15%;">Location</th>
+                                        <th class="text-center" style="width: 10%;">Urgency</th>
+                                        <th class="text-center" style="width: 10%;">Status</th>
+                                        <th class="text-center" style="width: 10%;">Created At</th>
+                                        <th class="text-center" style="width: 10%;">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php foreach ($requests as $request): ?>
+                                <tbody style="vertical-align: middle;">
+                                    <?php
+                                    $serialNumber = 1; // Initialize serial number before the loop
+                                    foreach ($requests as $request): ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($request['id']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['blood_type']); ?></td>
+                                            <td class="text-center"><?php echo $serialNumber++; ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['id']); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
                                             <td><?php echo htmlspecialchars($request['message']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['location']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['urgency']); ?></td>
-                                            <td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
+                                            <td class="text-center">
                                                 <?php
                                                 // Display the status of the request
                                                 if ($request['status'] === 'pending') {
@@ -120,15 +122,27 @@ try {
                                                 }
                                                 ?>
                                             </td>
-                                            <td><?php echo htmlspecialchars($request['created_at']); ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                $createdAt = new DateTime($request['created_at']); // Parse the date
+                                                $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
+                                                $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
+                                                ?>
+                                                <span><?php echo $date; ?></span><br>
+                                                <span><?php echo $time; ?></span>
+                                            </td>
                                             <td>
                                                 <!-- Update and Delete buttons -->
-                                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $request['id']; ?>">Update</button>
-                                                <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
-                                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                                                    <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                                                    <button type="submit" class="btn btn-danger" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')">Delete</button>
-                                                </form>
+                                                <div class="d-flex justify-content-center">
+                                                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $request['id']; ?>">
+                                                        <i class="mdi mdi-pen align-middle"></i>
+                                                    </button>
+                                                    <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
+                                                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                                                        <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
+                                                        <button type="submit" class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')"><i class="mdi mdi-delete align-middle"></i></button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -148,14 +162,15 @@ try {
 <?php foreach ($requests as $request): ?>
     <div class="modal fade" id="request-blood-<?php echo $request['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content rounded-0 border-0">
+                <div class="modal-header bg-light">
                     <h5 class="modal-title" id="modalTitleId">Update/Delete Request</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST">
                         <!-- CSRF Token -->
+                        <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <!-- Request ID (Hidden) -->
                         <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
@@ -168,16 +183,18 @@ try {
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="name" value="<?php echo htmlspecialchars($request['requester_name']); ?>" placeholder="Your Name" required />
+                            <input type="text" class="form-control" name="requester_name" value="<?php echo htmlspecialchars($request['requester_name']); ?>" placeholder="Your Name" required />
                         </div>
 
                         <!-- Phone Number -->
                         <div class="mb-3">
-                            <input type="tel" class="form-control" name="phone" value="<?php echo htmlspecialchars($request['requester_phone']); ?>" placeholder="Your Phone Number" required />
+                            <label for="name">Phone <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" name="requester_phone" value="<?php echo htmlspecialchars($request['requester_phone']); ?>" placeholder="Your Phone Number" required />
                         </div>
 
                         <!-- Blood Type -->
                         <div class="mb-3">
+                            <label for="name">Group <span class="text-danger">*</span></label>
                             <select class="form-select" name="blood_type" required>
                                 <option selected disabled>Select Blood Group</option>
                                 <option value="A+" <?php echo ($request['blood_type'] === 'A+') ? 'selected' : ''; ?>>A+</option>
@@ -193,43 +210,51 @@ try {
 
                         <!-- Message -->
                         <div class="mb-3">
+                            <label for="name">Message <span class="text-danger">*</span></label>
                             <textarea class="form-control" name="message" placeholder="Additional details (e.g., hospital name, urgency level)" rows="4" required><?php echo htmlspecialchars($request['message']); ?></textarea>
                         </div>
 
                         <!-- Location -->
                         <div class="mb-3">
+                            <label for="name">Donation Point <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="location" value="<?php echo htmlspecialchars($request['location']); ?>" placeholder="Hospital/Location" required />
                         </div>
 
-                        <!-- Urgency -->
-                        <div class="mb-3">
-                            <select class="form-select" name="urgency" required>
-                                <option selected disabled>Urgency</option>
-                                <option value="immediate" <?php echo ($request['urgency'] === 'immediate') ? 'selected' : ''; ?>>Immediate</option>
-                                <option value="today" <?php echo ($request['urgency'] === 'today') ? 'selected' : ''; ?>>Today</option>
-                                <option value="within_3_days" <?php echo ($request['urgency'] === 'within_3_days') ? 'selected' : ''; ?>>Within 3 Days</option>
-                            </select>
-                        </div>
+                        <div class="d-flex">
+                            <!-- Urgency -->
+                            <div class="mb-3 w-50">
+                                <label for="name">Emergency Level <span class="text-danger">*</span></label>
+                                <select class="form-select" name="urgency" required>
+                                    <option selected disabled>Urgency</option>
+                                    <option value="immediate" <?php echo ($request['urgency'] === 'immediate') ? 'selected' : ''; ?>>Immediate</option>
+                                    <option value="today" <?php echo ($request['urgency'] === 'today') ? 'selected' : ''; ?>>Today</option>
+                                    <option value="within_3_days" <?php echo ($request['urgency'] === 'within_3_days') ? 'selected' : ''; ?>>Within 3 Days</option>
+                                </select>
+                            </div>
 
-                        <!-- Status -->
-                        <div class="mb-3">
-                            <select class="form-select" name="status" required>
-                                <option value="pending" <?php echo ($request['status'] === 'pending') ? 'selected' : ''; ?>>Pending</option>
-                                <option value="accepted" <?php echo ($request['status'] === 'accepted') ? 'selected' : ''; ?>>Accepted</option>
-                                <option value="rejected" <?php echo ($request['status'] === 'rejected') ? 'selected' : ''; ?>>Rejected</option>
-                            </select>
+                            <!-- Status -->
+                            <div class="mb-3 w-50 ms-2">
+                                <label for="name">Status <span class="text-danger">*</span></label>
+                                <select class="form-select" name="status" required>
+                                    <option value="pending" <?php echo ($request['status'] === 'pending') ? 'selected' : ''; ?>>Pending</option>
+                                    <option value="accepted" <?php echo ($request['status'] === 'accepted') ? 'selected' : ''; ?>>Accepted</option>
+                                    <option value="rejected" <?php echo ($request['status'] === 'rejected') ? 'selected' : ''; ?>>Rejected</option>
+                                </select>
+                            </div>
                         </div>
 
                         <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Update Request</button>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Update Request</button>
+                            <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                                <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
+                                <button type="submit" class="btn btn-danger" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')">Delete Request</button>
+                            </form>
+                        </div>
                     </form>
 
                     <!-- Delete Button -->
-                    <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
-                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                        <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                        <button type="submit" class="btn btn-danger" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')">Delete Request</button>
-                    </form>
                 </div>
             </div>
         </div>

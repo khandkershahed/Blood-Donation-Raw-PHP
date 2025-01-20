@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title>BloodProject</title>
+    <title>Blood Bonds</title>
 
     <!-- Favicon Icon -->
-    <link rel="shortcut icon" href="<?= ROOT_URL ?>public/frontend/images/favicon.html" />
+    <link rel="shortcut icon" href="<?= ROOT_URL ?>public/images/fab.png" />
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/animate.css" />
@@ -25,7 +25,9 @@
 <body>
     <!--preloader start-->
     <div class="preloader">
-        <h1>BloodProject</h1>
+        <div>
+            <img class="img-fluid" width="300px" src="public/images/main-logo.png" alt="">
+        </div>
         <div class="preload-progress">
             <span></span>
         </div>

@@ -97,9 +97,9 @@ try {
             <div class="row">
                 <div class="col-lg-12 mb-4">
                     <form class="app-search d-none d-md-block me-auto" method="POST">
-                        <div class="row justify-content-center">
+                        <div class="row">
                             <!-- Area Filter -->
-                            <div class="col-lg-4">
+                            <div class="col-lg-2">
                                 <div class="position-relative topbar-search">
                                     <input type="text" class="form-control ps-4" name="area" placeholder="Search Area..." />
                                     <i class="mdi mdi-magnify fs-16 position-absolute text-muted top-50 translate-middle-y ms-2"></i>
@@ -144,10 +144,8 @@ try {
 
                             <!-- Submit Button -->
                             <div class="col-lg-2">
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary w-50"><i class="mdi mdi-filter-outline align-middle"></i> Filter</button>
-                                    <a href="<?= ROOT_URL ?>user/findDonor.php" class="ms-1 btn btn-danger w-50"><i class="mdi mdi-close align-middle pe-2"></i>Filter</a>
-                                </div>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="<?= ROOT_URL ?>user/findDonor.php" class="ms-3 btn btn-primary">Clear Filter</a>
                             </div>
                         </div>
                     </form>
@@ -164,42 +162,29 @@ try {
                         <?php else: ?>
                             <?php foreach ($users as $user): ?>
                                 <div class="col-lg-3">
-                                    <div class="card">
-                                        <div class="card-body doner-card">
-                                            <div class="d-flex justify-content-center">
-                                                <div class="profile-image rounded-2">
-                                                    <?php
-                                                    if (empty($image_src)) {
-                                                        // Extract the initials from the first and last name
-                                                        $initials = strtoupper(substr($_SESSION['first_name'], 0, 1)) . strtoupper(substr($_SESSION['last_name'], 0, 1));
-                                                        echo '<div class="fallback-image">' . $initials . '</div>';
-                                                    } else {
-                                                        echo '<img src="' . $image_src . '" alt="Profile Image">';
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
+                                    <div class="card border">
+                                        <div class="card-body">
                                             <div class="text-center">
-                                                <div class="mt-3 mb-3">
-
+                                                <div class="mt-2 mb-3">
                                                     <span class="badge <?php echo $user['availability'] == 'available' ? 'bg-success' : 'bg-danger'; ?> rounded-2 text-white mb-2 fw-normal">
                                                         <?php echo $user['availability'] == 'available' ? 'Available' : 'Not Available'; ?>
                                                     </span>
-                                                    <h5 class="m-0 fw-medium text-dark fs-16"><?php echo $user['first_name'] . ' ' . $user['last_name']; ?> <span class="badge bg-secondary rounded-2 text-white mb-2 fw-normal">
+                                                    <h4 class="m-0 fw-medium text-dark fs-16 text-center">Blood Group : <span class="badge bg-secondary rounded-2 text-white mb-2 fw-normal">
                                                             <?php echo $user['blood_type']; ?>
-                                                        </span></h5>
+                                                        </span>
+                                                    </h4>
+                                                    <h5 class="m-0 fw-medium text-dark fs-16"><?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h5>
                                                     <p class="mt-1 mb-0">
-                                                        <a class="text-muted" href="tel:<?php echo $user['contact_number']; ?>"><i class="mdi mdi-phone me-1 align-middle"></i> <?php echo $user['contact_number']; ?></a>
+                                                        <a class="text-muted" href="mailto:<?php echo $user['email']; ?>"><?php echo $user['email']; ?></a>
                                                     </p>
                                                     <p class="mt-1 mb-0">
-                                                        <a class="text-muted" href="mailto:<?php echo $user['email']; ?>"><i class="mdi mdi-email-edit-outline me-1 align-middle"></i><?php echo $user['email']; ?></a>
+                                                        <a class="text-muted" href="tel:<?php echo $user['contact_number']; ?>"><?php echo $user['contact_number']; ?></a>
                                                     </p>
-                                                    <p class="mt-1 mb-0"><i class="mdi mdi-map-marker me-1 align-middle"></i><?php echo $user['street_address_1']; ?></p>
+                                                    <p class="mt-1 mb-0"><?php echo $user['street_address_1']; ?></p>
                                                 </div>
                                                 <div class="">
-
                                                     <button type="button"
-                                                        class="btn btn-sm btn-outline-danger me-2"
+                                                        class="btn btn-sm btn-light me-2"
                                                         <?php if ($user['availability'] != 'available'): ?>
                                                         disabled
                                                         style="opacity: 0.5; cursor: not-allowed;"
@@ -208,18 +193,17 @@ try {
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#request-blood-<?php echo $user['id']; ?>"
                                                         <?php endif; ?>>
-                                                        <i class="mdi mdi-handshake me-1 align-middle"></i>
                                                         Request
                                                     </button>
-                                                    <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-outline-primary"><i class="mdi mdi-phone me-1 align-middle"></i>Call Now</a>
+                                                    <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-primary">Call Now</a>
                                                 </div>
 
 
                                                 <div class="modal fade" id="request-blood-<?php echo $user['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-                                                        <div class="modal-content rounded-0 border-0">
-                                                            <div class="modal-header bg-light">
-                                                                <h5 class="modal-title text-dark" id="modalTitleId">Send Request To Donors</h5>
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalTitleId">Send Request To Donors</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
@@ -232,23 +216,21 @@ try {
                                                                     <div class="mb-3">
                                                                         <input type="text" class="form-control" name="name" placeholder="Your Name" required />
                                                                     </div>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="mb-3 w-50">
-                                                                            <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" required />
-                                                                        </div>
-                                                                        <div class="mb-3 w-50 ms-2">
-                                                                            <select class="form-select" name="blood_type" required>
-                                                                                <option selected disabled>Select Blood Group</option>
-                                                                                <option value="A+" <?php echo ($user['blood_type'] === 'A+') ? 'selected' : ''; ?>>A+</option>
-                                                                                <option value="A-" <?php echo ($user['blood_type'] === 'A-') ? 'selected' : ''; ?>>A-</option>
-                                                                                <option value="B+" <?php echo ($user['blood_type'] === 'B+') ? 'selected' : ''; ?>>B+</option>
-                                                                                <option value="B-" <?php echo ($user['blood_type'] === 'B-') ? 'selected' : ''; ?>>B-</option>
-                                                                                <option value="AB+" <?php echo ($user['blood_type'] === 'AB+') ? 'selected' : ''; ?>>AB+</option>
-                                                                                <option value="AB-" <?php echo ($user['blood_type'] === 'AB-') ? 'selected' : ''; ?>>AB-</option>
-                                                                                <option value="O+" <?php echo ($user['blood_type'] === 'O+') ? 'selected' : ''; ?>>O+</option>
-                                                                                <option value="O-" <?php echo ($user['blood_type'] === 'O-') ? 'selected' : ''; ?>>O-</option>
-                                                                            </select>
-                                                                        </div>
+                                                                    <div class="mb-3">
+                                                                        <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" required />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <select class="form-select" name="blood_type" required>
+                                                                            <option selected disabled>Select Blood Group</option>
+                                                                            <option value="A+" <?php echo ($user['blood_type'] === 'A+') ? 'selected' : ''; ?>>A+</option>
+                                                                            <option value="A-" <?php echo ($user['blood_type'] === 'A-') ? 'selected' : ''; ?>>A-</option>
+                                                                            <option value="B+" <?php echo ($user['blood_type'] === 'B+') ? 'selected' : ''; ?>>B+</option>
+                                                                            <option value="B-" <?php echo ($user['blood_type'] === 'B-') ? 'selected' : ''; ?>>B-</option>
+                                                                            <option value="AB+" <?php echo ($user['blood_type'] === 'AB+') ? 'selected' : ''; ?>>AB+</option>
+                                                                            <option value="AB-" <?php echo ($user['blood_type'] === 'AB-') ? 'selected' : ''; ?>>AB-</option>
+                                                                            <option value="O+" <?php echo ($user['blood_type'] === 'O+') ? 'selected' : ''; ?>>O+</option>
+                                                                            <option value="O-" <?php echo ($user['blood_type'] === 'O-') ? 'selected' : ''; ?>>O-</option>
+                                                                        </select>
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <textarea class="form-control" name="message" placeholder="Additional details (e.g., hospital name, urgency level)" rows="4" required></textarea>
@@ -264,9 +246,7 @@ try {
                                                                             <option value="within_3_days">Within 3 Days</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="text-end">
-                                                                        <button type="submit" class="btn btn-danger">Send Request</button>
-                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Send Request</button>
                                                                 </form>
                                                             </div>
                                                         </div>

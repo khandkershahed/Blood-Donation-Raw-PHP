@@ -86,7 +86,7 @@ if (isset($_GET['clear_notifications'])) {
                     </button>
                 </li>
                 <li class="d-none d-lg-block">
-                    <h5 class="mb-0">Good Morning, <?php echo htmlspecialchars($first_name . ' ' . $last_name); ?> </h5>
+                    <h5 class="mb-0">Hello, <?php echo htmlspecialchars($first_name . ' ' . $last_name); ?> </h5>
                 </li>
             </ul>
             <ul class="list-unstyled topnav-menu mb-0 d-flex align-items-center">
@@ -127,7 +127,7 @@ if (isset($_GET['clear_notifications'])) {
                                 foreach ($notifications as $notification):
                                     $time_ago = time_ago($notification['created_at']);
                                     // Determine background color based on notification status
-                                    $bg_class = $notification['status'] == 'unread' ? 'bg-danger' : 'bg-light';
+                                    $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-light';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
                                     <a href="<?= ROOT_URL ?>user/receivedRequest.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
@@ -156,12 +156,10 @@ if (isset($_GET['clear_notifications'])) {
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="<?= ROOT_URL ?>public/admin/images/users/user-13.jpg" alt="user-image" class="rounded-circle" />
-                        <span class="pro-user-name ms-1">Sir<i class="mdi mdi-chevron-down"></i></span>
+                        <span class="pro-user-name ms-1"><?php echo htmlspecialchars($first_name); ?><i class="mdi mdi-chevron-down"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown">
-                        <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome !</h6>
-                        </div>
+                        
                         <a href="<?= ROOT_URL ?>user/myprofile.php" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
                             <span>My Account</span>

@@ -128,10 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert data into the database
-    $sql = "INSERT INTO users (blood_type, first_name, last_name, date_of_birth, password, contact_number, email, street_address_1, street_address_2, city, area, last_donated_date, weight, donated_before, registration_type)
-            VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contact_number, :email, :street_address_1, :street_address_2, :city, :area, :last_donated_date, :weight, :donated_before, :registration_type)";
+    // Insert data into the database, include :availability in the SQL query
+    $sql = "INSERT INTO users (blood_type, first_name, last_name, date_of_birth, password, contact_number, email, street_address_1, street_address_2, city, area, last_donated_date, weight, donated_before, registration_type, availability)
+VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contact_number, :email, :street_address_1, :street_address_2, :city, :area, :last_donated_date, :weight, :donated_before, :registration_type, :availability)";
 
+    // Prepare the statement
     $stmt = $pdo->prepare($sql);
+
+    // Execute with all parameters, including :availability
     $stmt->execute([
         ':blood_type'        => $blood_type,
         ':first_name'        => $first_name,
@@ -148,8 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':weight'            => $weight,
         ':donated_before'    => $donated_before,
         ':registration_type' => $registration_type,
-        ':availability'      => $availability
+        ':availability'      => $availability // Make sure to include this parameter here
     ]);
+
 
     // Redirect to dashboard.php after successful registration
     $_SESSION['success'] = "Registration successful. Please log in.!";
@@ -168,15 +173,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-8 col-sm-10 col-12 text-center">
-                <h2 class="text-white">Blood Donation Registration</h2>
+                <!-- <h2 class="text-white">Blood Donation Registration</h2> -->
             </div>
         </div>
     </div>
 </div>
 <!-- breadcrumb end -->
 
-<section>
-    <div class="container py-4 bg-light">
+<section class="">
+    <div class="container p-5 shadow-sm my-5">
         <!-- Error or Success Message -->
         <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger"><?= $_SESSION['error'];
@@ -190,107 +195,284 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
             <!-- Blood Type Section -->
             <div class="row mb-4">
+
                 <div class="col-lg-12">
-                    <label for="blood_type" class="mb-2">What is your Blood type?</label><br>
-                    <input class="ms-3" type="radio" id="O_positive" name="blood_type" value="A+" <?= (isset($blood_type) && $blood_type == 'A+') ? 'checked' : ''; ?> required> O (+ve)
-                    <input class="ms-3" type="radio" id="A_positive" name="blood_type" value="A-" <?= (isset($blood_type) && $blood_type == 'A-') ? 'checked' : ''; ?> required> A (+ve)
-                    <input class="ms-3" type="radio" id="B_positive" name="blood_type" value="B+" <?= (isset($blood_type) && $blood_type == 'B+') ? 'checked' : ''; ?> required> B (+ve)
-                    <input class="ms-3" type="radio" id="AB_positive" name="blood_type" value="B-" <?= (isset($blood_type) && $blood_type == 'B-') ? 'checked' : ''; ?> required> AB (+ve)
-                    <input class="ms-3" type="radio" id="O_negative" name="blood_type" value="AB+" <?= (isset($blood_type) && $blood_type == 'AB+') ? 'checked' : ''; ?> required> O (-ve)
-                    <input class="ms-3" type="radio" id="A_negative" name="blood_type" value="AB-" <?= (isset($blood_type) && $blood_type == 'AB-') ? 'checked' : ''; ?> required> A (-ve)
-                    <input class="ms-3" type="radio" id="B_negative" name="blood_type" value="O+" <?= (isset($blood_type) && $blood_type == 'O+') ? 'checked' : ''; ?> required> B (-ve)
-                    <input class="ms-3" type="radio" id="AB_negative" name="blood_type" value="O-" <?= (isset($blood_type) && $blood_type == 'O-') ? 'checked' : ''; ?> required> AB (-ve)
+                    <label for="blood_type" class="mb-2">What is your Blood type? <span class="text-danger">*</span></label><br>
+                    <div class="row">
+                        <!-- First Row: Blood Types (O, A, B, AB) -->
+                        <div class="col-md-3">
+                            <!-- Custom radio button for O (+ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="O_positive" type="radio" name="blood_type" value="A+" <?= (isset($blood_type) && $blood_type == 'A+') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="O_positive">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>O (+ve)</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom radio button for A (+ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="A_positive" type="radio" name="blood_type" value="A-" <?= (isset($blood_type) && $blood_type == 'A-') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="A_positive">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>A (+ve)</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom radio button for B (+ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="B_positive" type="radio" name="blood_type" value="B+" <?= (isset($blood_type) && $blood_type == 'B+') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="B_positive">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>B (+ve)</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom radio button for AB (+ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="AB_positive" type="radio" name="blood_type" value="B-" <?= (isset($blood_type) && $blood_type == 'B-') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="AB_positive">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>AB (+ve)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Second Row: Blood Types (O, A, B, AB) -->
+                        <div class="col-md-3">
+                            <!-- Custom radio button for O (-ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="O_negative" type="radio" name="blood_type" value="AB+" <?= (isset($blood_type) && $blood_type == 'AB+') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="O_negative">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>O (-ve)</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom radio button for A (-ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="A_negative" type="radio" name="blood_type" value="AB-" <?= (isset($blood_type) && $blood_type == 'AB-') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="A_negative">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>A (-ve)</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom radio button for B (-ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="B_negative" type="radio" name="blood_type" value="O+" <?= (isset($blood_type) && $blood_type == 'O+') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="B_negative">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>B (-ve)</span>
+                                </label>
+                            </div>
+
+                            <!-- Custom radio button for AB (-ve) -->
+                            <div class="register-checkbox">
+                                <input class="inp-cbx" id="AB_negative" type="radio" name="blood_type" value="O-" <?= (isset($blood_type) && $blood_type == 'O-') ? 'checked' : ''; ?> required>
+                                <label class="cbx" for="AB_negative">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>AB (-ve)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Personal Information Section -->
-            <div class="row mb-4">
-                <div class="col-lg-6">
-                    <label for="first_name" class="mb-2">First Name</label>
-                    <input type="text" name="first_name" class="form-control" placeholder="First Name" value="<?= htmlspecialchars($first_name); ?>" required>
-                </div>
-                <div class="col-lg-6">
-                    <label for="last_name" class="mb-2">Last Name</label>
-                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="<?= htmlspecialchars($last_name); ?>" required>
-                </div>
-            </div>
-
             <!-- Contact Information Section -->
             <div class="row mb-4">
                 <div class="col-lg-6">
-                    <label for="email" class="mb-2">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="blooddoors@gmail.com" value="<?= $email; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="password" class="mb-2">Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-lg-6">
-                    <label for="registration_type" class="mb-2">Registration Type</label><br>
-                    <input class="ms-3" type="checkbox" name="registration_type[]" value="donor" <?= (strpos($registration_type, 'donor') !== false) ? 'checked' : ''; ?>> Donor
-                    <input class="ms-3" type="checkbox" name="registration_type[]" value="receiver" <?= (strpos($registration_type, 'receiver') !== false) ? 'checked' : ''; ?>> Receiver
-                    <input class="ms-3" type="checkbox" name="registration_type[]" value="both" <?= (strpos($registration_type, 'both') !== false) ? 'checked' : ''; ?>> Both Donor and Receiver
+                    <div class="mb-3">
+                        <label for="first_name" class="mb-2">First Name <span class="text-danger">*</span></label>
+                        <input type="text" name="first_name" class="form-control rounded-0" placeholder="First Name" value="<?= htmlspecialchars($first_name); ?>" required>
+                    </div>
                 </div>
                 <div class="col-lg-6">
-                    <label for="availability" class="mb-2">Availability</label><br>
-                    <input class="ms-3" type="radio" name="availability" value="available" <?= (strpos($availability, 'available') !== false) ? 'checked' : ''; ?>> Available
-                    <input class="ms-3" type="radio" name="availability" value="unavailable" <?= (strpos($availability, 'unavailable') !== false) ? 'checked' : ''; ?>> Unavailable
+                    <div class="mb-3">
+                        <label for="last_name" class="mb-2">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" name="last_name" class="form-control rounded-0" placeholder="Last Name" value="<?= htmlspecialchars($last_name); ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="email" class="mb-2">Email <span class="text-danger">*</span></label>
+                        <input type="email" name="email" class="form-control rounded-0" placeholder="blooddoors@gmail.com" value="<?= $email; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="password" class="mb-2">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" class="form-control rounded-0" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="contact_number" class="mb-2">Contact Number <span class="text-danger">*</span></label>
+                        <input type="text" name="contact_number" class="form-control rounded-0" placeholder="01***********" value="<?= $contact_number; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="street_address_1" class="mb-2">Street Address <span class="text-danger">*</span></label>
+                        <input type="text" name="street_address_1" class="form-control rounded-0" placeholder="Street Address" value="<?= $street_address_1; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="city" class="mb-2">City <span class="text-danger">*</span></label>
+                        <input type="text" name="city" class="form-control rounded-0" placeholder="City" value="<?= $city; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="area" class="mb-2">Area <span class="text-danger">*</span></label>
+                        <input type="text" name="area" class="form-control rounded-0" placeholder="Eg:Mohammadpur " value="<?= $area; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="date_of_birth" class="mb-2">Date of Birth <span class="text-danger">*</span></label>
+                        <input type="date" name="date_of_birth" class="form-control rounded-0" value="<?= $date_of_birth; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="last_donated_date" class="mb-2">Last Donated Date <span class="text-danger">*</span></label>
+                        <input type="date" name="last_donated_date" class="form-control rounded-0" value="<?= $last_donated_date; ?>" required>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mb-3">
+                        <label for="weight" class="mb-2">Weight (kg) <span class="text-danger">*</span></label>
+                        <input type="number" name="weight" class="form-control rounded-0" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <label for="registration_type" class="my-2">Registration Type <span class="text-danger">*</span></label><br>
+                    <div class="register-checkbox">
+                        <input class="inp-cbx" id="donor" type="radio" name="registration_type[]" value="donor" <?= (strpos($registration_type, 'donor') !== false) ? 'checked' : ''; ?>>
+                        <label class="cbx" for="donor">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>Donor</span>
+                        </label>
+                    </div>
+                    <div class="register-checkbox">
+                        <input class="inp-cbx" id="receiver" type="radio" name="registration_type[]" value="receiver" <?= (strpos($registration_type, 'receiver') !== false) ? 'checked' : ''; ?>>
+                        <label class="cbx" for="receiver">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>Receiver</span>
+                        </label>
+                    </div>
+                    <div class="register-checkbox">
+                        <input class="inp-cbx" id="both" type="radio" name="registration_type[]" value="both" <?= (strpos($registration_type, 'both') !== false) ? 'checked' : ''; ?>>
+                        <label class="cbx" for="both">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>Both Donor & Receiver</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label for="donated_before" class="mb-2">Have you donated before? <span class="text-danger">*</span></label><br>
+                    <div class="register-checkbox">
+                        <input class="inp-cbx" id="donated_before_yes" type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required>
+                        <label class="cbx" for="donated_before_yes">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>Yes</span>
+                        </label>
+                    </div>
+                    <div class="register-checkbox">
+                        <input class="inp-cbx" id="donated_before_no" type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required>
+                        <label class="cbx" for="donated_before_no">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="mb-3">
+                        <label for="availability" class="mb-2">Availability <span class="text-danger">*</span></label><br>
+                        <div class="register-checkbox">
+                            <input class="inp-cbx" id="availability_available" type="radio" name="availability" value="available" <?= (strpos($availability, 'available') !== false) ? 'checked' : ''; ?>>
+                            <label class="cbx" for="availability_available">
+                                <span>
+                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg>
+                                </span>
+                                <span>Available</span>
+                            </label>
+                        </div>
+                        <div class="register-checkbox">
+                            <input class="inp-cbx" id="availability_unavailable" type="radio" name="availability" value="unavailable" <?= (strpos($availability, 'unavailable') !== false) ? 'checked' : ''; ?>>
+                            <label class="cbx" for="availability_unavailable">
+                                <span>
+                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </svg>
+                                </span>
+                                <span>Unavailable</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col-lg-4">
-                    <label for="street_address_1" class="mb-2">Street Address</label>
-                    <input type="text" name="street_address_1" class="form-control" placeholder="Street Address" value="<?= $street_address_1; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="city" class="mb-2">City</label>
-                    <input type="text" name="city" class="form-control" placeholder="City" value="<?= $city; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="area" class="mb-2">Area</label>
-                    <input type="text" name="area" class="form-control" placeholder="Eg:Mohammadpur " value="<?= $area; ?>" required>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-lg-4">
-                    <label for="date_of_birth" class="mb-2">Date of Birth</label>
-                    <input type="date" name="date_of_birth" class="form-control" value="<?= $date_of_birth; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="contact_number" class="mb-2">Contact Number</label>
-                    <input type="text" name="contact_number" class="form-control" placeholder="01***********" value="<?= $contact_number; ?>" required>
-                </div>
-            </div>
-            <!-- Address Information Section -->
-
-
-            <!-- Additional Information Section -->
-            <div class="row mb-4">
-                <div class="col-lg-4">
-                    <label for="donated_before" class="mb-2">Have you donated before?</label><br>
-                    <input class="ms-3" type="radio" name="donated_before" value="yes" <?= ($donated_before == 'yes') ? 'checked' : ''; ?> required> Yes
-                    <input class="ms-3" type="radio" name="donated_before" value="no" <?= ($donated_before == 'no') ? 'checked' : ''; ?> required> No
-                </div>
-                <div class="col-lg-4">
-                    <label for="last_donated_date" class="mb-2">Last Donated Date</label>
-                    <input type="date" name="last_donated_date" class="form-control" value="<?= $last_donated_date; ?>" required>
-                </div>
-                <div class="col-lg-4">
-                    <label for="weight" class="mb-2">Weight (kg)</label>
-                    <input type="number" name="weight" class="form-control" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
-                </div>
-
-            </div>
-
-            <!-- Registration Type Section -->
-
-
             <!-- Submit Button -->
-            <div class="row mb-4">
+            <div class="row">
                 <div class="col-lg-12">
-                    <button type="submit" class="btn btn-danger rounded-0">Register Now</button>
+                    <button type="submit" class="btn btn-danger rounded-0 w-100 py-2">Register Now</button>
                 </div>
             </div>
         </form>
