@@ -10,6 +10,7 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true)
     exit();
 }
 
+// CSRF Token Generation
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -17,31 +18,38 @@ if (empty($_SESSION['csrf_token'])) {
 // Get the user ID from the session
 $user_id = $_SESSION['user_id'];
 
-// Check if the form is submitted to update status
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
-    // Get the request ID and new status
-    $request_id = $_POST['request_id'];
-    $new_status = $_POST['status'];
+// Handle form submission to update status
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // CSRF Token Validation
+    if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+        // Sanitize input fields
+        $request_id = filter_var($_POST['request_id'], FILTER_VALIDATE_INT);
+        $new_status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
 
-    try {
-        // Update the request status in the database
-        $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
-        $stmt = $pdo->prepare($updateQuery);
-        $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
-        $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        // Basic validation for request_id and status
+        if ($request_id && in_array($new_status, ['pending', 'accepted', 'rejected'])) {
+            try {
+                // Update the request status in the database
+                $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
+                $stmt = $pdo->prepare($updateQuery);
+                $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
+                $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
+                $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
-        // Execute the update
-        if ($stmt->execute()) {
-            // Success - you can also set a success message or redirect
-            $message = "Status updated successfully!";
+                // Execute the update query
+                if ($stmt->execute()) {
+                    $_SESSION['message'] = "Status updated successfully!";
+                } else {
+                    $_SESSION['error'] = "Failed to update the status.";
+                }
+            } catch (PDOException $e) {
+                $_SESSION['error'] = "Error: " . $e->getMessage();
+            }
         } else {
-            // Failure
-            $message = "Failed to update the status.";
+            $_SESSION['error'] = "Invalid request or status.";
         }
-    } catch (PDOException $e) {
-        // Handle error
-        $message = "Error: " . $e->getMessage();
+    } else {
+        $_SESSION['error'] = "Invalid CSRF token.";
     }
 }
 
@@ -54,8 +62,9 @@ try {
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $no_requests = count($requests) == 0;
 } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-    exit();
+    $_SESSION['error'] = "Error fetching requests: " . $e->getMessage();
+    $requests = [];
+    $no_requests = true;
 }
 
 ?>
@@ -90,11 +99,9 @@ try {
             <div class="col-lg-12">
                 <!-- All Requests -->
                 <?php if (isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger"><?= $_SESSION['error'];
-                                                    unset($_SESSION['error']); ?></div>
+                    <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
                 <?php elseif (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-success"><?= $_SESSION['message'];
-                                                        unset($_SESSION['message']); ?></div>
+                    <div class="alert alert-success"><?= $_SESSION['message']; unset($_SESSION['message']); ?></div>
                 <?php endif; ?>
                 <div class="card">
                     <!-- end card header -->
@@ -109,8 +116,8 @@ try {
                             <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 5%;">Sl ID</th>
-                                        <th class="text-center" style="width: 7%;">Requester ID</th>
+                                        <th class="text-center" style="width: 3%;">Sl ID</th>
+                                        <th class="text-center" style="width: 7%;">Requester Name</th>
                                         <th class="text-center" style="width: 7%;">Blood Type</th>
                                         <th class="text-center" style="width: 20%;">Message</th>
                                         <th class="text-center" style="width: 15%;">Location</th>
@@ -124,15 +131,18 @@ try {
                                 <tbody style="vertical-align: middle;">
                                     <?php
                                     $serialNumber = 1; // Initialize serial number before the loop
-                                    foreach ($requests as $request): ?>
+                                    foreach ($requests as $request):
+                                        $requester_name = htmlspecialchars($request['requester_name']); // Requester's name
+                                        $contact_number = isset($request['requester_phone']) ? htmlspecialchars($request['requester_phone']) : 'Not Provided';
+                                    ?>
                                         <tr>
                                             <td class="text-center"><?php echo $serialNumber++; ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['id']); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['requester_name']); ?></td>
                                             <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
                                             <td><?php echo htmlspecialchars($request['message']); ?></td>
                                             <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
                                             <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['contact_number']); ?></td>
+                                            <td class="text-center"><?php echo $contact_number; ?></td>
                                             <td class="text-center">
                                                 <?php
                                                 // Display the status of the request
@@ -145,7 +155,6 @@ try {
                                                 }
                                                 ?>
                                             </td>
-                                            <!-- <td><?php echo htmlspecialchars($request['created_at']); ?></td> -->
                                             <td>
                                                 <?php
                                                 $createdAt = new DateTime($request['created_at']); // Parse the date

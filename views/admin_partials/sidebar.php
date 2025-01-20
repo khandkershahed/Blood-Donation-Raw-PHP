@@ -4,20 +4,20 @@
     <!--- Sidemenu -->
     <div id="sidebar-menu">
       <div class="logo-box">
-        <a href="../<?= ROOT_URL ?>" class="logo logo-light">
+        <a href="<?= ROOT_URL ?>" class="logo logo-light">
           <span class="logo-sm">
-            <img src="public/images/main-logo.png" alt="" height="22" />
+            <img src="<?= ROOT_URL ?>public/images/main-logo.png" alt="" height="22" />
           </span>
           <span class="logo-lg">
-            <img src="public/images/main-logo.png" alt="" height="50" />
+            <img src="<?= ROOT_URL ?>public/images/main-logo.png" alt="" height="50" />
           </span>
         </a>
-        <a href="../<?= ROOT_URL ?>" class="logo logo-dark">
+        <a href="<?= ROOT_URL ?>" class="logo logo-dark">
           <span class="logo-sm">
-            <img src="public/images/main-logo.png" alt="" height="22" />
+            <img src="<?= ROOT_URL ?>public/images/main-logo.png" alt="" height="22" />
           </span>
           <span class="logo-lg">
-            <img src="public/images/main-logo.png" alt="" height="50" />
+            <img src="<?= ROOT_URL ?>public/images/main-logo.png" alt="" height="50" />
           </span>
         </a>
       </div>

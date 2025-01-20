@@ -183,13 +183,13 @@ try {
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="name" value="<?php echo htmlspecialchars($request['requester_name']); ?>" placeholder="Your Name" required />
+                            <input type="text" class="form-control" name="requester_name" value="<?php echo htmlspecialchars($request['requester_name']); ?>" placeholder="Your Name" required />
                         </div>
 
                         <!-- Phone Number -->
                         <div class="mb-3">
                             <label for="name">Phone <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" name="phone" value="<?php echo htmlspecialchars($request['requester_phone']); ?>" placeholder="Your Phone Number" required />
+                            <input type="tel" class="form-control" name="requester_phone" value="<?php echo htmlspecialchars($request['requester_phone']); ?>" placeholder="Your Phone Number" required />
                         </div>
 
                         <!-- Blood Type -->

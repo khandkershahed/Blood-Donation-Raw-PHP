@@ -74,7 +74,7 @@
 //     }
 // }
 
-// Include constants and database connection files
+
 require_once __DIR__ . '/../config/constants.php'; // Constants file
 require_once __DIR__ . '/../config/database.php';  // Database connection
 require_once __DIR__ . '/../helper/send_email.php';  // Email sending helper
@@ -84,6 +84,7 @@ require_once __DIR__ . '/../helper/notification.php';  // Notification helper
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
 
     // Sanitize POST data
+    $request_id = isset($_POST['request_id']) ? $_POST['request_id'] : null;
     $donor_id = $_POST['donor_id'];
     $requester_name = htmlspecialchars($_POST['name']);
     $requester_phone = htmlspecialchars($_POST['phone']);
@@ -108,10 +109,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
             exit();
         }
 
-        // Proceed with inserting the request
-        $query = "INSERT INTO requests (donor_id, requester_id, requester_name, requester_phone, blood_type, message, location, urgency) 
-                  VALUES (:donor_id, :requester_id, :requester_name, :requester_phone, :blood_type, :message, :location, :urgency)";
-        $stmt = $pdo->prepare($query);
+        if ($request_id) {
+            // Update existing request
+            $query = "UPDATE requests SET 
+                      requester_name = :requester_name, 
+                      requester_phone = :requester_phone, 
+                      blood_type = :blood_type, 
+                      message = :message, 
+                      location = :location, 
+                      urgency = :urgency 
+                      WHERE id = :request_id AND requester_id = :requester_id";
+
+            $stmt = $pdo->prepare($query);
+            $stmt->bindValue(':request_id', $request_id, PDO::PARAM_INT);
+        } else {
+            // Insert new request
+            $query = "INSERT INTO requests (donor_id, requester_id, requester_name, requester_phone, blood_type, message, location, urgency) 
+                      VALUES (:donor_id, :requester_id, :requester_name, :requester_phone, :blood_type, :message, :location, :urgency)";
+
+            $stmt = $pdo->prepare($query);
+        }
 
         // Bind values to the query
         $stmt->bindValue(':donor_id', $donor_id, PDO::PARAM_INT);
@@ -123,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
         $stmt->bindValue(':location', $location, PDO::PARAM_STR);
         $stmt->bindValue(':urgency', $urgency, PDO::PARAM_STR);
 
-        // Execute the query to insert the request
+        // Execute the query (either insert or update)
         $stmt->execute();
 
         // Fetch donor information to send email and notification
@@ -146,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
             saveNotification($donor_id, $notification_message);
 
             // Redirect back with a success message
-            $_SESSION['message'] = "Your request has been sent successfully.";
+            $_SESSION['message'] = "Your request has been successfully processed.";
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit();
         } else {
