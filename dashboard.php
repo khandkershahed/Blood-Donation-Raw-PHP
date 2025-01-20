@@ -11,19 +11,25 @@ $user_id = $_SESSION['user_id'];
 try {
     // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
     $query = "SELECT * FROM requests WHERE requester_id = :user_id";
+    $query2 = "SELECT * FROM requests WHERE donor_id = :user_id";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);
+    $stmt2 = $pdo->prepare($query2);
 
     // Bind the user_id parameter to prevent SQL injection
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
     // Execute the query
     $stmt->execute();
+    $stmt2->execute();
 
     // Fetch the filtered requests
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $requests2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     $count = count($requests);
+    $count2 = count($requests2);
     // Check if no requests are found
     $no_requests = $count == 0;
 } catch (PDOException $e) {
@@ -120,7 +126,7 @@ include 'views/admin_partials/sidebar.php';
                 </div>
                 <div class="d-flex justify-content-between align-items-center pt-2">
                   <!-- Amount -->
-                  <h3 class="mb-0 fs-22 text-dark me-3">0</h3>
+                  <h3 class="mb-0 fs-22 text-dark me-3"><?php echo "$count2" ?></h3>
                   <div class="text-center">
                     <p class="text-dark fs-13 mb-0">Last 30 days</p>
                   </div>

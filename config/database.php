@@ -3,7 +3,17 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+if (isset($_SESSION['email_success'])) {
+    echo "<div class='alert alert-success'>" . $_SESSION['email_success'] . "</div>";
+    unset($_SESSION['email_success']);  // Clear the success message
+}
 
+if (isset($_SESSION['email_error'])) {
+    echo "<div class='alert alert-danger'>" . $_SESSION['email_error'] . "</div>";
+    unset($_SESSION['email_error']);  // Clear the error message
+}
 require_once __DIR__ . '/constants.php';  // Include the constants for DB connection
 
 // Database connection using PDO

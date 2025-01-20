@@ -1,6 +1,11 @@
 <?php
+// Ensure session is started before any database interaction
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-require 'config/database.php';
+// Include the database connection
+require_once 'config/database.php'; // Ensure this file is in the correct path
 
 // Initialize error messages and success message
 $errors = [];
@@ -34,18 +39,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If no errors, insert into the database
     if (empty($errors)) {
-        $stmt = $connection->prepare("INSERT INTO contact_messages (first_name, last_name, email, subject, message) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $first_name, $last_name, $email, $subject, $message);
+        try {
+            // Using the correct PDO variable
+            $stmt = $pdo->prepare("INSERT INTO contact_messages (first_name, last_name, email, subject, message) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bindParam(1, $first_name);
+            $stmt->bindParam(2, $last_name);
+            $stmt->bindParam(3, $email);
+            $stmt->bindParam(4, $subject);
+            $stmt->bindParam(5, $message);
 
-        if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Your message has been sent successfully!";
-            // Redirect to prevent resubmission on page refresh
-            header("Location: contact.php"); // Redirect to the same page to avoid resubmission
-            exit; // Ensure the script ends here after redirection
-        } else {
-            $errors['general'] = "There was an error submitting your form. Please try again.";
+            // Try executing the query
+            if ($stmt->execute()) {
+                // Set success message in session
+                $_SESSION['success_message'] = "Your message has been sent successfully!";
+                // Redirect to the same page to avoid resubmission on page refresh
+                header("Location: contact.php");
+                exit; // Ensure script stops here after redirection
+            } else {
+                // General error message if insertion fails
+                $errors['general'] = "There was an error submitting your form. Please try again.";
+            }
+        } catch (PDOException $e) {
+            // Catch any database-related error
+            error_log("Database error: " . $e->getMessage()); // Log the error for debugging
+            $errors['general'] = "Error: Unable to process your request at this time. Please try again later.";
+        } catch (Exception $e) {
+            // Catch any other general errors
+            error_log("General error: " . $e->getMessage()); // Log the error for debugging
+            $errors['general'] = "An unexpected error occurred. Please try again later.";
         }
-        $stmt->close();
     }
 }
 
@@ -59,7 +81,7 @@ include 'views/partials/head.php';
 include 'views/partials/header.php';
 ?>
 
-
+<!-- Breadcrumb Section -->
 <div class="breadcrumb_section overflow-hidden ptb-150">
     <div class="container">
         <div class="row justify-content-center">
@@ -74,6 +96,7 @@ include 'views/partials/header.php';
     </div>
 </div>
 
+<!-- Contact Form Section -->
 <section class="km__message__box ptb-120">
     <div class="container">
         <div class="km__contact__form">
@@ -82,10 +105,12 @@ include 'views/partials/header.php';
                     <div class="km__box__form">
                         <h4 class="mb-40">Get In Touch</h4>
 
+                        <!-- Success Message Display -->
                         <?php if ($successMessage): ?>
                             <div class="alert alert-success" id="successMessage"><?= $successMessage ?></div>
                         <?php endif; ?>
 
+                        <!-- Error Messages Display -->
                         <?php if (!empty($errors)): ?>
                             <div class="alert alert-danger" id="errorMessages">
                                 <ul>
@@ -96,6 +121,7 @@ include 'views/partials/header.php';
                             </div>
                         <?php endif; ?>
 
+                        <!-- Contact Form -->
                         <form action="contact.php" method="POST" class="km__main__form">
                             <div class="row">
                                 <div class="col-sm">
@@ -118,7 +144,7 @@ include 'views/partials/header.php';
                                     <textarea name="message" placeholder="Message" rows="3"><?= isset($message) ? $message : '' ?></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="contact__btn">Submit Request <i class="fa-solid fa-angles-right"></i></button>
+                            <button type="submit" class="contact__btn">Submit Message <i class="fa-solid fa-angles-right"></i></button>
                         </form>
                     </div>
                 </div>

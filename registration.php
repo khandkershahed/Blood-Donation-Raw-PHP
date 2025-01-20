@@ -367,7 +367,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label for="last_donated_date" class="mb-2">Last Donated Date <span class="text-danger">*</span></label>
-                        <input type="date" name="last_donated_date" class="form-control rounded-0" value="<?= $last_donated_date; ?>" required>
+                        <input type="date" name="last_donated_date" class="form-control rounded-0" value="<?= $last_donated_date; ?>">
                     </div>
                 </div>
                 <div class="col-lg-4">
