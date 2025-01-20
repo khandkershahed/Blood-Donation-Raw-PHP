@@ -6,7 +6,30 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true)
   exit();
 }
 
+$user_id = $_SESSION['user_id'];
 
+try {
+    // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
+    $query = "SELECT * FROM requests WHERE requester_id = :user_id";
+
+    // Prepare the statement
+    $stmt = $pdo->prepare($query);
+
+    // Bind the user_id parameter to prevent SQL injection
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch the filtered requests
+    $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $count = count($requests);
+    // Check if no requests are found
+    $no_requests = $count == 0;
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+    exit();
+}
 
 // Include header, sidebar, etc.
 include 'views/admin_partials/head.php';
@@ -58,7 +81,7 @@ include 'views/admin_partials/sidebar.php';
                 </div>
                 <div class="d-flex justify-content-between align-items-center pt-2">
                   <!-- Amount -->
-                  <h3 class="mb-0 fs-22 text-dark me-3">0</h3>
+                  <h3 class="mb-0 fs-22 text-dark me-3"><?php echo "$count" ?></h3>
                   <div class="text-center">
                     <p class="text-dark fs-13 mb-0">Last 30 days</p>
                   </div>
