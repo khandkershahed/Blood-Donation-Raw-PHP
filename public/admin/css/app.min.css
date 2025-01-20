@@ -14898,11 +14898,98 @@ html[data-bs-theme="dark"] .table-light {
 }
 .doner-card {
   align-items: center;
-  display: flex;
   flex-direction: column;
   height: 400px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
 }
 
 select.form-select option {
   text-transform: capitalize !important;
+}
+.status-badge {
+  background-color: red;
+  width: 125px;
+  position: absolute;
+  left: 30%;
+  color: white;
+  top: 120px;
+  transform: rotate(46deg);
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  z-index: 10;
+  text-align: center;
+}
+.status-badge-donors-2 {
+  width: 75px;
+  position: absolute;
+  left: 48%;
+  color: white;
+  top: 45px;
+  transform: rotate(46deg);
+  border-bottom-right-radius: 30px !important;
+  border-top-left-radius: 30px !important;
+  z-index: 10;
+  text-align: center;
+  font-size: 10px;
+  padding: 5px;
+}
+.profile-bg {
+  background-image: url("../../images/profile-bg.jpg");
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensures the image covers the entire element */
+  width: 100%; /* Adjust as per your layout */
+  height: 460px; /* Adjust as per your layout */
+  border-radius: 0px; /* Optional: Add rounded corners if needed */
+  overflow: hidden; /* Ensures content doesn't spill out */
+  position: relative;
+  z-index: 5;
+}
+.find-donor-card {
+  position: relative; /* Ensures the child elements (images) are positioned relative to the card */
+}
+
+.find-card-bg {
+  background-image: url(../../images/1994126.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: 7px;
+  bottom: -3px;
+  opacity: 0.1; /* Initially hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.find-donor-card:hover .find-card-bg {
+  opacity: 0; /* Show the image when the card is hovered */
+  cursor: grab;
+}
+
+.find-card-bg-2 {
+  background-image: url(../../images/1994126.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: -4px;
+  left: 260px;
+  opacity: 0; /* Initially hidden */
+  transform: rotate(180deg); /* Rotate the image */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.find-donor-card :hover .find-card-bg-2 {
+  opacity: 0.1; /* Show the image when the card is hovered */
+  cursor: grab;
+}
+
+@media (max-width: 600px) {
+  .status-badge {
+    display: none;
+  }
 }

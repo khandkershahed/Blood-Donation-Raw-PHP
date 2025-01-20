@@ -130,48 +130,51 @@ include '../views/admin_partials/sidebar.php';
         <div class="container-fluid pt-4">
             <div class="row">
                 <div class="col-3 mx-auto">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="align-items-center">
-                                <div class="hando-main-sections flex-column text-center">
-                                    <div class="profile-image">
-                                        <?php
-                                        if (empty($image_src)) {
-                                            // Extract the initials from the first and last name
-                                            $initials = strtoupper(substr($_SESSION['first_name'], 0, 1)) . strtoupper(substr($_SESSION['last_name'], 0, 1));
-                                            echo '<div class="fallback-image">' . $initials . '</div>';
-                                        } else {
-                                            echo '<img src="' . $image_src . '" alt="Profile Image">';
-                                        }
-                                        ?>
-                                    </div>
-                                    <div class="overflow-hidden ms-md-4 ms-0 mt-3">
-                                        <h4 class="m-0 text-muted fw-bold fs-20 my-2 mt-md-0">
-                                            <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?>
-                                        </h4>
-                                        <p class="my-1 text-muted fs-16">
-                                            <i class="mdi mdi-phone me-1 align-middle"></i>
-                                            <span class="text-success">Phone: </span><?php echo $_SESSION['contact_number']; ?>
-                                        </p>
-                                        <p class="my-1 text-muted fs-16">
-                                            <i class="mdi mdi-email-edit-outline me-1 align-middle"></i>
-                                            <span class="text-success">Email: </span><?php echo $_SESSION['email']; ?>
-                                        </p>
-                                        <p class="fs-15">
-                                            <i class="mdi mdi-map-marker me-1 align-middle"></i>
-                                            <span class="text-success">Address:</span> <span> <?php echo $_SESSION['street_address_1']; ?> <br>
-                                                <?php echo $_SESSION['city'] . ' , ' . $_SESSION['area']; ?></span>
-                                        </p>
+                    <div>
+                        <div class="status-badge">
+                            <span><?php echo $user['availability'] == 'available' ? 'Available' : 'Not Available'; ?></span>
+                        </div>
+                        <div class="card profile-bg">
+                            <div class="card-body">
+                                <div class="align-items-center">
+                                    <div class="hando-main-sections flex-column text-center my-5">
+                                        <div class="profile-image">
+                                            <?php
+                                            if (empty($image_src)) {
+                                                // Extract the initials from the first and last name
+                                                $initials = strtoupper(substr($_SESSION['first_name'], 0, 1)) . strtoupper(substr($_SESSION['last_name'], 0, 1));
+                                                echo '<div class="fallback-image">' . $initials . '</div>';
+                                            } else {
+                                                echo '<img src="' . $image_src . '" alt="Profile Image">';
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="pt-5">
+                                            <h4 class="m-0 text-muted fw-bold fs-20 my-2 mt-md-0">
+                                                <?php echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?>
+                                            </h4>
+                                            <p class="my-0 text-muted fs-16">
+                                                <i class="mdi mdi-phone me-1 align-middle"></i>
+                                                <span class="text-success">Phone: </span><?php echo $_SESSION['contact_number']; ?>
+                                            </p>
+                                            <p class="my-0 text-muted fs-16">
+                                                <i class="mdi mdi-email-edit-outline me-1 align-middle"></i>
+                                                <span class="text-success">Email: </span><?php echo $_SESSION['email']; ?>
+                                            </p>
+                                            <p class="fs-15">
+                                                <i class="mdi mdi-map-marker me-1 align-middle"></i>
+                                                <span class="text-success">Address:</span> <span> <?php echo $_SESSION['street_address_1']; ?> <br>
+                                                    <?php echo $_SESSION['city'] . ' , ' . $_SESSION['area']; ?></span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Profile Update Form -->
-            <div class="row">
-                <div class="col-6 mx-auto">
+                <!-- Profile Update Form -->
+                <div class="col-9">
                     <div class="card">
                         <div class="card-body">
                             <form method="POST" action="myprofile.php">
@@ -282,6 +285,7 @@ include '../views/admin_partials/sidebar.php';
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -6274,9 +6274,12 @@ footer .footer_bottom p {
   opacity: 1;
   border-radius: 50%;
 }
-.register-checkbox .cbx span:last-child {
-  padding-left: 8px;
-}
+/* .register-checkbox {
+  border: 1px solid #ad0d00;
+  padding: 5px 13px;
+  margin-bottom: 8px;
+  width: 50px;
+} */
 .register-checkbox .cbx:hover span:first-child {
   border-color: #ad0d00;
 }
@@ -6381,7 +6384,7 @@ footer .footer_bottom p {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.profile-card{
+.profile-card {
   width: 50px;
   height: 50px;
   object-fit: cover;

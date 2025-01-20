@@ -3,10 +3,10 @@ require 'config/database.php';
 
 // fetch current user from database
 if (isset($_SESSION['user-id'])) {
-  $id = filter_var($_SESSION['user-id'], FILTER_SANITIZE_NUMBER_INT);
-  $query = "SELECT avatar FROM users WHERE id=$id";
-  $result = mysqli_query($connection, $query);
-  $avatar = mysqli_fetch_assoc($result);
+    $id = filter_var($_SESSION['user-id'], FILTER_SANITIZE_NUMBER_INT);
+    $query = "SELECT avatar FROM users WHERE id=$id";
+    $result = mysqli_query($connection, $query);
+    $avatar = mysqli_fetch_assoc($result);
 }
 
 ?>
@@ -35,128 +35,75 @@ include 'views/partials/header.php';
 <section class="km__text__details ptb-120">
     <div class="container">
         <div class="km_policy">
-            <h2 class="mb-30 fs-42">Privacy Policy for Blood Ai</h2>
-            <p class="mb-30">
-                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-                some form, by injected humour, or randomised words which don't look even slightly believable. If you are going
-                to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in middle of
-                text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making
-                this the first true generator on the Internet.
-            </p>
-            <p>
-                It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to
-                generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from
-                repetition, injected humour, or non-characteristic words etc.
-            </p>
+            <h2 class="mb-5">Privacy Policy for Blood Donation App</h2>
+            <p>This privacy policy outlines how our blood donation app ("Blood Bonds") collects, uses, and discloses your personal information. We are committed to protecting your privacy and ensuring the responsible handling of your data.</p>
         </div>
-        <div class="km_Consent mt-30">
-            <h4 class="mb-30">Consent</h4>
-            <p class="mb-30">
-                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-                some form, by injected humour, or randomised words which don't look even slightly believable. If you are going
-                to use a passage of Lorem Ipsum,
-            </p>
+        <div class="km_Consent" class="mb-5">
+            <h4 class="mt-5">Consent</h4>
+            <p>By using our App, you consent to the collection, use, and disclosure of your personal information as described in this policy.</p>
         </div>
-        <div class="km_Information mb-30">
-            <h4 class="mb-30">Information collection</h4>
-            <p class="mb-30">
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-                College in Virginia,
-            </p>
-            <p class="mb-30">
-                looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the
-                cites of the word in classical literature, discovered the undoubtable source.
-            </p>
-            <p class="m-0">
-                Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good
-                and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during
-                the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
-                1.10.32.
-            </p>
+        <div class="km_Information">
+            <h4 class="mt-5">Information Collection</h4>
+            <p class="pt-3">We collect the following types of information from you:</p>
+            <ul>
+                <li><b>Personal Information:</b> Name, date of birth, contact information (phone number, email address), address, blood type, and any relevant medical history.</li>
+                <li><b>Device Information:</b> Type of device, operating system, and unique device identifiers.</li>
+                <li><b>Usage Data:</b> Information about how you use the App, such as the features you access and the actions you take.</li>
+            </ul>
+            <p>We may also collect information from third-party sources, such as public databases and social media platforms, to enhance our services.</p>
         </div>
-        <div class="km_How mb-mt">
-            <h4 class="mb-30">How we use your information</h4>
-            <p class="mb-30">
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-                College in Virginia,
-            </p>
+        <div class="km_How">
+            <h4 class="mt-5">How We Use Your Information</h4>
+            <p class="pt-3">We use your information for the following purposes:</p>
+            <ul class="py-3">
+                <li><b>Matching Donors and Recipients:</b> Connecting blood donors with individuals or medical facilities in need of blood.</li>
+                <li><b>Managing Donations:</b> Scheduling appointments, tracking donations, and ensuring the safety and quality of blood supplies.</li>
+                <li><b>Improving Our App:</b> Analyzing usage data to identify areas for improvement and enhance the user experience.</li>
+                <li><b>Communicating with You:</b> Sending notifications, reminders, and updates related to blood donation.</li>
+                <li><b>Complying with Legal Obligations:</b> Meeting legal and regulatory requirements.</li>
+            </ul>
         </div>
         <ul class="km_pc_list">
             <li>
-                <span>
-                    <i class="fa-regular fa-square-check"></i>
-                </span>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                <span><i class="fa-regular fa-square-check"></i></span>
+                We will never sell or rent your personal information to third parties for marketing purposes.
             </li>
             <li>
-                <span>
-                    <i class="fa-regular fa-square-check"></i>
-                </span>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                <span><i class="fa-regular fa-square-check"></i></span>
+                We will only share your information with third parties when necessary to fulfill the purposes outlined in this policy or as required by law.
             </li>
             <li>
-                <span>
-                    <i class="fa-regular fa-square-check"></i>
-                </span>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </li>
-            <li>
-                <span>
-                    <i class="fa-regular fa-square-check"></i>
-                </span>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                <span><i class="fa-regular fa-square-check"></i></span>
+                We implement appropriate security measures to protect your information from unauthorized access, use, or disclosure.
             </li>
         </ul>
-        <div class="km_logs mt-30">
-            <h4 class="mb-30">Our File Logs</h4>
-            <p class="mb-30">
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-                literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-                College in Virginia,
-            </p>
-            <p class="m-0">looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going
-                through the cites of the word in classical literature, discovered the undoubtable source. </p>
+        <div class="km_logs">
+            <h4 class="mt-5">Our App Logs</h4>
+            <p class="pt-3">We may collect information about your use of the App, such as the pages you visit, the features you use, and the actions you take. This information helps us understand how our App is being used and identify areas for improvement.</p>
         </div>
-        <div class="km_Partners mt-30">
-            <h4 class="mb-30">Advertising Partners Privacy Policies</h4>
-            <p class="mb-30">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
-                was born and I will give you a complete account of the system, and expound the actual teachings of the great
-                explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
-                itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
-                consequences that are extremely painful. </p>
-            <p class="m-0">Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is
-                pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.
-                To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some
-                advantage from But who has any right to find fault with a man</p>
+        <div class="km_Partners">
+            <h4 class="mt-5">Sharing Information with Third Parties</h4>
+            <p class="pt-3">We may share your information with the following third parties:</p>
+            <ul>
+                <li><b>Blood Banks and Hospitals:</b> To facilitate blood donations and ensure the safe and effective distribution of blood products.</li>
+                <li><b>Service Providers:</b> To assist with data processing, customer support, and other essential services.</li>
+                <li><b>Legal and Regulatory Authorities:</b> To comply with legal and regulatory obligations, such as court orders or subpoenas.</li>
+            </ul>
         </div>
-        <div class="km_ccpa mt-30">
-            <h4 class="mb-30">CCPA Privacy Rights (Do Not Sell My Personal Information)</h4>
-            <p class="mb-30">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
-                was born and I will give you a complete account of the system, and expound the actual teachings of the great
-                explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
-                itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
-                consequences that are extremely painful. </p>
-            <p class="m-0">Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is
-                pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.
-                To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some
-                advantage from But who has any right to find fault with a man</p>
+        <div class="km_ccpa">
+            <h4 class="mt-5">Your Rights</h4>
+            <p class="pt-3">You have the right to:</p>
+            <ul>
+                <li><b>Access</b> your personal information.</li>
+                <li><b>Update</b> or correct any inaccuracies in your information.</li>
+                <li><b>Request</b> the deletion of your information.</li>
+                <li><b>Opt-out</b> of receiving marketing communications from us.</li>
+            </ul>
+            <p>To exercise these rights, please contact us at [email protected]</p>
         </div>
-        <div class="km_Blood mt-30">
-            <h4 class="mb-30">Blood Donate Information</h4>
-            <p class="mb-30">
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I
-                will give you a complete account of the system, and expound the actual teachings of the great explorer of the
-                truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it
-                is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that
-                are extremely painful.
-            </p>
-            <p class="m-0">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                born and I will give you a complete account of the system, and expound the actual teachings of the great
-                explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure
-                itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter
-                consequences that are extremely painful. </p>
+        <div class="km_Blood">
+            <h4 class="mt-5">Blood Donation and Requests</h4>
+            <p class="pt-3">Our App facilitates blood donation by connecting donors with recipients in need. You can use the App to register as a donor, search for blood requests, and schedule donation appointments.</p>
         </div>
     </div>
 </section>

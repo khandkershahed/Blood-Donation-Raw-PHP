@@ -164,9 +164,12 @@ try {
                         <?php else: ?>
                             <?php foreach ($users as $user): ?>
                                 <div class="col-lg-3">
-                                    <div class="card">
+                                    <div class="card find-donor-card">
                                         <div class="card-body doner-card">
                                             <div class="d-flex justify-content-center">
+                                                <span class="badge status-badge-donors-2 <?php echo $user['availability'] == 'available' ? 'bg-success' : 'bg-danger'; ?> rounded-2 text-white mb-2 fw-normal">
+                                                    <?php echo $user['availability'] == 'available' ? 'Available' : 'Unavailable'; ?>
+                                                </span>
                                                 <div class="profile-image rounded-2">
                                                     <?php
                                                     if (empty($image_src)) {
@@ -177,41 +180,36 @@ try {
                                                         echo '<img src="' . $image_src . '" alt="Profile Image">';
                                                     }
                                                     ?>
+
                                                 </div>
                                             </div>
                                             <div class="text-center">
                                                 <div class="mt-3 mb-3">
-
-                                                    <span class="badge <?php echo $user['availability'] == 'available' ? 'bg-success' : 'bg-danger'; ?> rounded-2 text-white mb-2 fw-normal">
-                                                        <?php echo $user['availability'] == 'available' ? 'Available' : 'Not Available'; ?>
-                                                    </span>
-                                                    <h5 class="m-0 fw-medium text-dark fs-16"><?php echo $user['first_name'] . ' ' . $user['last_name']; ?> <span class="badge bg-secondary rounded-2 text-white mb-2 fw-normal">
+                                                    <h5 class="m-0 fw-medium text-dark fs-16"><?php echo $user['first_name'] . ' ' . $user['last_name']; ?> </h5>
+                                                    <p class="mt-1 mb-0"><span class="badge bg-secondary ">
                                                             <?php echo $user['blood_type']; ?>
-                                                        </span></h5>
-                                                    <p class="mt-1 mb-0">
+                                                        </span>
                                                         <a class="text-muted" href="tel:<?php echo $user['contact_number']; ?>"><i class="mdi mdi-phone me-1 align-middle"></i> <?php echo $user['contact_number']; ?></a>
                                                     </p>
                                                     <p class="mt-1 mb-0">
                                                         <a class="text-muted" href="mailto:<?php echo $user['email']; ?>"><i class="mdi mdi-email-edit-outline me-1 align-middle"></i><?php echo $user['email']; ?></a>
                                                     </p>
-                                                    <p class="mt-1 mb-0"><i class="mdi mdi-map-marker me-1 align-middle"></i><?php echo $user['street_address_1']; ?></p>
+                                                    <p class="mt-1 mb-0" style="height: 60px;"><i class="mdi mdi-map-marker me-1 align-middle"></i><?php echo $user['street_address_1']; ?></p>
                                                 </div>
                                                 <div class="">
-
                                                     <button type="button"
-                                                        class="btn btn-sm btn-outline-danger me-2"
+                                                        class="btn rounded-0 btn-sm <?php echo $user['availability'] == 'available' ? 'btn-danger' : 'btn-outline-danger'; ?> me-2"
                                                         <?php if ($user['availability'] != 'available'): ?>
                                                         disabled
                                                         style="opacity: 0.5; cursor: not-allowed;"
-                                                        <?php endif; ?>
-                                                        <?php if ($user['availability'] == 'available'): ?>
+                                                        <?php else: ?>
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#request-blood-<?php echo $user['id']; ?>"
                                                         <?php endif; ?>>
                                                         <i class="mdi mdi-handshake me-1 align-middle"></i>
-                                                        Request
+                                                        <?php echo $user['availability'] == 'available' ? 'Request' : 'Unavailable'; ?>
                                                     </button>
-                                                    <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-outline-primary"><i class="mdi mdi-phone me-1 align-middle"></i>Call Now</a>
+                                                    <a href="tel:<?php echo $user['contact_number']; ?>" class="btn rounded-0 btn-sm <?php echo $user['availability'] == 'available' ? 'btn-success' : 'btn-outline-success'; ?>"><i class="mdi mdi-phone me-1 align-middle"></i>Call Now</a>
                                                 </div>
 
 
@@ -272,6 +270,10 @@ try {
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div>
+                                                <span class="find-card-bg"></span>
+                                                <span class="find-card-bg-2"></span>
                                             </div>
                                         </div>
                                     </div>

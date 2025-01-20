@@ -55,6 +55,7 @@ include 'views/admin_partials/sidebar.php';
       <div class="row">
         <!-- Total Donor Widget -->
         <div class="col-md-6 col-lg-4 col-xl">
+          <a href="<?= ROOT_URL ?>givenRequest.php">
           <div class="card">
             <div class="card-body">
               <div class="widget-first">
@@ -89,10 +90,12 @@ include 'views/admin_partials/sidebar.php';
               </div>
             </div>
           </div>
+          </a>
         </div>
 
         <!-- Total Receiver Widget -->
         <div class="col-md-6 col-lg-4 col-xl">
+        <a href="<?= ROOT_URL ?>receivedRequest.php">
           <div class="card">
             <div class="card-body">
               <div class="widget-first">
@@ -125,10 +128,12 @@ include 'views/admin_partials/sidebar.php';
               </div>
             </div>
           </div>
+          </a>
         </div>
 
         <!-- Total Donation Complete Widget -->
         <div class="col-md-6 col-lg-4 col-xl">
+        <a href="<?= ROOT_URL ?>index.php">
           <div class="card">
             <div class="card-body">
               <div class="widget-first">
@@ -184,6 +189,7 @@ include 'views/admin_partials/sidebar.php';
               </div>
             </div>
           </div>
+          </a>
         </div>
 
 

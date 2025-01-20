@@ -103,106 +103,170 @@ include 'views/partials/header.php';
 <!-- counter end -->
 
 <!-- what do start -->
-<section class="whatdo ptb-115 py-5">
-    <div class="container">
+<section class="team ptb-115 gray_bg">
+      <div class="container">
         <div class="row mb-5">
-            <div class="col-12">
-                <div class="common_title text-center">
-                    <p>what we do</p>
-                    <h2>Donation Process</h2>
-                </div>
+          <div class="col-12">
+            <div class="common_title text-center">
+              <p>Team members</p>
+              <h2>Meet Volunteers</h2>
             </div>
+          </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="what_progress">
-                    <ul>
-                        <img
-                            src="public/frontend/images/p_line.png"
-                            class="progress_line"
-                            alt="" />
-                        <li>
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-9 col-12">
-                                    <div
-                                        class="progress_content d-flex align-items-center gap-xl-5 gap-lg-5 gap-md-4 gap-sm-3 gap-3">
-                                        <div class="p_content_left">
-                                            <h5>Sign Up or Log In</h5>
-                                            <p>
-                                                <strong>Join as a Donor:</strong> Sign up to donate
-                                                blood and save lives.
-                                            </p>
-                                            <p>
-                                                <strong>Join as a Receiver:</strong> Register to
-                                                request blood donations.
-                                            </p>
-                                        </div>
-                                        <span class="progress_number">01</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row justify-content-end">
-                                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-9 col-12">
-                                    <div
-                                        class="progress_content d-flex align-items-center gap-xl-5 gap-lg-5 gap-md-4 gap-sm-3 gap-3">
-                                        <span class="progress_number">02</span>
-                                        <div class="p_content_left p_content_right">
-                                            <h5>Dashboard</h5>
-                                            <p>
-                                                <strong>Donor:</strong> Manage your profile,
-                                                availability, and view req.
-                                            </p>
-                                            <p>
-                                                <strong>Receiver:</strong> Manage your profile,
-                                                search for donors, and statistics.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-9 col-12">
-                                    <div
-                                        class="progress_content d-flex align-items-center gap-xl-5 gap-lg-5 gap-md-4 gap-sm-3 gap-3">
-                                        <div class="p_content_left">
-                                            <h5>Search and Filtering</h5>
-                                            <p>
-                                                Search for donors with filters for blood group,
-                                                location, and availability.
-                                            </p>
-                                        </div>
-                                        <span class="progress_number">03</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="row justify-content-end">
-                                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-9 col-12">
-                                    <div
-                                        class="progress_content d-flex align-items-center gap-xl-5 gap-lg-5 gap-md-4 gap-sm-3 gap-3">
-                                        <span class="progress_number">04</span>
-                                        <div class="p_content_left p_content_right">
-                                            <h5>Request Management</h5>
-                                            <p>
-                                                Receivers can send requests to donors, and donors
-                                                can accept or decline the requests.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+        <div class="row justify-content-center">
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-4">
+            <div class="team_details">
+              <div class="team_img">
+                <img src="assets/images/t1.jpg" alt="" class="w-100">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="team_content text-center">
+                <a href="#">
+                  <h5>Nora Khaypeia</h5>
+                </a>
+                <p>Co-Founder</p>
+              </div>
             </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-4">
+            <div class="team_details">
+              <div class="team_img">
+                <img src="assets/images/t2.jpg" alt="" class="w-100">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="team_content text-center">
+                <a href="#">
+                  <h5>SirJoshan Deo</h5>
+                </a>
+                <p>Co-Founder</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-4">
+            <div class="team_details">
+              <div class="team_img">
+                <img src="assets/images/t3.jpg" alt="" class="w-100">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="team_content text-center">
+                <a href="#">
+                  <h5>Joshan Khaypeia</h5>
+                </a>
+                <p>Co-Founder</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-4 mb-xl-0 mb-lg-0 mb-md-0">
+            <div class="team_details">
+              <div class="team_img">
+                <img src="assets/images/t1.jpg" alt="" class="w-100">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="team_content text-center">
+                <a href="#">
+                  <h5>Nora Khaypeia</h5>
+                </a>
+                <p>Co-Founder</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-4 mb-xl-0 mb-lg-0 mb-md-0">
+            <div class="team_details">
+              <div class="team_img">
+                <img src="assets/images/t2.jpg" alt="" class="w-100">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="team_content text-center">
+                <a href="#">
+                  <h5>SirJoshan Deo</h5>
+                </a>
+                <p>Co-Founder</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+            <div class="team_details">
+              <div class="team_img">
+                <img src="assets/images/t3.jpg" alt="" class="w-100">
+                <ul class="d-flex">
+                  <li>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+              <div class="team_content text-center">
+                <a href="#">
+                  <h5>Joshan Khaypeia</h5>
+                </a>
+                <p>Co-Founder</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 <!-- what do end -->
 
 <!-- lets change start -->

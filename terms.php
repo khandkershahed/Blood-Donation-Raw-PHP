@@ -3,10 +3,10 @@ require 'config/database.php';
 
 // fetch current user from database
 if (isset($_SESSION['user-id'])) {
-  $id = filter_var($_SESSION['user-id'], FILTER_SANITIZE_NUMBER_INT);
-  $query = "SELECT avatar FROM users WHERE id=$id";
-  $result = mysqli_query($connection, $query);
-  $avatar = mysqli_fetch_assoc($result);
+    $id = filter_var($_SESSION['user-id'], FILTER_SANITIZE_NUMBER_INT);
+    $query = "SELECT avatar FROM users WHERE id=$id";
+    $result = mysqli_query($connection, $query);
+    $avatar = mysqli_fetch_assoc($result);
 }
 
 ?>
@@ -20,8 +20,8 @@ include 'views/partials/header.php';
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-12 text-center">
-                <h2>Terms & Conditions</h2>
-                <ul>
+                <h2 class="mt-5">Terms & Conditions</h2>
+                <ul class="pt-3">
                     <li><a href="index.html">Home</a></li>
                     <li class="active">Terms & Conditions</li>
                 </ul>
@@ -34,160 +34,73 @@ include 'views/partials/header.php';
 <section class="km__terms__conditions__Section ptb-120">
     <div class="container">
         <div class="imgbx">
-            <img
-                src="<?= ROOT_URL ?>public/frontend/images/terms/hurt.jpg"
-                alt="images not founds"
-                class="img-fluid" />
+            <img src="<?= ROOT_URL ?>public/frontend/images/terms/hurt.jpg" alt="images not founds" class="img-fluid" />
         </div>
         <div class="km_reasons mt-30">
-            <h2 class="fs-42 mb-30">
-                Reasons for Using Website Terms and Conditions
-            </h2>
-            <p class="mb-30">
-                There are many variations of passages of Lorem Ipsum available, but
-                the majority have suffered alteration in some form, by injected
-                humour, or randomised words which don't look even slightly
-                believable. If you are going to use a passage of Lorem Ipsum, you
-                need to be sure there isn't anything embarrassing hidden in middle
-                of text. All the Lorem Ipsum generators on the Internet tend to
-                repeat predefined chunks as necessary, making this the first true
-                generator on the Internet.
-            </p>
-            <p class="m-0">
-                It uses a dictionary of over 200 Latin words, combined with a
-                handful of model sentence structures, to generate Lorem Ipsum which
-                looks reasonable. The generated Lorem Ipsum is therefore always free
-                from repetition, injected humour, or non-characteristic words etc.
-            </p>
+            <p class="pt-3">Welcome to our blood donation platform! These Terms and Conditions outline the rules and regulations governing your use of this platform, including the donation and/or receipt of blood. By accessing or using any part of this platform, you agree to be bound by these Terms and Conditions.</p>
         </div>
         <div class="km_agreement mt-30">
-            <h4 class="mb-30">1 - Agreement Of User</h4>
-            <p class="mb-30">
-                Contrary to popular belief, Lorem Ipsum is not simply random text.
-                It has roots in a piece of classical Latin literature from 45 BC,
-                making it over 2000 years old. Richard McClintock, a Latin professor
-                at Hampden-Sydney College in Virginia,
-            </p>
-            <p class="mb-30">
-                looked up one of the more obscure Latin words, consectetur, from a
-                Lorem Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source.
-            </p>
-            <p class="m-0">
-                Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus
-                Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
-                written in 45 BC. This book is a treatise on the theory of ethics,
-                very popular during the Renaissance. The first line of Lorem Ipsum,
-                "Lorem ipsum dolor sit amet..", comes from a line in section
-                1.10.32.
-            </p>
+            <h4>1 - Agreement Of User</h4>
+            <p class="pt-3">This platform is intended for use by individuals who are at least 18 years old and legally competent to enter into a binding agreement. By accessing or using this platform, you represent and warrant that you meet these requirements.</p>
         </div>
         <div class="mt-30 km_essential">
-            <h4 class="mb-30">2 - Essential Rules</h4>
-            <p class="mb-30">
-                Contrary to popular belief, Lorem Ipsum is not simply random text.
-                It has roots in a piece of classical Latin literature from 45 BC,
-                making it over 2000 years old. Richard McClintock, a Latin professor
-                at Hampden-Sydney College in Virginia,
-            </p>
+            <h4>2 - Eligibility for Blood Donation</h4>
+            <p class="pt-3">To donate blood through this platform, you must meet the following eligibility criteria:</p>
             <ul class="km_pc_list">
                 <li>
-                    <span>
-                        <i class="fa-regular fa-square-check"></i>
-                    </span>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
+                    <span><i class="fa-regular fa-square-check"></i></span>
+                    Be at least 18 years old and generally in good health.
                 </li>
                 <li>
-                    <span>
-                        <i class="fa-regular fa-square-check"></i>
-                    </span>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
+                    <span><i class="fa-regular fa-square-check"></i></span>
+                    Weigh at least 50 kilograms (approximately 110 pounds).
                 </li>
                 <li>
-                    <span>
-                        <i class="fa-regular fa-square-check"></i>
-                    </span>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
+                    <span><i class="fa-regular fa-square-check"></i></span>
+                    Have not donated blood within the past 56 days (for whole blood).
                 </li>
                 <li>
-                    <span>
-                        <i class="fa-regular fa-square-check"></i>
-                    </span>
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
+                    <span><i class="fa-regular fa-square-check"></i></span>
+                    Meet specific medical eligibility criteria, which may vary depending on your medical history and current health status.
                 </li>
             </ul>
+            <p class="pt-3">You are responsible for ensuring that you meet these eligibility criteria before donating blood. </p>
         </div>
         <div class="mt-30 km_understanding">
-            <h4 class="mb-30">3 - Understanding</h4>
-            <p class="mb-30">
-                Contrary to popular belief, Lorem Ipsum is not simply random text.
-                It has roots in a piece of classical Latin literature from 45 BC,
-                making it over 2000 years old. Richard McClintock, a Latin professor
-                at Hampden-Sydney College in Virginia,
-            </p>
-            <p class="m-0">
-                looked up one of the more obscure Latin words, consectetur, from a
-                Lorem Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source.
-            </p>
+            <h4>3 - Data Privacy and Security</h4>
+            <p class="pt-3">We are committed to protecting your personal information. Please refer to our separate **Privacy Policy** for details on how we collect, use, and protect your personal information. By using this platform, you consent to the collection, use, and disclosure of your personal information as described in the Privacy Policy.</p>
         </div>
         <div class="mt-30 km_dealing">
-            <h4 class="mb-30">4 - Dealing System</h4>
-            <p class="mb-30">
-                But I must explain to you how all this mistaken idea of denouncing
-                pleasure and praising pain was born and I will give you a complete
-                account of the system, and expound the actual teachings of the great
-                explorer of the truth, the master-builder of human happiness. No one
-                rejects, dislikes, or avoids pleasure itself, because it is
-                pleasure, but because those who do not know how to pursue pleasure
-                rationally encounter consequences that are extremely painful.
-            </p>
-            <p class="m-0">
-                Nor again is there anyone who loves or pursues or desires to obtain
-                pain of itself, because it is pain, but because occasionally
-                circumstances occur in which toil and pain can procure him some
-                great anpleasure. To take a trivial example, which of us ever
-                undertakes laborious physical exercise, except to obtain some
-                advantage from But who has any right to find fault with
-            </p>
+            <h4>4 - Disclaimer of Warranties</h4>
+            <p class="pt-3">This platform is provided "as is" without any warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement. We do not warrant that the platform will be uninterrupted or error-free, that defects will be corrected, or that the platform or the server that makes it available are free of viruses or other harmful components. You assume the entire risk as to the quality and performance of the platform.</p>
+        </div>
+        <div class="mt-30 km_dealing">
+            <h4>5 - Limitation of Liability</h4>
+            <p class="pt-3">In no event shall we be liable for any damages whatsoever, including but not limited to direct, indirect, incidental, consequential, special, exemplary, or punitive damages, arising out of or in any way connected with the use of this platform, whether based on contract, tort, strict liability, or otherwise, even if we have been advised of the possibility of such damages.</p>
+        </div>
+        <div class="mt-30 km_dealing">
+            <h4>6 - Indemnification</h4>
+            <p class="pt-3">You agree to indemnify and hold us harmless from any and all claims, liabilities, damages, and expenses (including attorneys' fees) arising out of your use of this platform, including but not limited to any violation of these Terms and Conditions.</p>
         </div>
         <div class="mt-30">
-            <h4 class="mb-30">5 - Contact</h4>
-            <p class="mb-30">
-                But I must explain to you how all this mistaken idea of denouncing
-                pleasure and praising pain was born and I will give you a complete
-                account of the system, and expound the actual teachings of the great
-                explorer of the truth, the master-builder of human happiness. No one
-                rejects, dislikes, or avoids pleasure itself, because it is
-                pleasure, but because those who do not know how to pursue pleasure
-                rationally encounter consequences that are extremely painful.
-            </p>
-            <p class="m-0">
-                Nor again is there anyone who loves or pursues or desires to obtain
-                pain of itself, because it is pain, but because occasionally
-                circumstances occur in which toil and pain can procure him some
-                great pleasure. To take a trivial example, which of us ever
-                undertakes laborious physical exercise, except to obtain some
-                advantage from But who has any right to find fault with a man
-            </p>
+            <h4>7 - Governing Law</h4>
+            <p class="pt-3">These Terms and Conditions shall be governed by and construed in accordance with the laws of [Your Jurisdiction].</p>
+        </div>
+        <div class="mt-30">
+            <h4>8 - Changes to Terms and Conditions</h4>
+            <p class="pt-3">We may update these Terms and Conditions from time to time. We will notify you of any changes by posting the revised Terms and Conditions on this platform. Your continued use of the platform following the posting of any changes constitutes acceptance of those changes.</p>
+        </div>
+        <div class="mt-30">
+            <h4>9 - Contact</h4>
+            <p class="pt-3">If you have any questions or concerns about these Terms and Conditions, please contact us at [email protected]</p>
         </div>
         <div class="km_fr-images mt-30">
             <div class="row g-4 text-center">
                 <div class="col-md-6">
-                    <img
-                        src="<?= ROOT_URL ?>public/frontend/images/terms/t1.jpg"
-                        alt="images not founds"
-                        class="img-fluid" />
+                    <img src="<?= ROOT_URL ?>public/frontend/images/terms/t1.jpg" alt="images not founds" class="img-fluid" />
                 </div>
                 <div class="col-md-6">
-                    <img
-                        src="<?= ROOT_URL ?>public/frontend/images/terms/t2.jpg"
-                        alt="images not founds"
-                        class="img-fluid" />
+                    <img src="<?= ROOT_URL ?>public/frontend/images/terms/t2.jpg" alt="images not founds" class="img-fluid" />
                 </div>
             </div>
         </div>

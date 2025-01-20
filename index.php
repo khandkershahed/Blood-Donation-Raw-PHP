@@ -36,7 +36,7 @@ include 'views/partials/header.php';
             <h2>
               Your Blood Can Save Lives and Bring Hope to Those in Need
             </h2>
-            <a href="donor-login.html" class="explore_now red_btn">Donate Now</a>
+            <a href="<?= ROOT_URL ?>registration.php" class="explore_now red_btn">Donate Now</a>
             <a href="<?= ROOT_URL ?>contact.php" class="explore_now black_btn">Contact Us</a>
           </div>
         </div>
@@ -50,7 +50,7 @@ include 'views/partials/header.php';
           <div class="hm2_content text-center">
             <h4>Request Blood, Get Help</h4>
             <h2>If You Are in Need, We Are Here to Help You Find Donors</h2>
-            <a href="receiver-login.html" class="explore_now red_btn">Find a Donor</a>
+            <a href="<?= ROOT_URL ?>contact.php" class="explore_now red_btn">Find a Donor</a>
             <a href="<?= ROOT_URL ?>contact.php" class="explore_now black_btn">Get in Touch</a>
           </div>
         </div>
