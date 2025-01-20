@@ -2,51 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Dashboard | Blood Project</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-        name="description"
-        content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
-    <meta name="author" content="BloodProjects" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8" />
+  <title>Dashboard | Blood Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
+  <meta name="author" content="Blood Bonds" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="<?= ROOT_URL ?>public/admin/images/favicon.ico" />
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="<?= ROOT_URL ?>public/images/fab.png" />
 
-     <!-- Datatables css -->
-     <link
-      href="<?= ROOT_URL ?>public/admin/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="<?= ROOT_URL ?>public/admin/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="<?= ROOT_URL ?>public/admin/libs/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="<?= ROOT_URL ?>public/admin/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
+  <!-- Datatables css -->
+  <link
+    href="<?= ROOT_URL ?>public/admin/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
+    rel="stylesheet"
+    type="text/css" />
+  <link
+    href="<?= ROOT_URL ?>public/admin/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+    rel="stylesheet"
+    type="text/css" />
+  <link
+    href="<?= ROOT_URL ?>public/admin/libs/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css"
+    rel="stylesheet"
+    type="text/css" />
+  <link
+    href="<?= ROOT_URL ?>public/admin/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+    rel="stylesheet"
+    type="text/css" />
 
-    <!-- App css -->
-    <link
-        href="<?= ROOT_URL ?>public/admin/css/app.min.css"
-        rel="stylesheet"
-        type="text/css"
-        id="app-style" />
+  <!-- App css -->
+  <link
+    href="<?= ROOT_URL ?>public/admin/css/app.min.css"
+    rel="stylesheet"
+    type="text/css"
+    id="app-style" />
 
-    <!-- Icons -->
-    <link href="<?= ROOT_URL ?>public/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
+  <!-- Icons -->
+  <link href="<?= ROOT_URL ?>public/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
 
-    <script src="<?= ROOT_URL ?>public/admin/js/head.js"></script>
+  <script src="<?= ROOT_URL ?>public/admin/js/head.js"></script>
 </head>
 
 <!-- body start -->
@@ -74,5 +70,5 @@ $registration_type = $_SESSION['registration_type'] ?? '';
 ?>
 
 <body data-menu-color="light" data-sidebar="default">
-    <!-- Begin page -->
-    <div id="app-layout">
+  <!-- Begin page -->
+  <div id="app-layout">

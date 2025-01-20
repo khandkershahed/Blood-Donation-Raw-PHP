@@ -97,39 +97,43 @@ try {
                                                         unset($_SESSION['message']); ?></div>
                 <?php endif; ?>
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">My All Received Requests Lists</h5>
-                    </div>
                     <!-- end card header -->
                     <div class="card-body">
+                        <h3 class="text-center">My All Received Requests Lists</h3>
                         <?php if (isset($message)): ?>
                             <div class="alert alert-info"><?php echo htmlspecialchars($message); ?></div>
                         <?php endif; ?>
                         <?php if ($no_requests): ?>
                             <p>No requests found.</p>
                         <?php else: ?>
-                            <table class="table table-striped table-bordered dt-responsive nowrap">
+                            <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Request ID</th>
-                                        <th>Blood Type</th>
-                                        <th>Message</th>
-                                        <th>Location</th>
-                                        <th>Urgency</th>
-                                        <th>Status</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <th class="text-center" style="width: 5%;">Sl ID</th>
+                                        <th class="text-center" style="width: 7%;">Requester ID</th>
+                                        <th class="text-center" style="width: 7%;">Blood Type</th>
+                                        <th class="text-center" style="width: 20%;">Message</th>
+                                        <th class="text-center" style="width: 15%;">Location</th>
+                                        <th class="text-center" style="width: 7%;">Urgency</th>
+                                        <th class="text-center" style="width: 9%;">Contact</th>
+                                        <th class="text-center" style="width: 10%;">Status</th>
+                                        <th class="text-center" style="width: 10%;">Created At</th>
+                                        <th class="text-center" style="width: 15%;">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php foreach ($requests as $request): ?>
+                                <tbody style="vertical-align: middle;">
+                                    <?php
+                                    $serialNumber = 1; // Initialize serial number before the loop
+                                    foreach ($requests as $request): ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($request['id']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['blood_type']); ?></td>
+                                            <td class="text-center"><?php echo $serialNumber++; ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['id']); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
                                             <td><?php echo htmlspecialchars($request['message']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['location']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['urgency']); ?></td>
-                                            <td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
+                                            <td class="text-center"><?php echo htmlspecialchars($request['contact_number']); ?></td>
+                                            <td class="text-center">
                                                 <?php
                                                 // Display the status of the request
                                                 if ($request['status'] === 'pending') {
@@ -141,10 +145,19 @@ try {
                                                 }
                                                 ?>
                                             </td>
-                                            <td><?php echo htmlspecialchars($request['created_at']); ?></td>
+                                            <!-- <td><?php echo htmlspecialchars($request['created_at']); ?></td> -->
+                                            <td>
+                                                <?php
+                                                $createdAt = new DateTime($request['created_at']); // Parse the date
+                                                $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
+                                                $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
+                                                ?>
+                                                <span><?php echo $date; ?></span><br>
+                                                <span><?php echo $time; ?></span>
+                                            </td>
                                             <td>
                                                 <!-- Update Status Form -->
-                                                <form action="" method="POST" style="display:inline;">
+                                                <form class="d-flex flex-column justify-content-center" action="" method="POST" style="display:inline;">
                                                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                                     <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
 
@@ -156,7 +169,7 @@ try {
                                                     </select>
 
                                                     <!-- Submit Button -->
-                                                    <button type="submit" class="btn btn-sm btn-primary mt-2">Update Status</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary mt-2"><i class="fa-solid fa-check"></i> Update Status</button>
                                                 </form>
                                             </td>
                                         </tr>

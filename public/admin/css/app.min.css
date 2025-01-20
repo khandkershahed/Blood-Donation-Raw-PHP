@@ -1,16 +1,16 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap);
 :root {
-  --bs-sidebar-bg: #ea062b;
-  --bs-cst-bg: #ea062b;
+  --bs-sidebar-bg: #ad0d00;
+  --bs-cst-bg: #ad0d00;
   --bs-topbar-bg: #fff;
   --bs-footer-bg: #fff;
   --bs-sidebar-item: #fff;
   --bs-sidebar-item-hover: #5c5b5b;
-  --bs-sidebar-item-active: #ea062b;
+  --bs-sidebar-item-active: #ad0d00;
   --bs-sidebar-item-active-bg: #fff;
   --bs-main-nav-item-color: #2f384f;
-  --bs-topbar-menu-nav-link-color: #ea062b;
+  --bs-topbar-menu-nav-link-color: #ad0d00;
   --bs-topbar-search-bg: #f6f8fb;
   --bs-secondary-bg: #ffffff;
   --bs-border-color: #dee2e6;
@@ -86,7 +86,7 @@ html[data-bs-theme="dark"] {
   --bs-success: #287f71;
   --bs-info: #01d4ff;
   --bs-warning: #e77636;
-  --bs-danger: #ea062b;
+  --bs-danger: #ad0d00;
   --bs-light: #f0f4f7;
   --bs-dark: #060707;
   --bs-primary-rgb: 16, 141, 255;
@@ -12376,7 +12376,7 @@ html[data-bs-theme="dark"] .logo-dark {
 }
 .app-sidebar-menu {
   width: 260px;
-  background: var(--bs-sidebar-bg);
+  background: #252525;
   bottom: 0;
   padding-top: 70px;
   position: fixed;
@@ -14854,18 +14854,55 @@ html[data-bs-theme="dark"] .table-light {
   border: 3px solid #fff;
 }
 /*# sourceMappingURL=app.min.css.map */
-.cst-table-btn{
-  background-color: #ea062b;
-  border: 1px solid #ea062b !important;
+.cst-table-btn {
+  background-color: #ad0d00;
+  border: 1px solid #ad0d00 !important;
   margin-right: 5px;
   border: 0;
   border-radius: 0;
 }
-.cst-table-btn:hover{
+.cst-table-btn:hover {
   background-color: transparent;
-  border: 1px solid #ea062b !important;
-  color: #ea062b;
+  border: 1px solid #ad0d00 !important;
+  color: #ad0d00;
   margin-right: 5px;
   border: 0;
   border-radius: 0;
+}
+.profile-image {
+  width: 100px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Makes it circular */
+  overflow: hidden;
+  background-color: #ccc; /* Background color for fallback */
+  font-size: 24px; /* Adjust text size for initials */
+  color: #fff; /* Text color */
+  text-transform: uppercase; /* Ensure initials are uppercase */
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fits within the circle */
+}
+
+.fallback-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.doner-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+
+select.form-select option {
+  text-transform: capitalize !important;
 }

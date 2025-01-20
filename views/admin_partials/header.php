@@ -127,7 +127,7 @@ if (isset($_GET['clear_notifications'])) {
                                 foreach ($notifications as $notification):
                                     $time_ago = time_ago($notification['created_at']);
                                     // Determine background color based on notification status
-                                    $bg_class = $notification['status'] == 'unread' ? 'bg-danger' : 'bg-light';
+                                    $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-light';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
                                     <a href="<?= ROOT_URL ?>user/receivedRequest.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">

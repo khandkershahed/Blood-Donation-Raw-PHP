@@ -35,7 +35,7 @@ include 'views/partials/header.php';
                 </p>
             </div>
         <?php endif; ?>
-        
+
         <div class="row gx-0">
             <div class="col-lg-5">
                 <div>
@@ -69,19 +69,20 @@ include 'views/partials/header.php';
                                     <label for=""><small>Password</small></label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <button
-                                                class="btn btn-danger lock-icons"
-                                                type="button">
-                                                <i class="fa-solid fa-lock"></i>
+                                            <button class="btn btn-danger lock-icons" type="button" onclick="togglePasswordVisibility()">
+                                                <i class="fa-solid fa-lock" id="lockIcon"></i>
                                             </button>
                                         </div>
                                         <input
                                             type="password"
                                             class="form-control"
                                             placeholder="*******"
-                                            aria-label="" name="password"
+                                            aria-label=""
+                                            name="password"
                                             value="<?= isset($password) ? $password : '' ?>"
-                                            aria-describedby="basic-addon1" required />
+                                            aria-describedby="basic-addon1"
+                                            required
+                                            id="passwordInput" />
                                     </div>
                                 </div>
                                 <div
