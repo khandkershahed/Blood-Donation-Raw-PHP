@@ -79,7 +79,7 @@ include 'views/partials/header.php';
   <div class="container">
     <div class="row g-0 register_top">
       <div class="col-xl-6 col-lg-6 col-12">
-        <a href="receiver-login.html">
+        <a href="<?= ROOT_URL ?>login.php">
           <div class="register red_bg">
             <div class="register_content">
               <h4>Recive Blood</h4>
@@ -159,7 +159,7 @@ include 'views/partials/header.php';
               <li><i class="fa-solid fa-angles-right"></i> Blood Bank</li>
             </ul>
           </div>
-          <a href="about.html" class="explore_now red_btn">Explore Now</a>
+          <a href="<?= ROOT_URL ?>about.php" class="explore_now red_btn">Explore Now</a>
         </div>
       </div>
     </div>
