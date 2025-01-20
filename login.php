@@ -108,7 +108,7 @@ include 'views/partials/header.php';
                                 </div>
                                 <div class="py-4 text-center">
                                     <p><small>Don't have an account? <a href="<?= ROOT_URL ?>registration.php" class="text-muted fw-bold">Register Now.</a></small></p>
-                                    <p><small>Forgot Password? <a href="" class="text-muted fw-bold">Get New.</a></small></p>
+                                    <!-- <p><small>Forgot Password? <a href="" class="text-muted fw-bold">Get New.</a></small></p> -->
                                 </div>
                             </div>
                         </div>

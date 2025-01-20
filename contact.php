@@ -1,6 +1,11 @@
 <?php
+// Ensure session is started before any database interaction
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
-require 'config/database.php';
+// Include the database connection
+require_once 'config/database.php'; // Ensure this file is in the correct path
 
 // Initialize error messages and success message
 $errors = [];
@@ -34,18 +39,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If no errors, insert into the database
     if (empty($errors)) {
-        $stmt = $connection->prepare("INSERT INTO contact_messages (first_name, last_name, email, subject, message) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $first_name, $last_name, $email, $subject, $message);
+        try {
+            // Using the correct PDO variable
+            $stmt = $pdo->prepare("INSERT INTO contact_messages (first_name, last_name, email, subject, message) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bindParam(1, $first_name);
+            $stmt->bindParam(2, $last_name);
+            $stmt->bindParam(3, $email);
+            $stmt->bindParam(4, $subject);
+            $stmt->bindParam(5, $message);
 
-        if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Your message has been sent successfully!";
-            // Redirect to prevent resubmission on page refresh
-            header("Location: contact.php"); // Redirect to the same page to avoid resubmission
-            exit; // Ensure the script ends here after redirection
-        } else {
-            $errors['general'] = "There was an error submitting your form. Please try again.";
+            if ($stmt->execute()) {
+                $_SESSION['success_message'] = "Your message has been sent successfully!";
+                // Redirect to prevent resubmission on page refresh
+                header("Location: contact.php"); // Redirect to the same page to avoid resubmission
+                exit; // Ensure the script ends here after redirection
+            } else {
+                $errors['general'] = "There was an error submitting your form. Please try again.";
+            }
+        } catch (PDOException $e) {
+            $errors['general'] = "Error: " . $e->getMessage();
         }
-        $stmt->close();
     }
 }
 
@@ -58,6 +71,7 @@ if (isset($_SESSION['success_message'])) {
 include 'views/partials/head.php';
 include 'views/partials/header.php';
 ?>
+
 
 
 <div class="breadcrumb_section overflow-hidden ptb-150">
@@ -118,7 +132,7 @@ include 'views/partials/header.php';
                                     <textarea name="message" placeholder="Message" rows="3"><?= isset($message) ? $message : '' ?></textarea>
                                 </div>
                             </div>
-                            <button type="submit" class="contact__btn">Submit Request <i class="fa-solid fa-angles-right"></i></button>
+                            <button type="submit" class="contact__btn">Submit Message <i class="fa-solid fa-angles-right"></i></button>
                         </form>
                     </div>
                 </div>

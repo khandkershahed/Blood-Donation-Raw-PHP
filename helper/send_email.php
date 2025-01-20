@@ -3,24 +3,24 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// require 'vendor/autoload.php'; // Include the Composer autoloader
+// Include Composer's autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
-// Function to send email to the donor using Gmail SMTP
+
 function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requesterPhone, $bloodType, $message, $location, $urgency)
 {
     $mail = new PHPMailer(true);
- 
+
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'rashed.artificial@gmail.com';  // Your Gmail address
-        $mail->Password = 'xscjlicjonditazt';  // App password generated from Google
+        $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
+        $mail->Password = 'nhpptnbuwvcuyrtf'; // App password generated from Google
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port = 465;
 
         // Recipients
-        $mail->setFrom('rashed.artificial@gmail.com', 'Blood Donation System');
+        $mail->setFrom('blooddonation@gmail.com', 'Blood Donation System');
         $mail->addAddress($recipientEmail, $recipientName);
 
         // Email content
@@ -44,15 +44,19 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
             </html>
         ";
 
-        // Send email
-        if ($mail->send()) {
-            echo "Message sent successfully.";
+        // Enable debugging to catch any SMTP issues
+        $mail->SMTPDebug = 2; // Set to 2 for detailed debug output
+        $mail->Debugoutput = function ($str, $level) {
+            $_SESSION['email_error'] = $str; // Save debug output to session
+        };
+
+        // Attempt to send the email
+        if (!$mail->send()) {
+            $_SESSION['email_error'] = "Mailer Error: " . $mail->ErrorInfo;  // Store PHPMailer error in session
         } else {
-            echo "Message could not be sent. Mailer Error: " . $mail->ErrorInfo;
+            $_SESSION['email_success'] = "Email has been sent successfully.";
         }
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        $_SESSION['email_error'] = "Message could not be sent. Error: " . $mail->ErrorInfo;  // Catch and store exception
     }
 }
-
-
