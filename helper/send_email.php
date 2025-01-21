@@ -13,6 +13,13 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
     try {
         // SMTP configuration
         $mail->isSMTP();
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ]
+        ];
         // $mail->Host = 'smtp-relay.brevo.com'; // Gmail SMTP server
         // $mail->SMTPAuth = true;
         // $mail->Username = '83f8c2001@smtp-brevo.com'; // Your Gmail address
