@@ -33,8 +33,8 @@
     type="text/css" />
 
   <!-- App css -->
-  <link href="<?= ROOT_URL ?>public/admin/css/app.min.css?v=<?= filemtime('public/admin/css/app.min.css') ?>"
-    rel="stylesheet" type="text/css" id="app-style" />
+  <link
+    href="<?= ROOT_URL ?>public/admin/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
   <!-- Icons -->
   <link href="<?= ROOT_URL ?>public/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
