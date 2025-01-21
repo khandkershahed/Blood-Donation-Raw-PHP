@@ -26,12 +26,18 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
         // $mail->Password = 'sHvMPqD9jWtAxa2g';
         // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         // $mail->Port = 587; // Port for TLS encryption (587)
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
+        $mail->Host = 'mail.digixsolve.com'; // Gmail SMTP server
         $mail->SMTPAuth = true;
-        $mail->Username = 'dev1.ngenit@gmail.com'; 
-        $mail->Password = 'nhpptnbuwvcuyrtf'; 
+        $mail->Username = 'digixsolve@digixsolve.com'; 
+        $mail->Password = '#Ih0YM7eTIUT';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587; // Port for TLS encryption (587)
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        // $mail->Host = 'smtp.gmail.com';
+        // $mail->Port = 587;
+        // $mail->SMTPAuth = true;
+        // $mail->Username = 'dev1.ngenit@gmail.com'; 
+        // $mail->Password = 'nhpptnbuwvcuyrtf'; 
         // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         // $mail->Port = 465; // Port for TLS encryption (587)
 
