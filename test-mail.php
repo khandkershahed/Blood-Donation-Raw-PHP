@@ -7,38 +7,30 @@ require_once 'vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 try {
-    // Use SMTP
+    // Set mailer to use SMTP
     $mail->isSMTP();
 
-    // Gmail SMTP server
-    $mail->Host = 'mail.digixsolve.com';
-    // $mail->Host = 'smtp.gmail.com';
-
-    // Enable SMTP authentication
+    // SMTP server configuration
+    $mail->Host = 'mail.digixsolve.com';  // Your SMTP server address (change this as needed)
     $mail->SMTPAuth = true;
+    $mail->Username = 'support@digixsolve.com';  // SMTP username (your email address)
+    $mail->Password = 'Shahed@420';  // App password (or regular password if not using two-factor auth)
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Enable STARTTLS encryption
+    $mail->Port = 587;  // Port 587 for TLS
 
-    // Use your Gmail address and App password (generated from Google account)
-    // $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
-    $mail->Username = 'support@digixsolve.com'; // Your Gmail address
-    $mail->Password = 'Shahed@420'; // App password (not regular Gmail password)
-    // $mail->Password = 'nhpptnbuwvcuyrtf'; // App password (not regular Gmail password)
+    // Set the "From" address and name
+    $mail->setFrom('support@digixsolve.com', 'Blood Donation System');  // The sending email address and name
+    $mail->addReplyTo('support@digixsolve.com', 'Blood Donation System');  // Set Reply-To address
 
-    // Enable TLS encryption
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    // Add recipient email address
+    $mail->addAddress('khandkershahed23@gmail.com', 'Recipient Name');  // Replace with the recipient's email
 
-    // SMTP Port
-    $mail->Port = 587;  // Use 587 for TLS
-
-    // Sender info
-    $mail->setFrom('dev1.ngenit@gmail.com', 'Blood Donation System');
-    $mail->addAddress('khandkershahed23@gmail.com', 'Recipient Name');  // Replace with the recipient's address
-
-    // Email subject and body
+    // Set email subject and body
     $mail->Subject = 'Test Email';
-    $mail->Body = 'This is a test email sent from PHPMailer using Gmail SMTP.';
+    $mail->Body    = 'This is a test email sent from PHPMailer using custom SMTP server (digixsolve.com).';
 
-    // Debugging output (optional)
-    $mail->SMTPDebug = 2;  // Show debug output
+    // Enable verbose debug output (set level to 3 for maximum debug info)
+    $mail->SMTPDebug = 3;  // Level 3 for more detailed SMTP output (show conversation between client and server)
 
     // Send the email
     if ($mail->send()) {
@@ -47,5 +39,6 @@ try {
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
 } catch (Exception $e) {
-    echo "Message could not be sent. Error: {$mail->ErrorInfo}";
+    // Catch and display errors
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
