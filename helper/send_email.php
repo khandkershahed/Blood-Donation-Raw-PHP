@@ -13,12 +13,18 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
     try {
         // SMTP configuration
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        $mail->Host = 'smtp-relay.brevo.com'; // Gmail SMTP server
         $mail->SMTPAuth = true;
-        $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
-        $mail->Password = 'nhpptnbuwvcuyrtf'; // App password generated from Google
+        $mail->Username = '83f8c2001@smtp-brevo.com'; // Your Gmail address
+        $mail->Password = 'sHvMPqD9jWtAxa2g'; // App password generated from Google
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS encryption
-        $mail->Port = 465; // Port for TLS encryption (587)
+        $mail->Port = 587; // Port for TLS encryption (587)
+        // $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+        // $mail->SMTPAuth = true;
+        // $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
+        // $mail->Password = 'nhpptnbuwvcuyrtf'; // App password generated from Google
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS encryption
+        // $mail->Port = 465; // Port for TLS encryption (587)
 
         // Sender and recipient information
         $mail->setFrom('blooddonation@gmail.com', 'Blood Donation System');
