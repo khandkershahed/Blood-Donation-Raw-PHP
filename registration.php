@@ -1,6 +1,6 @@
 <?php
 require 'config/database.php';
-
+require_once __DIR__ . '/helper/send_email.php'; 
 if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] = true) {
     header("Location: dashboard.php");
     exit();
@@ -154,8 +154,9 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
         ':registration_type' => $registration_type,
         ':availability'      => $availability // Make sure to include this parameter here
     ]);
-
-
+    $recipientEmail = $email;
+    $recipientName = $first_name . ' ' . $last_name;
+    sendWelcomeEmail($recipientEmail, $recipientName);
     // Redirect to dashboard.php after successful registration
     $_SESSION['success'] = "Registration successful. Please log in.!";
     header("Location: /login.php");

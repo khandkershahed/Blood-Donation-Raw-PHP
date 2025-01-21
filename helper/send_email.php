@@ -120,7 +120,7 @@ function sendEmailToRequester($email, $requesterName, $donor_name, $donor_phone,
                         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
                             <h3 style='color: #5cb85c; font-size: 24px; margin-bottom: 20px; text-align: center;'>Request Accepted</h3>
                             <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Hello, $requesterName</p>
-                            <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Your blood donation request has been accepted by $recipientName. They will contact you shortly.</p>
+                            <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Your blood donation request has been accepted by $donor_name. They will contact you shortly.</p>
                             <div style='font-size: 16px; margin-bottom: 10px; text-align: center; padding: 10px; background-color: #f5f5f5; border-radius: 5px;'>
                                 <p><strong>Donor Name:</strong> $donor_name</p>
                                 <p><strong>Donor Phone:</strong> $donor_phone</p>
@@ -159,3 +159,67 @@ function sendEmailToRequester($email, $requesterName, $donor_name, $donor_phone,
     }
 }
 
+function sendWelcomeEmail($recipientEmail, $recipientName)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        // SMTP configuration
+        $mail->isSMTP();
+        $mail->Host = 'mail.digixsolve.com';  // SMTP server address (adjust as necessary)
+        $mail->SMTPAuth = true;
+        $mail->Username = 'support@digixsolve.com';  // SMTP username
+        $mail->Password = 'Shahed@420';  // SMTP password (consider using environment variables)
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Set sender and recipient details
+        $mail->setFrom('support@digixsolve.com', 'Blood Donation System');
+        $mail->addReplyTo('support@digixsolve.com', 'Blood Donation System');
+        $mail->addAddress($recipientEmail, $recipientName);
+
+        // Set email content (HTML)
+        $mail->isHTML(true);
+        $mail->Subject = "Welcome to BloodBond!";
+
+        $mail->Body = "
+        <html>
+            <head>
+                <title>Welcome to BloodBond</title>
+            </head>
+            <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9;'>
+                <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
+                    <h3 style='color: #5cb85c; font-size: 24px; margin-bottom: 20px; text-align: center;'>Welcome, $recipientName!</h3>
+                    <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Thank you for joining <strong style='color: #5cb85c;'>BloodBond</strong>, the platform that connects blood donors and recipients to save lives. We're thrilled to have you as part of our community.</p>
+
+                    <p style='font-size: 16px; margin-bottom: 20px; text-align: center;'>As a registered member, you can now:</p>
+                    <ul style='font-size: 16px; margin-bottom: 20px; color: #555;'>
+                        <li><strong>Request Blood</strong> when in need of urgent blood donations.</li>
+                        <li><strong>Donate Blood</strong> to help those in need.</li>
+                        <li><strong>Stay Updated</strong> on blood donation events in your area.</li>
+                    </ul>
+
+                    <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Your registration was successful, and your account is now ready to use.</p>
+
+                    <div style='text-align: center; margin-top: 30px;'>
+                        <a href='http://yourdomain.com/login' style='display: inline-block; background-color: #5cb85c; color: #ffffff; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; width: 60%'>Login to your account</a>
+                    </div>
+
+                    <p style='font-size: 14px; color: #666; margin-top: 30px; text-align: center;'>If you have any questions or need assistance, feel free to <a href='mailto:support@digixsolve.com' style='color: #5cb85c;'>contact us</a>.</p>
+                    <p style='font-size: 14px; color: #999; text-align: center;margin: 0;'>Sent by <strong style='color: #5cb85c;'>BloodBond</strong></p>
+                </div>
+            </body>
+        </html>
+        ";
+
+        // Send the email
+        if (!$mail->send()) {
+            $_SESSION['email_error'] = "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+            $_SESSION['email_success'] = "Welcome email has been sent successfully.";
+        }
+    } catch (Exception $e) {
+        // Handle error if email fails to send
+        $_SESSION['email_error'] = "Message could not be sent. Error: " . $mail->ErrorInfo;
+    }
+}
