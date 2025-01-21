@@ -54,13 +54,13 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
     try {
         // SMTP configuration
         $mail->isSMTP();
-        $mail->SMTPOptions = [
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ]
-        ];
+        // $mail->SMTPOptions = [
+        //     'ssl' => [
+        //         'verify_peer' => false,
+        //         'verify_peer_name' => false,
+        //         'allow_self_signed' => true,
+        //     ]
+        // ];
 
         $mail->Host = 'mail.digixsolve.com'; // SMTP server
         $mail->SMTPAuth = true;

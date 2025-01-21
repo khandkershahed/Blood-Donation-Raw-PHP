@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
             $donor_name = $donor['first_name'] . ' ' . $donor['last_name'];
 
             // Send email notification to the donor
-            sendEmailToDonor($requester_email, $donor_name, $requester_name, $requester_phone, $blood_type, $message, $location, $urgency);
+            sendEmailToDonor($donor_email, $donor_name, $requester_name, $requester_phone, $blood_type, $message, $location, $urgency);
 
             // Create a dashboard notification for the donor
             $notification_message = "You have received a blood request from $requester_name for blood type $blood_type.";
