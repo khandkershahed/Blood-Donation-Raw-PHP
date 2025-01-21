@@ -96,20 +96,21 @@ function sendEmailToRequester($email, $requesterName, $recipientName, $recipient
     $mail = new PHPMailer(true);
 
     try {
-        $mail->isSMTP();
-        $mail->Host = 'mail.digixsolve.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'support@digixsolve.com';
-        $mail->Password = 'Shahed@420';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->isSMTP(); // Set mailer to use SMTP
+        $mail->Host = 'mail.digixsolve.com';  // Specify the SMTP server
+        $mail->SMTPAuth = true;               // Enable SMTP authentication
+        $mail->Username = 'support@digixsolve.com'; // SMTP username
+        $mail->Password = 'Shahed@420'; // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
+        $mail->Port = 587; // TCP port to connect to
 
-        $mail->setFrom('support@digixsolve.com', 'Blood Donation System');
-        $mail->addAddress($email, $requesterName);
+        $mail->setFrom('support@digixsolve.com', 'Blood Donation System'); // Sender's email
+        $mail->addAddress($email, $requesterName); // Add recipient's email
 
         // Set the subject based on status
         if ($status === 'accepted') {
             $mail->Subject = "Blood Request Accepted";
+            $mail->isHTML(true); // Set email format to HTML
             $mail->Body = "
                 <html>
                     <head>
@@ -131,6 +132,7 @@ function sendEmailToRequester($email, $requesterName, $recipientName, $recipient
             ";
         } elseif ($status === 'rejected') {
             $mail->Subject = "Blood Request Rejected";
+            $mail->isHTML(true); // Set email format to HTML
             $mail->Body = "
                 <html>
                     <head>
@@ -149,9 +151,11 @@ function sendEmailToRequester($email, $requesterName, $recipientName, $recipient
             ";
         }
 
+        // Send the email
         $mail->send();
     } catch (Exception $e) {
         // Handle error if email fails to send
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+
