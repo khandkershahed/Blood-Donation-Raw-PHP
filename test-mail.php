@@ -27,7 +27,7 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
     // SMTP Port
-    $mail->Port = 587;  // Use 587 for TLS
+    $mail->Port = 465;  // Use 587 for TLS
 
     // Sender info
     $mail->setFrom('dev1.ngenit@gmail.com', 'Blood Donation System');
