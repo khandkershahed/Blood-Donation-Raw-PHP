@@ -18,7 +18,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
         $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
         $mail->Password = 'nhpptnbuwvcuyrtf'; // App password generated from Google
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS encryption
-        $mail->Port = 587; // Port for TLS encryption (587)
+        $mail->Port = 465; // Port for TLS encryption (587)
 
         // Sender and recipient information
         $mail->setFrom('blooddonation@gmail.com', 'Blood Donation System');
