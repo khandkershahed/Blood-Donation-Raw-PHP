@@ -31,7 +31,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
         $mail->Username = 'digixsolve@digixsolve.com'; 
         $mail->Password = '#Ih0YM7eTIUT';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587; // Port for TLS encryption (587)
+        $mail->Port = 465; // Port for TLS encryption (587)
         // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         // $mail->Host = 'smtp.gmail.com';
         // $mail->Port = 587;
