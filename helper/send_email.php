@@ -26,9 +26,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
 // $mail->Password = 'sHvMPqD9jWtAxa2g';
 // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 // $mail->Port = 587; // Port for TLS encryption (587)
-// $mail->Host = 'mail.digixsolve.com'; // Gmail SMTP server
-// $mail->SMTPAuth = true;
-// $mail->Username = 'digixsolve@digixsolve.com';
+
 // $mail->Password = '#Ih0YM7eTIUT';
 // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 // $mail->Port = 465; // Port for TLS encryption (587)
@@ -66,11 +64,11 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
 
         $mail->Host = 'mail.digixsolve.com'; // SMTP server
         $mail->SMTPAuth = true;
-        $mail->Username = 'digixsolve@digixsolve.com';
-        $mail->Password = '#Ih0YM7eTIUT';
+        $mail->Username = 'support@digixsolve.com';
+        $mail->Password = 'Shahed@420';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use SSL encryption for port 465
         // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Use SSL encryption for port 465
-        $mail->Port = 465;  // SSL port
+        $mail->Port = 587;  // SSL port
 
         // Sender and recipient information
         $mail->setFrom('blooddonation@gmail.com', 'Blood Donation System');
@@ -98,7 +96,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
                 ";
 
         // Set timeout to 60 seconds
-        $mail->Timeout = 60;
+        $mail->Timeout = 180;
 
         // Enable debugging to catch any SMTP issues
         $mail->SMTPDebug = 2;  // Set to 2 for detailed debug output (can change to 0 for no debug output)
