@@ -226,6 +226,7 @@ try {
                                                                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                                                     <input type="hidden" name="requester_id" value="<?php echo $_SESSION['user_id']; ?>">
                                                                     <input type="hidden" name="donor_id" value="<?php echo $user['id']; ?>">
+                                                                    <input type="hidden" name="donor_email" value="<?php echo $user['email']; ?>">
                                                                     <!-- <input type="hidden" name="requester_id" value="<?php echo $user['id']; ?>"> -->
 
                                                                     <div class="mb-3">
