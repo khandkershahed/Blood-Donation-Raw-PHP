@@ -174,7 +174,7 @@ try {
                                                     <?php
                                                     if (empty($image_src)) {
                                                         // Extract the initials from the first and last name
-                                                        $initials = strtoupper(substr($_SESSION['first_name'], 0, 1)) . strtoupper(substr($_SESSION['last_name'], 0, 1));
+                                                        $initials = strtoupper(substr($user['first_name'], 0, 1)) . strtoupper(substr($user['last_name'], 0, 1));
                                                         echo '<div class="fallback-image">' . $initials . '</div>';
                                                     } else {
                                                         echo '<img src="' . $image_src . '" alt="Profile Image">';
