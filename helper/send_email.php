@@ -68,7 +68,8 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
         $mail->SMTPAuth = true;
         $mail->Username = 'digixsolve@digixsolve.com';
         $mail->Password = '#Ih0YM7eTIUT';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Use SSL encryption for port 465
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use SSL encryption for port 465
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Use SSL encryption for port 465
         $mail->Port = 465;  // SSL port
 
         // Sender and recipient information
