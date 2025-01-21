@@ -100,8 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $message = $request['message'];
                             $location = $request['location'];
                             $urgency = $request['urgency'];
-                            $donor_name = $user['first_name'] . ' ' . $user['last_name']; // The donor's name
-                            $donor_phone = $user['phone']; // The donor's phone
+                            $donor_name = $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; // The donor's name
+                            $donor_phone = $_SESSION['phone']; // The donor's phone
 
                             // Send email to requester
                             sendEmailToRequester($requester_email, $requester_name, $donor_name, $donor_phone, $blood_type, $message, $location, $urgency, $new_status);

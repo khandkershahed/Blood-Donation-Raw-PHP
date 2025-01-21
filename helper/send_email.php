@@ -90,7 +90,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
 }
 
 
-function sendEmailToRequester($email, $requesterName, $recipientName, $recipientPhone, $bloodType, $message, $location, $urgency, $status)
+function sendEmailToRequester($email, $requesterName, $donor_name, $donor_phone, $bloodType, $message, $location, $urgency, $status)
 {
     // PHPMailer setup
     $mail = new PHPMailer(true);
@@ -122,8 +122,8 @@ function sendEmailToRequester($email, $requesterName, $recipientName, $recipient
                             <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Hello, $requesterName</p>
                             <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Your blood donation request has been accepted by $recipientName. They will contact you shortly.</p>
                             <div style='font-size: 16px; margin-bottom: 10px; text-align: center; padding: 10px; background-color: #f5f5f5; border-radius: 5px;'>
-                                <p><strong>Recipient Name:</strong> $recipientName</p>
-                                <p><strong>Phone:</strong> $recipientPhone</p>
+                                <p><strong>Donor Name:</strong> $donor_name</p>
+                                <p><strong>Donor Phone:</strong> $donor_phone</p>
                             </div>
                             <p style='font-size: 14px; color: #666; margin-top: 30px; text-align: center;'>Thank you for using <strong style='color: #5cb85c;'>BloodBond</strong>.</p>
                         </div>
@@ -142,7 +142,7 @@ function sendEmailToRequester($email, $requesterName, $recipientName, $recipient
                         <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
                             <h3 style='color: #d9534f; font-size: 24px; margin-bottom: 20px; text-align: center;'>Request Rejected</h3>
                             <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Hello, $requesterName</p>
-                            <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>We regret to inform you that your blood donation request has been declined by $recipientName.</p>
+                            <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>We regret to inform you that your blood donation request has been declined by $donor_name.</p>
                             <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>You can create a new request or search for other donors on <strong style='color: #d9534f;'>BloodBond</strong>.</p>
                             <p style='font-size: 14px; color: #666; margin-top: 30px; text-align: center;'>Thank you for using <strong style='color: #d9534f;'>BloodBond</strong>.</p>
                         </div>
