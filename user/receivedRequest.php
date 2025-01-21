@@ -2,7 +2,8 @@
 // Include constants and database connection files
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
-
+require_once __DIR__ . '/../helper/send_email.php';  // Email sending helper
+require_once __DIR__ . '/../helper/notification.php';  // Notification helper
 // Check if the user is logged in
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
     // Redirect to login page if not logged in
@@ -19,6 +20,42 @@ if (empty($_SESSION['csrf_token'])) {
 $user_id = $_SESSION['user_id'];
 
 // Handle form submission to update status
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     // CSRF Token Validation
+//     if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
+//         // Sanitize input fields
+//         $request_id = filter_var($_POST['request_id'], FILTER_VALIDATE_INT);
+//         $new_status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
+
+//         // Basic validation for request_id and status
+//         if ($request_id && in_array($new_status, ['pending', 'accepted', 'rejected'])) {
+//             try {
+//                 // Update the request status in the database
+//                 $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
+//                 $stmt = $pdo->prepare($updateQuery);
+//                 $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
+//                 $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
+//                 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+//                 // Execute the update query
+//                 if ($stmt->execute()) {
+//                     $_SESSION['message'] = "Status updated successfully!";
+//                 } else {
+//                     $_SESSION['error'] = "Failed to update the status.";
+//                 }
+//             } catch (PDOException $e) {
+//                 $_SESSION['error'] = "Error: " . $e->getMessage();
+//             }
+//         } else {
+//             $_SESSION['error'] = "Invalid request or status.";
+//         }
+//     } else {
+//         $_SESSION['error'] = "Invalid CSRF token.";
+//     }
+// }
+
+// Handle form submission to update status
+// Handle form submission to update status
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // CSRF Token Validation
     if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
@@ -29,18 +66,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Basic validation for request_id and status
         if ($request_id && in_array($new_status, ['pending', 'accepted', 'rejected'])) {
             try {
-                // Update the request status in the database
-                $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
-                $stmt = $pdo->prepare($updateQuery);
-                $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
+                // Fetch request details before updating
+                $requestQuery = "SELECT * FROM requests WHERE id = :request_id";
+                $stmt = $pdo->prepare($requestQuery);
                 $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
-                $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                $stmt->execute();
+                $request = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Execute the update query
-                if ($stmt->execute()) {
-                    $_SESSION['message'] = "Status updated successfully!";
+                if ($request) {
+                    // Update the request status in the database
+                    $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
+                    $stmt = $pdo->prepare($updateQuery);
+                    $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
+                    $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
+                    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+                    // Execute the update query
+                    if ($stmt->execute()) {
+                        // Fetch the requester's information
+                        $requester_id = $request['requester_id'];
+                        $requesterQuery = "SELECT * FROM users WHERE id = :requester_id";
+                        $stmt = $pdo->prepare($requesterQuery);
+                        $stmt->bindParam(':requester_id', $requester_id, PDO::PARAM_INT);
+                        $stmt->execute();
+                        $requester = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                        if ($requester) {
+                            // Get request details
+                            $requester_name = $requester['first_name'] . ' ' . $requester['last_name'];
+                            $requester_email = $requester['email'];
+                            $requester_phone = $request['requester_phone'];
+                            $blood_type = $request['blood_type'];
+                            $message = $request['message'];
+                            $location = $request['location'];
+                            $urgency = $request['urgency'];
+                            $donor_name = $user['first_name'] . ' ' . $user['last_name']; // The donor's name
+                            $donor_phone = $user['phone']; // The donor's phone
+
+                            // Send email to requester
+                            sendEmailToRequester($requester_email, $requester_name, $donor_name, $donor_phone, $blood_type, $message, $location, $urgency, $new_status);
+
+                            // Create dashboard notification for the requester
+                            $notification_message = "Your blood donation request for blood type $blood_type has been $new_status by the donor.";
+                            saveNotification($requester_id, $notification_message);
+
+                            // Set success message and redirect
+                            $_SESSION['message'] = "Status updated successfully!";
+                            header('Location: ' . $_SERVER['HTTP_REFERER']);
+                            exit();
+                        } else {
+                            // Handle case where requester doesn't exist
+                            $_SESSION['error'] = "Requester not found.";
+                            header('Location: ' . $_SERVER['HTTP_REFERER']);
+                            exit();
+                        }
+                    } else {
+                        $_SESSION['error'] = "Failed to update the status.";
+                    }
                 } else {
-                    $_SESSION['error'] = "Failed to update the status.";
+                    $_SESSION['error'] = "Request not found.";
                 }
             } catch (PDOException $e) {
                 $_SESSION['error'] = "Error: " . $e->getMessage();
@@ -52,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error'] = "Invalid CSRF token.";
     }
 }
+
 
 // Fetch all requests sent by the logged-in user
 try {
@@ -99,9 +184,11 @@ try {
             <div class="col-lg-12">
                 <!-- All Requests -->
                 <?php if (isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+                    <div class="alert alert-danger"><?= $_SESSION['error'];
+                                                    unset($_SESSION['error']); ?></div>
                 <?php elseif (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-success"><?= $_SESSION['message']; unset($_SESSION['message']); ?></div>
+                    <div class="alert alert-success"><?= $_SESSION['message'];
+                                                        unset($_SESSION['message']); ?></div>
                 <?php endif; ?>
                 <div class="card">
                     <!-- end card header -->
