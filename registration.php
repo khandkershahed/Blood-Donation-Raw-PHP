@@ -1,6 +1,7 @@
 <?php
 require 'config/database.php';
-require_once __DIR__ . '/helper/send_email.php'; 
+require 'helper/send_email.php';
+// require_once __DIR__ . '/helper/send_email.php'; 
 if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] = true) {
     header("Location: dashboard.php");
     exit();
