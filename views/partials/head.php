@@ -12,14 +12,16 @@
     <!-- Favicon Icon -->
     <link rel="shortcut icon" href="<?= ROOT_URL ?>public/images/fab.png" />
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/animate.css" />
-    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/all.css" />
-    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/slick.css" />
-    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/fancybox.css" />
-    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/style.css" />
+    <!-- CSS Files with Cache Busting -->
+    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/animate.css?v=<?= filemtime('public/frontend/css/animate.css') ?>" />
+    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/bootstrap.min.css?v=<?= filemtime('public/frontend/css/bootstrap.min.css') ?>" />
+    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/all.css?v=<?= filemtime('public/frontend/css/all.css') ?>" />
+    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/slick.css?v=<?= filemtime('public/frontend/css/slick.css') ?>" />
+    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/fancybox.css?v=<?= filemtime('public/frontend/css/fancybox.css') ?>" />
+    <link rel="stylesheet" href="<?= ROOT_URL ?>public/frontend/css/style.css?v=<?= filemtime('public/frontend/css/style.css') ?>" />
+
 </head>
+
 
 
 <body>
