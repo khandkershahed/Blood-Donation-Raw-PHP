@@ -86,15 +86,16 @@ try {
 <div class="content-page">
     <div class="content">
         <!-- Start Content-->
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger"><?= $_SESSION['error'];
-                                            unset($_SESSION['error']); ?></div>
-        <?php elseif (isset($_SESSION['message'])): ?>
-            <div class="alert alert-success"><?= $_SESSION['message'];
-                                                unset($_SESSION['message']); ?></div>
-        <?php endif; ?>
+
         <div class="container-fluid mt-4">
             <div class="row">
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger"><?= $_SESSION['error'];
+                                                    unset($_SESSION['error']); ?></div>
+                <?php elseif (isset($_SESSION['message'])): ?>
+                    <div class="alert alert-success"><?= $_SESSION['message'];
+                                                        unset($_SESSION['message']); ?></div>
+                <?php endif; ?>
                 <div class="col-lg-12 mb-4">
                     <form class="app-search d-none d-md-block me-auto" method="POST">
                         <div class="row justify-content-center">
