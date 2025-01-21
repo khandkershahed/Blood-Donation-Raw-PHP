@@ -68,33 +68,55 @@
             <ul
                 class="accordion accordion-flush mobile_dropdown"
                 id="accordionFlushExample">
+
                 <li class="accordion-item">
-                    <h2>
-                        <button
-                            class="accordion-button collapsed p-3"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapseOne"
-                            aria-expanded="false">
-                            Home
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <ul>
-                                <li><a href="<?= ROOT_URL ?>">Home</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h2><a href="<?= ROOT_URL ?>">Home</a></h2>
                 </li>
                 <li class="accordion-item">
                     <h2><a href="<?= ROOT_URL ?>about.php">About</a></h2>
                 </li>
-                
-                
+
+
                 <li class="accordion-item">
                     <h2><a href="<?= ROOT_URL ?>contact.php">Contact</a></h2>
                 </li>
+                <?php
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true):
+                    // User is logged in, display Dashboard and Profile
+                ?>
+                    <li class="accordion-item"></li>
+                        <h2><a href="<?= ROOT_URL ?>dashboard.php">
+                            Dashboard
+                        </a></h2>
+                    </li>
+                    <li class="accordion-item">
+                        <h2><a href="<?= ROOT_URL ?>profile.php">
+                            Profile
+                        </a></h2>
+                    </li>
+                    <li class="accordion-item">
+                        <a href="<?= ROOT_URL ?>logout.php">
+                            Logout
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="accordion-item">
+                        <h2><a href="<?= ROOT_URL ?>login.php">
+                           
+                            Login
+                        </a></h2>
+                    </li>
+                    <li class="accordion-item">
+                        <h2><a href="<?= ROOT_URL ?>registration.php">
+                           
+                            Register
+                        </a></h2>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

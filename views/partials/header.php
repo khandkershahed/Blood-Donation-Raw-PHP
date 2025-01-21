@@ -46,7 +46,7 @@
                      <div class="header_logo">
                          <a href="<?= ROOT_URL ?>">
                              <div>
-                                <img src="public/images/main-logo.png" alt="">
+                                 <img src="public/images/main-logo.png" alt="">
                              </div>
                          </a>
                      </div>

@@ -203,7 +203,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
                         <div class="col-md-12 d-flex">
                             <!-- Custom radio button for O (+ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="O_positive" type="radio" name="blood_type" value="A+" <?= (isset($blood_type) && $blood_type == 'A+') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="O_positive" type="radio" name="blood_type" value="O+" <?= (isset($blood_type) && $blood_type == 'O+') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="O_positive">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -216,7 +216,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
 
                             <!-- Custom radio button for A (+ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="A_positive" type="radio" name="blood_type" value="A-" <?= (isset($blood_type) && $blood_type == 'A-') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="A_positive" type="radio" name="blood_type" value="A+" <?= (isset($blood_type) && $blood_type == 'A+') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="A_positive">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -242,7 +242,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
 
                             <!-- Custom radio button for AB (+ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="AB_positive" type="radio" name="blood_type" value="B-" <?= (isset($blood_type) && $blood_type == 'B-') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="AB_positive" type="radio" name="blood_type" value="AB+" <?= (isset($blood_type) && $blood_type == 'AB+') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="AB_positive">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -255,7 +255,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
 
                             <!-- Custom radio button for O (-ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="O_negative" type="radio" name="blood_type" value="AB+" <?= (isset($blood_type) && $blood_type == 'AB+') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="O_negative" type="radio" name="blood_type" value="O-" <?= (isset($blood_type) && $blood_type == 'O-') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="O_negative">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -268,7 +268,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
 
                             <!-- Custom radio button for A (-ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="A_negative" type="radio" name="blood_type" value="AB-" <?= (isset($blood_type) && $blood_type == 'AB-') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="A_negative" type="radio" name="blood_type" value="A-" <?= (isset($blood_type) && $blood_type == 'A-') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="A_negative">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -281,7 +281,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
 
                             <!-- Custom radio button for B (-ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="B_negative" type="radio" name="blood_type" value="O+" <?= (isset($blood_type) && $blood_type == 'O+') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="B_negative" type="radio" name="blood_type" value="B-" <?= (isset($blood_type) && $blood_type == 'B-') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="B_negative">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -294,7 +294,7 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
 
                             <!-- Custom radio button for AB (-ve) -->
                             <div class="register-checkbox me-3">
-                                <input class="inp-cbx" id="AB_negative" type="radio" name="blood_type" value="O-" <?= (isset($blood_type) && $blood_type == 'O-') ? 'checked' : ''; ?> required>
+                                <input class="inp-cbx" id="AB_negative" type="radio" name="blood_type" value="AB-" <?= (isset($blood_type) && $blood_type == 'AB-') ? 'checked' : ''; ?> required>
                                 <label class="cbx" for="AB_negative">
                                     <span>
                                         <svg width="12px" height="10px" viewbox="0 0 12 10">
