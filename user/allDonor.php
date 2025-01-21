@@ -71,7 +71,7 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <th>Last Donate</th>
                                     <th>Contact</th>
                                     <th>Location</th>
-                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,9 +101,9 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo htmlspecialchars($row['last_donated_date']); ?></td>
                                             <td><a href="tel:<?php echo htmlspecialchars($row['contact_number']); ?>"><?php echo htmlspecialchars($row['contact_number']); ?></a></td>
                                             <td><?php echo htmlspecialchars($row['city'] . ' - ' . $row['area']); ?></td> <!-- Location could be combined -->
-                                            <td class="text-center">
+                                            <!-- <td class="text-center">
                                                 <button class="btn btn-sm btn-primary">Request</button>
-                                            </td> <!-- Location could be combined -->
+                                            </td>  -->
                                         </tr>
                                 <?php
                                     }
