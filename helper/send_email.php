@@ -54,24 +54,17 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
     try {
         // SMTP configuration
         $mail->isSMTP();
-        // $mail->SMTPOptions = [
-        //     'ssl' => [
-        //         'verify_peer' => false,
-        //         'verify_peer_name' => false,
-        //         'allow_self_signed' => true,
-        //     ]
-        // ];
-
-        $mail->Host = 'mail.digixsolve.com'; // SMTP server
+        // SMTP server configuration
+        $mail->Host = 'mail.digixsolve.com';  // Your SMTP server address (change this as needed)
         $mail->SMTPAuth = true;
-        $mail->Username = 'support@digixsolve.com';
-        $mail->Password = 'Shahed@420';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use SSL encryption for port 465
-        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Use SSL encryption for port 465
-        $mail->Port = 587;  // SSL port
+        $mail->Username = 'support@digixsolve.com';  // SMTP username (your email address)
+        $mail->Password = 'Shahed@420';  // App password (or regular password if not using two-factor auth)
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Enable STARTTLS encryption
+        $mail->Port = 587;  // Port 587 for TLS
 
-        // Sender and recipient information
-        $mail->setFrom('blooddonation@gmail.com', 'Blood Donation System');
+        // Set the "From" address and name
+        $mail->setFrom('support@digixsolve.com', 'Blood Donation System');  // The sending email address and name
+        $mail->addReplyTo('support@digixsolve.com', 'Blood Donation System');  // Set Reply-To address
         $mail->addAddress($recipientEmail, $recipientName); // Recipient's email
 
         // Email content (HTML)
