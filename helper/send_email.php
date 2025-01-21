@@ -22,17 +22,17 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
         ];
         // $mail->Host = 'smtp-relay.brevo.com'; // Gmail SMTP server
         // $mail->SMTPAuth = true;
-        // $mail->Username = '83f8c2001@smtp-brevo.com'; // Your Gmail address
-        // $mail->Password = 'sHvMPqD9jWtAxa2g'; // App password generated from Google
-        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS encryption
+        // $mail->Username = '83f8c2001@smtp-brevo.com'; 
+        // $mail->Password = 'sHvMPqD9jWtAxa2g';
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         // $mail->Port = 587; // Port for TLS encryption (587)
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 465;
+        $mail->Port = 587;
         $mail->SMTPAuth = true;
-        $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
-        $mail->Password = 'nhpptnbuwvcuyrtf'; // App password generated from Google
-        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // TLS encryption
+        $mail->Username = 'dev1.ngenit@gmail.com'; 
+        $mail->Password = 'nhpptnbuwvcuyrtf'; 
+        // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         // $mail->Port = 465; // Port for TLS encryption (587)
 
         // Sender and recipient information
