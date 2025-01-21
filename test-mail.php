@@ -11,14 +11,17 @@ try {
     $mail->isSMTP();
 
     // Gmail SMTP server
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = 'mail.digixsolve.com';
+    // $mail->Host = 'smtp.gmail.com';
 
     // Enable SMTP authentication
     $mail->SMTPAuth = true;
 
     // Use your Gmail address and App password (generated from Google account)
-    $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
-    $mail->Password = 'nhpptnbuwvcuyrtf'; // App password (not regular Gmail password)
+    // $mail->Username = 'dev1.ngenit@gmail.com'; // Your Gmail address
+    $mail->Username = 'support@digixsolve.com'; // Your Gmail address
+    $mail->Password = 'Shahed@420'; // App password (not regular Gmail password)
+    // $mail->Password = 'nhpptnbuwvcuyrtf'; // App password (not regular Gmail password)
 
     // Enable TLS encryption
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
