@@ -9,6 +9,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     header('Location: /admin_login.php');
     exit();
 }
+
 // Get the user ID from the session
 $admin_id = $_SESSION['admin_id'];
 
@@ -33,20 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the updated data from the form
     $name     = $_POST['name'];
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); 
     $phone    = $_POST['phone'];
     $email    = $_POST['email'];
     $status   = $_POST['status'];
 
     // Update user data in the database
-    $update_query = "UPDATE users SET
+    $update_query = "UPDATE admins SET
         name     = :name,
         username = :username,
         password = :password,
         phone    = :phone,
         email    = :email,
-        status   = :status,
-        WHERE id = :user_id";
+        status   = :status
+        WHERE id = :admin_id";
 
     $update_stmt = $pdo->prepare($update_query);
     $update_stmt->execute([
@@ -56,13 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'phone'    => $phone,
         'email'    => $email,
         'status'   => $status,
-        'user_id'  => $admin_id
+        'admin_id' => $admin_id // Adding admin_id to the query
     ]);
 
     // Update session with new data
     $_SESSION['admin_name']     = $name;
     $_SESSION['admin_username'] = $username;
-    $_SESSION['admin_password'] = $password;
+    // $_SESSION['admin_password'] = $password; // Commented out for now
     $_SESSION['admin_phone']    = $phone;
     $_SESSION['admin_email']    = $email;
     $_SESSION['admin_status']   = $status;
@@ -85,11 +86,9 @@ include '../views/admin_partials/sidebar.php';
     <div class="content">
         <!-- Start Content-->
         <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger"><?= $_SESSION['error'];
-                                            unset($_SESSION['error']); ?></div>
+            <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
         <?php elseif (isset($_SESSION['success'])): ?>
-            <div class="alert alert-success"><?= $_SESSION['success'];
-                                                unset($_SESSION['success']); ?></div>
+            <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
         <?php endif; ?>
         <div class="container-fluid pt-4">
             <div class="row">
@@ -140,21 +139,14 @@ include '../views/admin_partials/sidebar.php';
                 <div class="col-9">
                     <div class="card">
                         <div class="card-body">
-                            <form method="POST" action="myprofile.php">
+                            <form method="POST" action="myprofile_admin.php">
                                 <div class="row">
-                                    
                                     <div class="col-lg-6">
                                         <div class="form-group mb-3">
                                             <label for="name">Name</label>
                                             <input type="text" class="form-control" id="name" name="name" value="<?php echo $_SESSION['admin_name']; ?>">
                                         </div>
                                     </div>
-                                    <!-- <div class="col-lg-6">
-                                        <div class="form-group mb-3">
-                                            <label for="last_name">Last Name</label>
-                                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name']; ?>">
-                                        </div>
-                                    </div> -->
                                     <div class="col-lg-6">
                                         <div class="form-group mb-3">
                                             <label for="email">Email Address</label>
@@ -167,7 +159,19 @@ include '../views/admin_partials/sidebar.php';
                                             <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $_SESSION['admin_phone']; ?>">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="username">User Name</label>
+                                            <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['admin_username']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="password">New Password</label>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your new password" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="form-group mb-3">
                                             <label for="status">Status</label>
                                             <select class="form-select" id="status" name="status">
@@ -176,10 +180,6 @@ include '../views/admin_partials/sidebar.php';
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    
-
-                                    
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save-check"></i> Update Profile</button>
@@ -189,7 +189,6 @@ include '../views/admin_partials/sidebar.php';
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

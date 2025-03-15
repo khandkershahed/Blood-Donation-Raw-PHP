@@ -30,9 +30,27 @@
           </a>
         </li>
         <li>
+          <a href="<?= ROOT_URL ?>user/allUser.php" class="tp-link">
+            <i data-feather="users"></i>
+            <span> All Users </span>
+          </a>
+        </li>
+        <li>
           <a href="<?= ROOT_URL ?>user/allDonor_admin.php" class="tp-link">
             <i data-feather="users"></i>
             <span> All Donor </span>
+          </a>
+        </li>
+        <li>
+          <a href="<?= ROOT_URL ?>user/allReceiver_admin.php" class="tp-link">
+            <i data-feather="users"></i>
+            <span> All Receiver </span>
+          </a>
+        </li>
+        <li>
+          <a href="<?= ROOT_URL ?>user/allRequest_admin.php" class="tp-link">
+            <i data-feather="droplet"></i>
+            <span>All Requests</span>
           </a>
         </li>
         <li>
@@ -41,33 +59,17 @@
             <span>My Profile</span>
           </a>
         </li>
-        <!-- <li>
-          <a href="<?= ROOT_URL ?>user/allReceiver_admin.php" class="tp-link">
-            <i data-feather="users"></i>
-            <span> All Receiver </span>
+
+
+
+        <li>
+          <a href="<?= ROOT_URL ?>user/findDonor_admin.php" class="tp-link">
+            <i data-feather="search"></i>
+            <span> Find Donor</span>
           </a>
-        </li> -->
+        </li>
 
-        
-            <li>
-              <a href="<?= ROOT_URL ?>user/findDonor_admin.php" class="tp-link">
-                <i data-feather="search"></i>
-                <span> Find Donor</span>
-              </a>
-            </li>
-            <li>
-              <a href="<?= ROOT_URL ?>user/givenRequest_admin.php" class="tp-link">
-                <i data-feather="droplet"></i>
-                <span>All Given Requests</span>
-              </a>
-            </li>
 
-            <li>
-              <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php" class="tp-link">
-                <i data-feather="droplet"></i>
-                <span>All Received Requests</span>
-              </a>
-            </li>
       </ul>
     </div>
     <!-- End Sidebar -->

@@ -214,10 +214,7 @@ try {
                                                 <span><?php echo $date; ?></span><br>
                                                 <span><?php echo $time; ?></span>
                                             </td>
-                                            <td>
-                                                <!-- Update Status Form -->
-                                                
-                                            </td>
+                                           
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
