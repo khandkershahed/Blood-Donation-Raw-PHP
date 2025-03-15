@@ -103,9 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch all requests sent by the logged-in user
 try {
-    $query = "SELECT * FROM requests WHERE donor_id = :user_id";
+    $query = "SELECT * FROM requests ";
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    // $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $no_requests = count($requests) == 0;
@@ -129,7 +129,7 @@ try {
         <div class="container-fluid">
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">Received Requests</h4>
+                    <h4 class="fs-18 fw-semibold m-0">All Requests</h4>
                 </div>
 
                 <div class="text-end">
@@ -137,7 +137,7 @@ try {
                         <li class="breadcrumb-item">
                             <a href="javascript: void(0);">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">Received Requests</li>
+                        <li class="breadcrumb-item active">All Requests</li>
                     </ol>
                 </div>
             </div>
@@ -156,7 +156,7 @@ try {
                 <div class="card">
                     <!-- end card header -->
                     <div class="card-body">
-                        <h3 class="text-center">My All Received Requests Lists</h3>
+                        <h3 class="text-center"> All Requests Lists</h3>
                         <?php if (isset($message)): ?>
                             <div class="alert alert-info"><?php echo htmlspecialchars($message); ?></div>
                         <?php endif; ?>
@@ -175,7 +175,7 @@ try {
                                         <th class="text-center" style="width: 9%;">Contact</th>
                                         <th class="text-center" style="width: 10%;">Status</th>
                                         <th class="text-center" style="width: 10%;">Created At</th>
-                                        <th class="text-center" style="width: 15%;">Actions</th>
+                                        <!-- <th class="text-center" style="width: 15%;">Actions</th> -->
                                     </tr>
                                 </thead>
                                 <tbody style="vertical-align: middle;">
@@ -216,20 +216,7 @@ try {
                                             </td>
                                             <td>
                                                 <!-- Update Status Form -->
-                                                <form class="d-flex flex-column justify-content-center" action="" method="POST" style="display:inline;">
-                                                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                                                    <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-
-                                                    <!-- Status Dropdown -->
-                                                    <select class="form-select" name="status" required>
-                                                        <option value="pending" <?php echo ($request['status'] === 'pending') ? 'selected' : ''; ?>>Pending</option>
-                                                        <option value="accepted" <?php echo ($request['status'] === 'accepted') ? 'selected' : ''; ?>>Accepted</option>
-                                                        <option value="rejected" <?php echo ($request['status'] === 'rejected') ? 'selected' : ''; ?>>Rejected</option>
-                                                    </select>
-
-                                                    <!-- Submit Button -->
-                                                    <button type="submit" class="btn btn-sm btn-primary mt-2"><i class="fa-solid fa-check"></i> Update Status</button>
-                                                </form>
+                                                
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

@@ -132,7 +132,7 @@ function time_ago($timestamp)
                                     $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-light';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
-                                    <a href="<?= ROOT_URL ?>user/receivedRequest.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
+                                    <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
                                     <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
                                        
                                         <div class="d-flex align-items-center justify-content-between">
@@ -162,12 +162,12 @@ function time_ago($timestamp)
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown">
                         
-                        <a href="<?= ROOT_URL ?>user/myprofile.php" class="dropdown-item notify-item">
+                        <a href="<?= ROOT_URL ?>user/myprofile_admin.php" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
                             <span>My Account</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="<?= ROOT_URL ?>logout.php" class="dropdown-item notify-item">
+                        <a href="<?= ROOT_URL ?>admin_logout.php" class="dropdown-item notify-item">
                             <i class="mdi mdi-location-exit fs-16 align-middle"></i>
                             <span>Logout</span>
                         </a>

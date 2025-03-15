@@ -171,35 +171,13 @@ include '../views/admin_partials/sidebar.php';
                                         <div class="form-group mb-3">
                                             <label for="status">Status</label>
                                             <select class="form-select" id="status" name="status">
-                                                <option value="active" <?php echo ($_SESSION['status'] === 'active') ? 'selected' : ''; ?>>Active</option>
-                                                <option value="inactive" <?php echo ($_SESSION['status'] === 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                <option value="active" <?php echo ($_SESSION['admin_status'] === 'active') ? 'selected' : ''; ?>>Active</option>
+                                                <option value="inactive" <?php echo ($_SESSION['admin_status'] === 'inactive') ? 'selected' : ''; ?>>Inactive</option>
                                             </select>
                                         </div>
                                     </div>
                                     
-                                    <!-- <div class="col-lg-3">
-                                        <div class="form-group mb-3">
-                                            <label for="city">City</label>
-                                            <input type="text" class="form-control" id="city" name="city" value="<?php echo $_SESSION['city']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group mb-3">
-                                            <label for="area">Area</label>
-                                            <input type="text" class="form-control" id="area" name="area" value="<?php echo $_SESSION['area']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group mb-3">
-                                            <label for="street_address_1">Street Address</label>
-                                            <input type="text" class="form-control" id="street_address_1" name="street_address_1" value="<?php echo $_SESSION['street_address_1']; ?>">
-                                        </div>
-                                    </div> -->
-
-                                    <!-- <div class="form-group mb-3">
-                                        <label for="street_address_2">Street Address 2</label>
-                                        <input type="text" class="form-control" id="street_address_2" name="street_address_2" value="<?php echo $_SESSION['street_address_2']; ?>">
-                                    </div> -->
+                                    
 
                                     
                                 </div>

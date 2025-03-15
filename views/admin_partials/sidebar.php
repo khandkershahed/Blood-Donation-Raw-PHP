@@ -58,14 +58,14 @@
             <li>
               <a href="<?= ROOT_URL ?>user/givenRequest_admin.php" class="tp-link">
                 <i data-feather="droplet"></i>
-                <span>Given Requests</span>
+                <span>All Given Requests</span>
               </a>
             </li>
 
             <li>
               <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php" class="tp-link">
                 <i data-feather="droplet"></i>
-                <span>Received Requests</span>
+                <span>All Received Requests</span>
               </a>
             </li>
       </ul>
