@@ -4,9 +4,9 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     // Redirect to login page if not logged in
-    header('Location: /login.php');
+    header('Location: /admin_login.php');
     exit();
 }
 if (empty($_SESSION['csrf_token'])) {
@@ -15,7 +15,7 @@ if (empty($_SESSION['csrf_token'])) {
 
 
 // Get the user ID from the session
-$user_id = $_SESSION['user_id'];
+$admin_id = $_SESSION['admin_id'];
 
 // Set default filter values (no filter)
 $blood_type = isset($_POST['blood_type']) && !empty($_POST['blood_type']) ? $_POST['blood_type'] : '';

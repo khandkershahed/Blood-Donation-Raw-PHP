@@ -4,13 +4,13 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     // Redirect to login page if not logged in
-    header('Location: /login.php');
+    header('Location: /admin_login.php');
     exit();
 }
 // Get the user ID from the session
-$user_id = $_SESSION['user_id'];
+$admin_id = $_SESSION['admin_id'];
 
 // Fetch user data from the database
 $query = "SELECT * FROM users WHERE id = :user_id LIMIT 1";
@@ -112,9 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php
 // Include header and sidebar
-include '../views/user_partials/head.php';
-include '../views/user_partials/header.php';
-include '../views/user_partials/sidebar.php';
+include '../views/admin_partials/head.php';
+include '../views/admin_partials/header.php';
+include '../views/admin_partials/sidebar.php';
 ?>
 
 <div class="content-page">
@@ -292,6 +292,6 @@ include '../views/user_partials/sidebar.php';
 
 <?php
 // Include footer and scripts
-include '../views/user_partials/footer.php';
-include '../views/user_partials/script.php';
+include '../views/admin_partials/footer.php';
+include '../views/admin_partials/script.php';
 ?>

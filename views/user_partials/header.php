@@ -2,19 +2,17 @@
 require_once __DIR__ . '/../../config/database.php';  // Path to the database config file
 
 // Ensure user is logged in
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: /admin_login.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /login.php");
     exit();
 }
 
-$admin_id = $_SESSION['admin_id']; // User ID from session
+$user_id = $_SESSION['user_id']; // User ID from session
 
 // Fetch unread notifications count
-$stmt = $pdo->prepare("SELECT * FROM notifications ORDER BY created_at DESC");
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = :user_id AND status = 'unread'");
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
-
-// // Fetch all notifications as an associative array
-// $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $unread_count = $stmt->fetchColumn();
 
 // Function to format "time ago"
@@ -55,26 +53,26 @@ function time_ago($timestamp)
 
 
 // Mark notification as read
-// if (isset($_GET['notification_id'])) {
-//     $notification_id = $_GET['notification_id'];
-//     $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id AND user_id = :user_id");
-//     $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
-//     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-//     $stmt->execute();
-//     // Redirect back to the current page to prevent resubmission
-//     header('Location: ' . $_SERVER['HTTP_REFERER']);
-//     exit();
-// }
+if (isset($_GET['notification_id'])) {
+    $notification_id = $_GET['notification_id'];
+    $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id AND user_id = :user_id");
+    $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    // Redirect back to the current page to prevent resubmission
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 
-// // Clear all notifications
-// if (isset($_GET['clear_notifications'])) {
-//     $stmt = $pdo->prepare("DELETE FROM notifications WHERE user_id = :user_id");
-//     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-//     $stmt->execute();
-//     // Redirect after clearing notifications
-//     header('Location: ' . $_SERVER['HTTP_REFERER']);
-//     exit();
-// }
+// Clear all notifications
+if (isset($_GET['clear_notifications'])) {
+    $stmt = $pdo->prepare("DELETE FROM notifications WHERE user_id = :user_id");
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    // Redirect after clearing notifications
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 ?>
 
 <!-- Topbar Start -->
@@ -88,7 +86,7 @@ function time_ago($timestamp)
                     </button>
                 </li>
                 <li class="d-none d-lg-block">
-                    <h5 class="mb-0">Hello, <?php echo htmlspecialchars($admin_name); ?> </h5>
+                    <h5 class="mb-0">Hello, <?php echo htmlspecialchars($first_name . ' ' . $last_name); ?> </h5>
                 </li>
             </ul>
             <ul class="list-unstyled topnav-menu mb-0 d-flex align-items-center">
@@ -113,15 +111,15 @@ function time_ago($timestamp)
                     <div class="dropdown-menu dropdown-menu-end dropdown-lg">
                         <div class="dropdown-item noti-title">
                             <h5 class="m-0">
-                                <span class=""></span>Notifications
+                                <span class="float-end"><a href="?clear_notifications=1" class="text-dark"><small>Clear All</small></a></span>Notifications
                             </h5>
                         </div>
 
                         <div class="noti-scroll" data-simplebar>
                             <?php
                             // Fetch both read and unread notifications
-                            $stmt = $pdo->prepare("SELECT * FROM notifications ORDER BY created_at DESC LIMIT 5");
-                            // $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                            $stmt = $pdo->prepare("SELECT * FROM notifications WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 5");
+                            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
                             $stmt->execute();
                             $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -158,7 +156,7 @@ function time_ago($timestamp)
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="<?= ROOT_URL ?>public/admin/images/users/user-13.jpg" alt="user-image" class="rounded-circle" />
-                        <span class="pro-user-name ms-1"><?php echo htmlspecialchars($admin_name); ?><i class="mdi mdi-chevron-down"></i></span>
+                        <span class="pro-user-name ms-1"><?php echo htmlspecialchars($first_name); ?><i class="mdi mdi-chevron-down"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown">
                         

@@ -26,9 +26,9 @@ $receivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 <!-- Include header and sidebar -->
-<?php include '../views/admin_partials/head.php'; ?>
-<?php include '../views/admin_partials/header.php'; ?>
-<?php include '../views/admin_partials/sidebar.php'; ?>
+<?php include '../views/user_partials/head.php'; ?>
+<?php include '../views/user_partials/header.php'; ?>
+<?php include '../views/user_partials/sidebar.php'; ?>
 
 
 <div class="content-page">
@@ -121,6 +121,6 @@ $receivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 // Include footer and scripts
-include '../views/admin_partials/footer.php';
-include '../views/admin_partials/script.php';
+include '../views/user_partials/footer.php';
+include '../views/user_partials/script.php';
 ?>

@@ -48,17 +48,25 @@
 <!-- body start -->
 
 <?php
-$username_email = $_SESSION['admin_signin-data']['username_email'] ?? ''; // Using null coalescing operator to avoid undefined index errors
-$password = $_SESSION['admin_signin-data']['password'] ?? '';
-$submit = $_SESSION['admin_signin-data']['submit'] ?? '';
+$username_email = $_SESSION['signin-data']['username_email'] ?? ''; // Using null coalescing operator to avoid undefined index errors
+$password = $_SESSION['signin-data']['password'] ?? '';
+$submit = $_SESSION['signin-data']['submit'] ?? '';
 
-$admin_logged_in = $_SESSION['admin_logged_in'] ?? false;
-$admin_id        = $_SESSION['admin_id'] ?? '';
-$admin_name      = $_SESSION['admin_name'] ?? '';
-$admin_username  = $_SESSION['admin_username'] ?? '';
-$admin_phone     = $_SESSION['admin_phone'] ?? '';
-$admin_email     = $_SESSION['admin_email'] ?? '';
-$admin_status    = $_SESSION['admin_status'] ?? '';
+$user_logged_in = $_SESSION['user_logged_in'] ?? false;
+$user_id = $_SESSION['user_id'] ?? '';
+$first_name = $_SESSION['first_name'] ?? '';
+$last_name = $_SESSION['last_name'] ?? '';
+$email = $_SESSION['email'] ?? '';
+$contact_number = $_SESSION['contact_number'] ?? '';
+$blood_type = $_SESSION['blood_type'] ?? '';
+$street_address_1 = $_SESSION['street_address_1'] ?? '';
+$street_address_2 = $_SESSION['street_address_2'] ?? '';
+$city = $_SESSION['city'] ?? '';
+$area = $_SESSION['area'] ?? '';
+$last_donated_date = $_SESSION['last_donated_date'] ?? '';
+$weight = $_SESSION['weight'] ?? '';
+$donated_before = $_SESSION['donated_before'] ?? ''; // This is returning NULL, so check why
+$registration_type = $_SESSION['registration_type'] ?? '';
 ?>
 
 <body data-menu-color="light" data-sidebar="default">

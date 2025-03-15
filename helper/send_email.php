@@ -202,7 +202,7 @@ function sendWelcomeEmail($recipientEmail, $recipientName)
                     <p style='font-size: 16px; margin-bottom: 15px; text-align: center;'>Your registration was successful, and your account is now ready to use.</p>
 
                     <div style='text-align: center; margin-top: 30px;'>
-                        <a href='http://yourdomain.com/login' style='display: inline-block; background-color: #5cb85c; color: #ffffff; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; width: 60%'>Login to your account</a>
+                        <a href='https://demo.digixsolve.com/login.php' style='display: inline-block; background-color: #5cb85c; color: #ffffff; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; width: 60%'>Login to your account</a>
                     </div>
 
                     <p style='font-size: 14px; color: #666; margin-top: 30px; text-align: center;'>If you have any questions or need assistance, feel free to <a href='mailto:support@digixsolve.com' style='color: #5cb85c;'>contact us</a>.</p>

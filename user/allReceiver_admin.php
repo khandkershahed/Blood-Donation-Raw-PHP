@@ -4,31 +4,31 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     // Redirect to login page if not logged in
-    header('Location: /login.php');
+    header('Location: /admin_login.php');
     exit();
 }
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 // Get the user ID from the session
-$user_id = $_SESSION['user_id'];
+$admin_id = $_SESSION['admin_id'];
 
-// Fetch donors (users whose registration_type is 'donor' or 'both')
-$sql = "SELECT * FROM users WHERE registration_type IN ('donor', 'both')";
+// Fetch receivers (users whose registration_type is 'receiver' or 'both')
+$sql = "SELECT * FROM users WHERE registration_type IN ('receiver', 'both')";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
 // Fetch all results into an associative array
-$donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$receivers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
 <!-- Include header and sidebar -->
-<?php include '../views/user_partials/head.php'; ?>
-<?php include '../views/user_partials/header.php'; ?>
-<?php include '../views/user_partials/sidebar.php'; ?>
+<?php include '../views/admin_partials/head.php'; ?>
+<?php include '../views/admin_partials/header.php'; ?>
+<?php include '../views/admin_partials/sidebar.php'; ?>
 
 
 <div class="content-page">
@@ -37,7 +37,7 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container-fluid">
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="fs-18 fw-semibold m-0">All Donors Lists</h4>
+                    <h4 class="fs-18 fw-semibold m-0">All Receivers Lists</h4>
                 </div>
 
                 <div class="text-end">
@@ -45,7 +45,7 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <li class="breadcrumb-item">
                             <a href="javascript: void(0);">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">All Donors Lists</li>
+                        <li class="breadcrumb-item active">All Receivers Lists</li>
                     </ol>
                 </div>
             </div>
@@ -53,13 +53,16 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- container-fluid -->
         <div class="row">
             <div class="col-lg-12">
-                <!-- All donors -->
+                <!-- All Receivers -->
                 <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">All Receivers Lists</h5>
+                    </div>
                     <!-- end card header -->
                     <div class="card-body">
                         <table
                             id="datatable-buttons"
-                            class="table table-striped table-bordered dt-responsive nowrap mb-0">
+                            class="table table-striped table-bordered dt-responsive nowrap">
                             <thead>
                                 <tr>
                                     <th>Sl</th>
@@ -69,22 +72,20 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <th>Weight</th>
                                     <th>Join date</th>
                                     <th>Last Donate</th>
-                                    <th>Contact</th>
                                     <th>Location</th>
-                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                                <?php 
                                 // Check if there are any results
-                                if (count($donors) > 0) {
+                                if (count($receivers) > 0) {
                                     $sl = 1;
-                                    foreach ($donors as $row) {
+                                    foreach ($receivers as $row) {
                                         $first_name = htmlspecialchars($row['first_name']);
                                         $last_name = htmlspecialchars($row['last_name']);
                                         $full_name = $first_name . ' ' . $last_name; // Concatenate first and last name
-
-                                ?>
+                                        
+                                        ?>
                                         <tr>
                                             <td><?php echo $sl++; ?></td>
                                             <td><?php echo $full_name; ?></td> <!-- Use full name here -->
@@ -99,16 +100,12 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo htmlspecialchars($row['weight']); ?></td>
                                             <td><?php echo htmlspecialchars($row['date_of_birth']); ?></td> <!-- Join date could be different depending on your table's structure -->
                                             <td><?php echo htmlspecialchars($row['last_donated_date']); ?></td>
-                                            <td><a href="tel:<?php echo htmlspecialchars($row['contact_number']); ?>"><?php echo htmlspecialchars($row['contact_number']); ?></a></td>
                                             <td><?php echo htmlspecialchars($row['city'] . ' - ' . $row['area']); ?></td> <!-- Location could be combined -->
-                                            <!-- <td class="text-center">
-                                                <button class="btn btn-sm btn-primary">Request</button>
-                                            </td>  -->
                                         </tr>
-                                <?php
+                                        <?php
                                     }
                                 } else {
-                                    echo '<tr><td colspan="9" class="text-center">No donors found.</td></tr>';
+                                    echo '<tr><td colspan="9" class="text-center">No receivers found.</td></tr>';
                                 }
                                 ?>
                             </tbody>
@@ -124,6 +121,6 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php
 // Include footer and scripts
-include '../views/user_partials/footer.php';
-include '../views/user_partials/script.php';
+include '../views/admin_partials/footer.php';
+include '../views/admin_partials/script.php';
 ?>

@@ -4,9 +4,9 @@ require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     // Redirect to login page if not logged in
-    header('Location: /login.php');
+    header('Location: /admin_login.php');
     exit();
 }
 
@@ -15,7 +15,7 @@ if (empty($_SESSION['csrf_token'])) {
 }
 
 // Get the user ID from the session
-$user_id = $_SESSION['user_id'];
+$admin_id = $_SESSION['admin_id'];
 
 try {
     // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
@@ -43,9 +43,9 @@ try {
 ?>
 
 <!-- Include header and sidebar -->
-<?php include '../views/user_partials/head.php'; ?>
-<?php include '../views/user_partials/header.php'; ?>
-<?php include '../views/user_partials/sidebar.php'; ?>
+<?php include '../views/admin_partials/head.php'; ?>
+<?php include '../views/admin_partials/header.php'; ?>
+<?php include '../views/admin_partials/sidebar.php'; ?>
 
 
 <div class="content-page">
@@ -264,6 +264,6 @@ try {
 
 <?php
 // Include footer and scripts
-include '../views/user_partials/footer.php';
-include '../views/user_partials/script.php';
+include '../views/admin_partials/footer.php';
+include '../views/admin_partials/script.php';
 ?>

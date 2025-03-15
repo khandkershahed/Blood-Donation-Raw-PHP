@@ -1,25 +1,26 @@
 <?php
 require 'config/database.php';
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
-  // Redirect the user to the login page if they are not logged in
-  header('Location: /login.php');
+// var_dump($_SESSION);
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+  // Redirect the admin to the login page if they are not logged in
+  header('Location: /admin_login.php');
   exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$admin_id = $_SESSION['admin_id'];
 
 try {
-    // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
-    $query = "SELECT * FROM requests WHERE requester_id = :user_id";
-    $query2 = "SELECT * FROM requests WHERE donor_id = :user_id";
+    // Fetch all requests sent by the logged-in admin (where requester_id matches admin_id)
+    $query = "SELECT * FROM requests WHERE requester_id = :admin_id";
+    $query2 = "SELECT * FROM requests WHERE donor_id = :admin_id";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);
     $stmt2 = $pdo->prepare($query2);
 
-    // Bind the user_id parameter to prevent SQL injection
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt2->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    // Bind the admin_id parameter to prevent SQL injection
+    $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
+    $stmt2->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
 
     // Execute the query
     $stmt->execute();
@@ -38,9 +39,9 @@ try {
 }
 
 // Include header, sidebar, etc.
-include 'views/user_partials/head.php';
-include 'views/user_partials/header.php';
-include 'views/user_partials/sidebar.php';
+include 'views/admin_partials/head.php';
+include 'views/admin_partials/header.php';
+include 'views/admin_partials/sidebar.php';
 ?>
 
 <!-- ============================================================== -->
@@ -61,7 +62,7 @@ include 'views/user_partials/sidebar.php';
       <div class="row">
         <!-- Total Donor Widget -->
         <div class="col-md-6 col-lg-4 col-xl">
-          <a href="<?= ROOT_URL ?>givenRequest.php">
+          <a href="<?= ROOT_URL ?>user/givenRequest_admin.php">
           <div class="card">
             <div class="card-body">
               <div class="widget-first">
@@ -101,7 +102,7 @@ include 'views/user_partials/sidebar.php';
 
         <!-- Total Receiver Widget -->
         <div class="col-md-6 col-lg-4 col-xl">
-        <a href="<?= ROOT_URL ?>receivedRequest.php">
+        <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php">
           <div class="card">
             <div class="card-body">
               <div class="widget-first">
@@ -211,5 +212,5 @@ include 'views/user_partials/sidebar.php';
 
 <?php
 // Include footer and closing scripts
-include 'views/user_partials/script.php';
+include 'views/admin_partials/script.php';
 ?>
