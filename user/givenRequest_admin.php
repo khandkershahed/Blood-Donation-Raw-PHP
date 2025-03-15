@@ -19,13 +19,13 @@ $admin_id = $_SESSION['admin_id'];
 
 try {
     // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
-    $query = "SELECT * FROM requests WHERE requester_id = :user_id";
+    $query = "SELECT * FROM requests ";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);
 
     // Bind the user_id parameter to prevent SQL injection
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    // $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
     // Execute the query
     $stmt->execute();
@@ -176,7 +176,7 @@ try {
                         <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
 
                         <!-- Donor ID (Hidden) -->
-                        <input type="hidden" name="donor_id" value="<?php echo $_SESSION['user_id']; ?>">
+                        <input type="hidden" name="donor_id" value="<?php echo $_SESSION['admin_id']; ?>">
 
                         <!-- Requester ID (Hidden) -->
                         <input type="hidden" name="requester_id" value="<?php echo $request['requester_id']; ?>">

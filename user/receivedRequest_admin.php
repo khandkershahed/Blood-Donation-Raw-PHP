@@ -19,42 +19,6 @@ if (empty($_SESSION['csrf_token'])) {
 $admin_id = $_SESSION['admin_id'];
 
 // Handle form submission to update status
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     // CSRF Token Validation
-//     if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
-//         // Sanitize input fields
-//         $request_id = filter_var($_POST['request_id'], FILTER_VALIDATE_INT);
-//         $new_status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
-
-//         // Basic validation for request_id and status
-//         if ($request_id && in_array($new_status, ['pending', 'accepted', 'rejected'])) {
-//             try {
-//                 // Update the request status in the database
-//                 $updateQuery = "UPDATE requests SET status = :status WHERE id = :request_id AND donor_id = :user_id";
-//                 $stmt = $pdo->prepare($updateQuery);
-//                 $stmt->bindParam(':status', $new_status, PDO::PARAM_STR);
-//                 $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
-//                 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-
-//                 // Execute the update query
-//                 if ($stmt->execute()) {
-//                     $_SESSION['message'] = "Status updated successfully!";
-//                 } else {
-//                     $_SESSION['error'] = "Failed to update the status.";
-//                 }
-//             } catch (PDOException $e) {
-//                 $_SESSION['error'] = "Error: " . $e->getMessage();
-//             }
-//         } else {
-//             $_SESSION['error'] = "Invalid request or status.";
-//         }
-//     } else {
-//         $_SESSION['error'] = "Invalid CSRF token.";
-//     }
-// }
-
-// Handle form submission to update status
-// Handle form submission to update status
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // CSRF Token Validation
     if (isset($_POST['csrf_token']) && $_POST['csrf_token'] === $_SESSION['csrf_token']) {
@@ -66,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($request_id && in_array($new_status, ['pending', 'accepted', 'rejected'])) {
             try {
                 // Fetch request details before updating
-                $requestQuery = "SELECT * FROM requests WHERE id = :request_id";
+                $requestQuery = "SELECT * FROM requests";
                 $stmt = $pdo->prepare($requestQuery);
                 $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
                 $stmt->execute();
