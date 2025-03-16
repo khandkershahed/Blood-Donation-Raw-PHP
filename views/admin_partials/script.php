@@ -33,6 +33,7 @@
  <script src="<?= ROOT_URL ?>public/admin/js/pages/crm-dashboard.init.js"></script>
 
  <!-- App js-->
+ <script src="<?= ROOT_URL ?>public/admin/js/font-awesome.js"></script>
  <script src="<?= ROOT_URL ?>public/admin/js/app.js"></script>
  </body>
 

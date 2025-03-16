@@ -10,22 +10,43 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit();
 }
 
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// Handle request deletion
+if (isset($_GET['delete_request_id']) && is_numeric($_GET['delete_request_id'])) {
+    $request_id = $_GET['delete_request_id'];
+
+    // Start a transaction to ensure that the deletion is safe
+    try {
+        // Start the transaction
+        $pdo->beginTransaction();
+
+        // Delete the request from the 'requests' table
+        $deleteRequestSql = "DELETE FROM requests WHERE id = :id";
+        $stmt = $pdo->prepare($deleteRequestSql);
+        $stmt->bindParam(':id', $request_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Commit the transaction
+        $pdo->commit();
+
+        // Set success message and redirect
+        $_SESSION['message'] = "Request deleted successfully.";
+        header('Location: /user/allRequest_admin.php');
+        exit();
+    } catch (Exception $e) {
+        // Rollback the transaction in case of error
+        $pdo->rollBack();
+        $_SESSION['error'] = "Error deleting request: " . $e->getMessage();
+        header('Location: /user/allRequest_admin.php');
+        exit();
+    }
 }
 
-// Get the user ID from the session
-$admin_id = $_SESSION['admin_id'];
-
 try {
-    // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
-    $query = "SELECT * FROM requests ";
+    // Fetch all requests
+    $query = "SELECT * FROM requests";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);
-
-    // Bind the user_id parameter to prevent SQL injection
-    // $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
     // Execute the query
     $stmt->execute();
@@ -46,7 +67,6 @@ try {
 <?php include '../views/admin_partials/head.php'; ?>
 <?php include '../views/admin_partials/header.php'; ?>
 <?php include '../views/admin_partials/sidebar.php'; ?>
-
 
 <div class="content-page">
     <div class="content">
@@ -72,14 +92,11 @@ try {
             <div class="col-lg-12">
                 <!-- All Requests -->
                 <?php if (isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger"><?= $_SESSION['error'];
-                                                    unset($_SESSION['error']); ?></div>
+                    <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
                 <?php elseif (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-success"><?= $_SESSION['message'];
-                                                        unset($_SESSION['message']); ?></div>
+                    <div class="alert alert-success"><?= $_SESSION['message']; unset($_SESSION['message']); ?></div>
                 <?php endif; ?>
                 <div class="card">
-                    <!-- end card header -->
                     <div class="card-body">
                         <h3 class="mb-3 text-center">My All Requests Lists</h3>
                         <?php if ($no_requests): ?>
@@ -89,7 +106,7 @@ try {
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 5%;">Sl ID</th>
-                                        <th class="text-center" style="width: 10%;">Requester ID</th>
+                                        <th class="text-center" style="width: 10%;">Requester Name</th>
                                         <th class="text-center" style="width: 10%;">Blood Type</th>
                                         <th class="text-center" style="width: 25%;">Message</th>
                                         <th class="text-center" style="width: 15%;">Location</th>
@@ -132,16 +149,11 @@ try {
                                                 <span><?php echo $time; ?></span>
                                             </td>
                                             <td>
-                                                <!-- Update and Delete buttons -->
+                                                <!-- Delete button -->
                                                 <div class="d-flex justify-content-center">
-                                                    <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $request['id']; ?>">
-                                                        <i class="mdi mdi-pen align-middle"></i>
-                                                    </button>
-                                                    <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
-                                                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                                                        <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                                                        <button type="submit" class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')"><i class="mdi mdi-delete align-middle"></i></button>
-                                                    </form>
+                                                    <a href="allRequest_admin.php?delete_request_id=<?php echo $request['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this request?')">
+                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -157,10 +169,7 @@ try {
     <!-- content -->
 </div>
 
-
-
-
-
+<!-- Include footer and scripts -->
 <?php
 // Include footer and scripts
 include '../views/admin_partials/footer.php';
