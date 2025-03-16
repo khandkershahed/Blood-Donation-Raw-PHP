@@ -19,7 +19,7 @@ $user_id = $_SESSION['user_id'];
 
 try {
     // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
-    $query = "SELECT * FROM requests WHERE requester_id = :user_id";
+    $query = "SELECT * FROM requests WHERE requester_id = :user_id ORDER BY id DESC";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);

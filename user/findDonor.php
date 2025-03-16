@@ -234,7 +234,7 @@ try {
                                                                     </div>
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="mb-3 w-50">
-                                                                            <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" required />
+                                                                            <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" max="15" required />
                                                                         </div>
                                                                         <div class="mb-3 w-50 ms-2">
                                                                             <select class="form-select" name="blood_type" required>

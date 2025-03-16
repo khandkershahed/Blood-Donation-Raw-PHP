@@ -133,8 +133,8 @@ function time_ago($timestamp)
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
                                     <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
-                                    <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
-                                       
+                                        <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
+
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="notify-details <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></p>
                                             <small class="text-muted <?= $bg_class; ?>"><?= $time_ago; ?></small>
@@ -156,12 +156,25 @@ function time_ago($timestamp)
                 </li>
 
                 <li class="dropdown notification-list topbar-dropdown">
+                    <?php
+                    $adminName = $_SESSION['admin_name'];
+                    $nameParts = explode(' ', $adminName);
+                    $initials = strtoupper(substr($nameParts[0], 0, 1)) . (isset($nameParts[1]) ? strtoupper(substr($nameParts[1], 0, 1)) : '');
+                    ?>
+
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="<?= ROOT_URL ?>public/admin/images/users/user-13.jpg" alt="user-image" class="rounded-circle" />
-                        <span class="pro-user-name ms-1"><?php echo htmlspecialchars($admin_name); ?><i class="mdi mdi-chevron-down"></i></span>
+                        <?php if (isset($nameParts[0]) && isset($nameParts[1])): ?>
+                            <span class="rounded-circle p-1 bg-light" style="border: 1px dashed;">
+                                <?php echo $initials; ?>
+                            </span>
+                        <?php else: ?>
+                            <!-- Default image or text if needed -->
+                            <img src="<?= ROOT_URL ?>public/admin/images/users/default.jpg" alt="user-image" class="rounded-circle" />
+                        <?php endif; ?>
+                        <span class="pro-user-name ms-1"><?php echo htmlspecialchars($adminName); ?><i class="mdi mdi-chevron-down"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown">
-                        
+
                         <a href="<?= ROOT_URL ?>user/myprofile_admin.php" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-circle-outline fs-16 align-middle"></i>
                             <span>My Account</span>

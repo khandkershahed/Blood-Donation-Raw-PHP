@@ -217,7 +217,7 @@ try {
                                                                         <input type="text" class="form-control" name="name" placeholder="Your Name" required />
                                                                     </div>
                                                                     <div class="mb-3">
-                                                                        <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" required />
+                                                                        <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number"  max="15" required />
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <select class="form-select" name="blood_type" required>
