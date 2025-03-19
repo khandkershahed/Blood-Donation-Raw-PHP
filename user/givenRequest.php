@@ -170,7 +170,7 @@ try {
                                                         <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
                                                         <button type="submit" class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')"><i class="mdi mdi-delete align-middle"></i></button>
                                                     </form> -->
-                                                    <a href="givenRequest.php?delete_id=<?php echo $request['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this user?')"><i class="mdi mdi-delete text-danger"></i></a>
+                                                    <a href="givenRequest.php?delete_id=<?php echo $request['id']; ?>" class="text-center btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')"><i class="mdi mdi-delete"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
