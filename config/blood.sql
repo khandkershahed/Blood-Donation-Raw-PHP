@@ -75,6 +75,7 @@ CREATE TABLE requests (
     donor_id INT NOT NULL,
     requester_id INT NOT NULL,
     requester_name VARCHAR(255) NOT NULL,
+    requester_email VARCHAR(200) NOT NULL,
     requester_phone VARCHAR(15) NOT NULL,
     blood_type VARCHAR(10) NOT NULL,
     message TEXT,

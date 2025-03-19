@@ -11,7 +11,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
     $mail = new PHPMailer(true);
 
     try {
-        $requestLink = "<?= ROOT_URL ?>user/receivedRequest.php";
+        $requestLink = ROOT_URL . "user/receivedRequest.php"; 
         // SMTP configuration
         $mail->isSMTP();
 
@@ -37,25 +37,25 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
                                 <title>New Blood Request</title>
                             </head>
                             <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9;'>
-                                <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
+                                <div style='display:flex;justify-content: center; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
                                     <h3 style='color: #d9534f; font-size: 24px; margin-bottom: 20px; text-align: center;'>Hello, $recipientName</h3>
                                     <p style='font-size: 16px; margin-bottom: 15px; text-align: center; font-weight: 600;'>You have received a new blood donation request:</p>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
+                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
                                         <strong style='color: #333;'>Requester:</strong> $requesterName
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
+                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
                                         <strong style='color: #333;'>Phone:</strong> $requesterPhone
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
+                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
                                         <strong style='color: #333;'>Blood Type:</strong> $bloodType
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
+                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
                                         <strong style='color: #333;'>Urgency:</strong> $urgency
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
+                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
                                         <strong style='color: #333;'>Location:</strong> $location
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
+                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
                                         <strong style='color: #333;'>Message:</strong> $message
                                     </div>
                                     <div style='text-align: center; margin-top: 20px;'>

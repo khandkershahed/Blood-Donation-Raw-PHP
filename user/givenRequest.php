@@ -19,7 +19,7 @@ $user_id = $_SESSION['user_id'];
 
 try {
     // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
-    $query = "SELECT * FROM requests WHERE requester_id = :user_id";
+    $query = "SELECT * FROM requests WHERE requester_id = :user_id ORDER BY id DESC";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);
@@ -81,7 +81,7 @@ try {
                 <div class="card">
                     <!-- end card header -->
                     <div class="card-body">
-                        <h3 class="mb-3 text-center">My All Requests Lists</h3>
+                        <h3 class="mb-3 text-center">My All Given Requests Lists</h3>
                         <?php if ($no_requests): ?>
                             <p>No requests found.</p>
                         <?php else: ?>
@@ -89,7 +89,7 @@ try {
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 5%;">Sl ID</th>
-                                        <th class="text-center" style="width: 10%;">Requester ID</th>
+                                        <!-- <th class="text-center" style="width: 10%;">Requester ID</th> -->
                                         <th class="text-center" style="width: 10%;">Blood Type</th>
                                         <th class="text-center" style="width: 25%;">Message</th>
                                         <th class="text-center" style="width: 15%;">Location</th>
@@ -105,7 +105,7 @@ try {
                                     foreach ($requests as $request): ?>
                                         <tr>
                                             <td class="text-center"><?php echo $serialNumber++; ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['id']); ?></td>
+                                            <!-- <td class="text-center"><?php echo htmlspecialchars($request['requester_id']); ?></td> -->
                                             <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
                                             <td><?php echo htmlspecialchars($request['message']); ?></td>
                                             <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
@@ -164,23 +164,21 @@ try {
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content rounded-0 border-0">
                 <div class="modal-header bg-light">
-                    <h5 class="modal-title" id="modalTitleId">Update/Delete Request</h5>
+                    <h5 class="modal-title" id="modalTitleId">Update Request</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST">
                         <!-- CSRF Token -->
-                        <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                         <!-- Request ID (Hidden) -->
                         <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-
                         <!-- Donor ID (Hidden) -->
                         <input type="hidden" name="donor_id" value="<?php echo $_SESSION['user_id']; ?>">
-
                         <!-- Requester ID (Hidden) -->
                         <input type="hidden" name="requester_id" value="<?php echo $request['requester_id']; ?>">
 
+                        <label for="name">Name <span class="text-danger">*</span></label>
                         <!-- Name -->
                         <div class="mb-3">
                             <input type="text" class="form-control" name="requester_name" value="<?php echo htmlspecialchars($request['requester_name']); ?>" placeholder="Your Name" required />
@@ -246,18 +244,18 @@ try {
                         <!-- Submit Button -->
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Update Request</button>
-                            <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                                <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
-                                <button type="submit" class="btn btn-danger" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')">Delete Request</button>
-                            </form>
-                        </div>
                     </form>
-
-                    <!-- Delete Button -->
+                    <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                        <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
+                        <button type="submit" class="btn btn-danger" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')">Delete Request</button>
+                    </form>
                 </div>
+
+                <!-- Delete Button -->
             </div>
         </div>
+    </div>
     </div>
 <?php endforeach; ?>
 

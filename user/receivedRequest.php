@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($request_id && in_array($new_status, ['pending', 'accepted', 'rejected'])) {
             try {
                 // Fetch request details before updating
-                $requestQuery = "SELECT * FROM requests WHERE id = :request_id";
+                $requestQuery = "SELECT * FROM requests WHERE id = :request_id ORDER BY id DESC";
                 $stmt = $pdo->prepare($requestQuery);
                 $stmt->bindParam(':request_id', $request_id, PDO::PARAM_INT);
                 $stmt->execute();
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch all requests sent by the logged-in user
 try {
-    $query = "SELECT * FROM requests WHERE donor_id = :user_id";
+    $query = "SELECT * FROM requests WHERE donor_id = :user_id ORDER BY id DESC";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();

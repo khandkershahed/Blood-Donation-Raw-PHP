@@ -25,6 +25,11 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
         $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
 
+        $deleteDonorRequestsSql = "DELETE FROM requests WHERE donor_id = :id";
+        $stmt = $pdo->prepare($deleteDonorRequestsSql);
+        $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
         // Now delete the user from the users table
         $deleteUserSql = "DELETE FROM users WHERE id = :id";
         $stmt = $pdo->prepare($deleteUserSql);
