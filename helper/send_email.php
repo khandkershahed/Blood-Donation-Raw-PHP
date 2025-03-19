@@ -58,15 +58,15 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
                                     <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; margin-right: 8rem; margin-left: 8rem;'>
                                         <strong style='color: #333;'>Message:</strong> $message
                                     </div>
-                                <div style='text-align: center; margin-top: 20px;'>
+                                    <div style='text-align: center; margin-top: 20px;'>
                                         <a href='$requestLink' style='display: inline-block; background-color: #d9534f; color: #ffffff; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; width: 60%'>View Request</a>
                                     </div>
                                     <p style='font-size: 14px; color: #666; margin-bottom: 0px;margin-top: 50px; text-align: center;'>Thank you for your support!</p>
-                                    <p style='font-size: 14px; color: #999; text-align: center;margin:0;'>Sended by <strong style='color: #d9534f;'>BloodBond</strong></p>
+                                    <p style='font-size: 14px; color: #999; text-align: center;margin:0;'>Sent by <strong style='color: #d9534f;'>BloodBond</strong></p>
                                 </div>
                             </body>
-                        </html>
-                        ";
+                        </html>";
+
 
 
         // Set timeout to 60 seconds
