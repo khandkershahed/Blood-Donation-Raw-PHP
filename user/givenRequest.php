@@ -16,7 +16,35 @@ if (empty($_SESSION['csrf_token'])) {
 
 // Get the user ID from the session
 $user_id = $_SESSION['user_id'];
+if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
+    $delete_id = $_GET['delete_id'];
 
+    // Start a transaction to ensure both deletions happen together
+    try {
+        // Start the transaction
+        $pdo->beginTransaction();
+
+        // Delete dependent records from the requests table first
+        $deleteRequestsSql = "DELETE FROM requests WHERE id = :id";
+        $stmt = $pdo->prepare($deleteRequestsSql);
+        $stmt->bindParam(':id', $delete_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Commit the transaction
+        $pdo->commit();
+
+        // Redirect back with success message
+        header('Location: /user/givenRequest.php?message=User deleted successfully');
+        exit();
+    } catch (Exception $e) {
+        // Rollback the transaction in case of any error
+        $pdo->rollBack();
+
+        // Redirect back with error message
+        header('Location: /user/givenRequest.php?message=Error deleting user: ' . $e->getMessage());
+        exit();
+    }
+}
 try {
     // Fetch all requests sent by the logged-in user (where requester_id matches user_id)
     $query = "SELECT * FROM requests WHERE requester_id = :user_id ORDER BY id DESC";
@@ -137,11 +165,12 @@ try {
                                                     <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#request-blood-<?php echo $request['id']; ?>">
                                                         <i class="mdi mdi-pen align-middle"></i>
                                                     </button>
-                                                    <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
+                                                    <!-- <form action="<?= ROOT_URL ?>user/request-logic.php" method="POST" style="display:inline;">
                                                         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                                                         <input type="hidden" name="request_id" value="<?php echo $request['id']; ?>">
                                                         <button type="submit" class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this request?')"><i class="mdi mdi-delete align-middle"></i></button>
-                                                    </form>
+                                                    </form> -->
+                                                    <a href="givenRequest.php?delete_id=<?php echo $request['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fas fa-trash-alt text-danger"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
