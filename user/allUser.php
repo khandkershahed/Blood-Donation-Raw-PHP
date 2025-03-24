@@ -136,8 +136,8 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $full_name; ?></td> <!-- Use full name here -->
                                                 <td><?php echo htmlspecialchars($row['blood_type']); ?></td> <!-- Using blood_type instead of blood_group -->
                                                 <td>
-                                                    <?php if (isset($row['blood_type']) && $row['blood_type'] === 'Receiver'): ?>
-                                                        <span class="badge bg-primary">Receiver</span>
+                                                    <?php if (isset($row['registration_type']) && $row['registration_type'] === 'receiver'): ?>
+                                                        <span class="badge bg-info">Receive Only</span>
                                                     <?php elseif (isset($row['availability']) && $row['availability'] === 'available'): ?>
                                                         <span class="badge bg-success">Available</span>
                                                     <?php else: ?>
