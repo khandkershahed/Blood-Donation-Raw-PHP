@@ -62,12 +62,12 @@
 
 
 
-        <li>
+        <!-- <li>
           <a href="<?= ROOT_URL ?>user/findDonor_admin.php" class="tp-link">
             <i data-feather="search"></i>
             <span> Find Donor</span>
           </a>
-        </li>
+        </li> -->
 
 
       </ul>

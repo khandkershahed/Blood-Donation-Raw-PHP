@@ -95,64 +95,72 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php if (isset($_GET['message'])): ?>
                             <div class="alert alert-info"><?php echo htmlspecialchars($_GET['message']); ?></div>
                         <?php endif; ?>
-
-                        <table
-                            id="datatable-buttons"
-                            class="table table-striped table-bordered dt-responsive nowrap mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Sl</th>
-                                    <th>Name</th>
-                                    <th>Blood Group</th>
-                                    <th>Status</th>
-                                    <th>Weight</th>
-                                    <th>Join date</th>
-                                    <th>Last Donate</th>
-                                    <th>Contact</th>
-                                    <th>Location</th>
-                                    <th>Type</th>
-                                    <th>Action</th> <!-- Add Action column -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                // Check if there are any results
-                                if (count($donors) > 0) {
-                                    $sl = 1;
-                                    foreach ($donors as $row) {
-                                        $first_name = htmlspecialchars($row['first_name']);
-                                        $last_name = htmlspecialchars($row['last_name']);
-                                        $full_name = $first_name . ' ' . $last_name; // Concatenate first and last name
-                                ?>
-                                        <tr>
-                                            <td><?php echo $sl++; ?></td>
-                                            <td><?php echo $full_name; ?></td> <!-- Use full name here -->
-                                            <td><?php echo htmlspecialchars($row['blood_type']); ?></td> <!-- Using blood_type instead of blood_group -->
-                                            <td>
-                                                <?php if ($row['availability'] === 'available'): ?>
-                                                    <span class="badge bg-success">Available</span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-danger">Unavailable</span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td><?php echo htmlspecialchars($row['weight']); ?></td>
-                                            <td><?php echo htmlspecialchars($row['date_of_birth']); ?></td> <!-- Join date could be different depending on your table's structure -->
-                                            <td><?php echo htmlspecialchars($row['last_donated_date']); ?></td>
-                                            <td><a href="tel:<?php echo htmlspecialchars($row['contact_number']); ?>"><?php echo htmlspecialchars($row['contact_number']); ?></a></td>
-                                            <td><?php echo htmlspecialchars($row['city'] . ' - ' . $row['area']); ?></td> <!-- Location could be combined -->
-                                            <td><?php echo ucfirst(htmlspecialchars($row['registration_type'])); ?></td>
-                                            <td class="text-center">
-                                                <a href="allUser.php?delete_id=<?php echo $row['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fas fa-trash-alt text-danger"></i></a>
-                                            </td>
-                                        </tr>
-                                <?php
+                        <div class="d-flex align-items-center mobile-tb-message">
+                            <p class="mb-0">Swipe Right To Show More
+                            <div>
+                                <img width="35px" src="<?= ROOT_URL ?>public/frontend/images/swap.svg" alt="">
+                            </div>
+                            </p>
+                        </div>
+                        <div class="table-responsive">
+                            <table
+                                id="datatable-buttons"
+                                class="table table-striped table-bordered dt-responsive nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th>Name</th>
+                                        <th>Blood Group</th>
+                                        <th>Status</th>
+                                        <th>Weight</th>
+                                        <th>Join date</th>
+                                        <th>Last Donate</th>
+                                        <th>Contact</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Action</th> <!-- Add Action column -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // Check if there are any results
+                                    if (count($donors) > 0) {
+                                        $sl = 1;
+                                        foreach ($donors as $row) {
+                                            $first_name = htmlspecialchars($row['first_name']);
+                                            $last_name = htmlspecialchars($row['last_name']);
+                                            $full_name = $first_name . ' ' . $last_name; // Concatenate first and last name
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $sl++; ?></td>
+                                                <td><?php echo $full_name; ?></td> <!-- Use full name here -->
+                                                <td><?php echo htmlspecialchars($row['blood_type']); ?></td> <!-- Using blood_type instead of blood_group -->
+                                                <td>
+                                                    <?php if ($row['availability'] === 'available'): ?>
+                                                        <span class="badge bg-success">Available</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-danger">Unavailable</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><?php echo htmlspecialchars($row['weight']); ?></td>
+                                                <td><?php echo htmlspecialchars($row['date_of_birth']); ?></td> <!-- Join date could be different depending on your table's structure -->
+                                                <td><?php echo htmlspecialchars($row['last_donated_date']); ?></td>
+                                                <td><a href="tel:<?php echo htmlspecialchars($row['contact_number']); ?>"><?php echo htmlspecialchars($row['contact_number']); ?></a></td>
+                                                <td><?php echo htmlspecialchars($row['city'] . ' - ' . $row['area']); ?></td> <!-- Location could be combined -->
+                                                <td><?php echo ucfirst(htmlspecialchars($row['registration_type'])); ?></td>
+                                                <td class="text-center">
+                                                    <a href="allUser.php?delete_id=<?php echo $row['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fas fa-trash-alt text-danger"></i></a>
+                                                </td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo '<tr><td colspan="10" class="text-center">No users found.</td></tr>';
                                     }
-                                } else {
-                                    echo '<tr><td colspan="10" class="text-center">No users found.</td></tr>';
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,4 +172,3 @@ $donors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!-- Include footer and scripts -->
 <?php include '../views/admin_partials/footer.php'; ?>
 <?php include '../views/admin_partials/script.php'; ?>
-

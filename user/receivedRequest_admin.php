@@ -163,62 +163,71 @@ try {
                         <?php if ($no_requests): ?>
                             <p>No requests found.</p>
                         <?php else: ?>
-                            <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" style="width: 3%;">Sl ID</th>
-                                        <th class="text-center" style="width: 7%;">Requester Name</th>
-                                        <th class="text-center" style="width: 7%;">Blood Type</th>
-                                        <th class="text-center" style="width: 20%;">Message</th>
-                                        <th class="text-center" style="width: 15%;">Location</th>
-                                        <th class="text-center" style="width: 7%;">Urgency</th>
-                                        <th class="text-center" style="width: 9%;">Contact</th>
-                                        <th class="text-center" style="width: 10%;">Status</th>
-                                        <th class="text-center" style="width: 10%;">Created At</th>
-                                        <!-- <th class="text-center" style="width: 15%;">Actions</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody style="vertical-align: middle;">
-                                    <?php
-                                    $serialNumber = 1; // Initialize serial number before the loop
-                                    foreach ($requests as $request):
-                                        $requester_name = htmlspecialchars($request['requester_name']); // Requester's name
-                                        $contact_number = isset($request['requester_phone']) ? htmlspecialchars($request['requester_phone']) : 'Not Provided';
-                                    ?>
+                            <div class="d-flex align-items-center mobile-tb-message">
+                                <p class="mb-0">Swipe Right To Show More
+                                <div>
+                                    <img width="35px" src="<?= ROOT_URL ?>public/frontend/images/swap.svg" alt="">
+                                </div>
+                                </p>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center"><?php echo $serialNumber++; ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['requester_name']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['message']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
-                                            <td class="text-center"><?php echo $contact_number; ?></td>
-                                            <td class="text-center">
-                                                <?php
-                                                // Display the status of the request
-                                                if ($request['status'] === 'pending') {
-                                                    echo '<span class="badge bg-warning">Pending</span>';
-                                                } elseif ($request['status'] === 'accepted') {
-                                                    echo '<span class="badge bg-success">Accepted</span>';
-                                                } else {
-                                                    echo '<span class="badge bg-danger">Rejected</span>';
-                                                }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                $createdAt = new DateTime($request['created_at']); // Parse the date
-                                                $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
-                                                $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
-                                                ?>
-                                                <span><?php echo $date; ?></span><br>
-                                                <span><?php echo $time; ?></span>
-                                            </td>
-                                           
+                                            <th class="text-center" style="width: 3%;">Sl ID</th>
+                                            <th class="text-center" style="width: 7%;">Requester Name</th>
+                                            <th class="text-center" style="width: 7%;">Blood Type</th>
+                                            <th class="text-center" style="width: 20%;">Message</th>
+                                            <th class="text-center" style="width: 15%;">Location</th>
+                                            <th class="text-center" style="width: 7%;">Urgency</th>
+                                            <th class="text-center" style="width: 9%;">Contact</th>
+                                            <th class="text-center" style="width: 10%;">Status</th>
+                                            <th class="text-center" style="width: 10%;">Created At</th>
+                                            <!-- <th class="text-center" style="width: 15%;">Actions</th> -->
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody style="vertical-align: middle;">
+                                        <?php
+                                        $serialNumber = 1; // Initialize serial number before the loop
+                                        foreach ($requests as $request):
+                                            $requester_name = htmlspecialchars($request['requester_name']); // Requester's name
+                                            $contact_number = isset($request['requester_phone']) ? htmlspecialchars($request['requester_phone']) : 'Not Provided';
+                                        ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $serialNumber++; ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['requester_name']); ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
+                                                <td><?php echo htmlspecialchars($request['message']); ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
+                                                <td class="text-center"><?php echo $contact_number; ?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    // Display the status of the request
+                                                    if ($request['status'] === 'pending') {
+                                                        echo '<span class="badge bg-warning">Pending</span>';
+                                                    } elseif ($request['status'] === 'accepted') {
+                                                        echo '<span class="badge bg-success">Accepted</span>';
+                                                    } else {
+                                                        echo '<span class="badge bg-danger">Rejected</span>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    $createdAt = new DateTime($request['created_at']); // Parse the date
+                                                    $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
+                                                    $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
+                                                    ?>
+                                                    <span><?php echo $date; ?></span><br>
+                                                    <span><?php echo $time; ?></span>
+                                                </td>
+
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>

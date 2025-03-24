@@ -112,6 +112,7 @@ h1 {
   }
 }
 
+
 .h2,
 h2 {
   font-size: 48px;
@@ -6389,4 +6390,11 @@ footer .footer_bottom p {
   height: 50px;
   object-fit: cover;
   border-radius: 100%;
+}
+.usr-eml-cnt {
+  text-transform: lowercase; /* Ensures entered text is lowercase */
+}
+
+.usr-eml-cnt::placeholder {
+  text-transform: capitalize; /* Capitalizes the placeholder text */
 }
