@@ -263,11 +263,11 @@ try {
                                                                     <!-- <input type="hidden" name="requester_id" value="<?php echo $user['id']; ?>"> -->
 
                                                                     <div class="mb-3">
-                                                                        <input type="text" class="form-control" name="name" placeholder="Your Name" required />
+                                                                        <input type="text" class="form-control" name="requester_name" placeholder="Your Name" required />
                                                                     </div>
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="mb-3 w-50">
-                                                                            <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" max="15" required />
+                                                                            <input type="tel" class="form-control" name="requester_phone" placeholder="Your Phone Number" max="15" required />
                                                                         </div>
                                                                         <div class="mb-3 w-50 ms-2">
                                                                             <select class="form-select" name="blood_type" required>
