@@ -12,9 +12,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
 
     try {
         $requestLink = ROOT_URL . "user/receivedRequest.php";
-        // SMTP configuration
         $mail->isSMTP();
-
         // SMTP server configuration
         $mail->Host = 'mail.digixsolve.com';  // Your SMTP server address (change this as needed)
         $mail->SMTPAuth = true;
@@ -101,9 +99,8 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
 
         // Set timeout to 60 seconds
         $mail->Timeout = 180;
-
         // Enable debugging to catch any SMTP issues
-        $mail->SMTPDebug = 2;  // Set to 2 for detailed debug output (can change to 0 for no debug output)
+        $mail->SMTPDebug = 0;  // Set to 2 for detailed debug output (can change to 0 for no debug output)
         $mail->Debugoutput = function ($str, $level) {
             echo "Debug output: $str\n";  // Print debug output directly
         };

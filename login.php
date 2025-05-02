@@ -27,6 +27,14 @@ include 'views/partials/header.php';
 <!-- Login box section start -->
 <section>
     <div class="container account-page py-5">
+        <?php if (isset($_SESSION['success'])) : ?>
+            <div class="alert alert-success">
+                <p>
+                    <?= $_SESSION['success']; ?>
+                    <?php unset($_SESSION['success']); ?>
+                </p>
+            </div>
+        <?php endif; ?>
         <?php if (isset($_SESSION['signin'])) : ?>
             <div class="alert alert-danger">
                 <p>

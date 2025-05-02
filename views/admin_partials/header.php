@@ -10,11 +10,14 @@ if (!isset($_SESSION['admin_id'])) {
 $admin_id = $_SESSION['admin_id']; // User ID from session
 
 // Fetch unread notifications count
-$stmt = $pdo->prepare("SELECT * FROM notifications ORDER BY created_at DESC");
-$stmt->execute();
+// $stmt = $pdo->prepare("SELECT * FROM notifications ORDER BY created_at DESC");
+// $stmt->execute();
 
 // // Fetch all notifications as an associative array
 // $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE status = 'unread'");
+// $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
 $unread_count = $stmt->fetchColumn();
 
 // Function to format "time ago"
@@ -55,26 +58,24 @@ function time_ago($timestamp)
 
 
 // Mark notification as read
-// if (isset($_GET['notification_id'])) {
-//     $notification_id = $_GET['notification_id'];
-//     $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id AND user_id = :user_id");
-//     $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
-//     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-//     $stmt->execute();
-//     // Redirect back to the current page to prevent resubmission
-//     header('Location: ' . $_SERVER['HTTP_REFERER']);
-//     exit();
-// }
+if (isset($_GET['notification_id'])) {
+    $notification_id = $_GET['notification_id'];
+    $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id");
+    $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
+    $stmt->execute();
+    // Redirect back to the current page to prevent resubmission
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 
-// // Clear all notifications
-// if (isset($_GET['clear_notifications'])) {
-//     $stmt = $pdo->prepare("DELETE FROM notifications WHERE user_id = :user_id");
-//     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-//     $stmt->execute();
-//     // Redirect after clearing notifications
-//     header('Location: ' . $_SERVER['HTTP_REFERER']);
-//     exit();
-// }
+// Clear all notifications
+if (isset($_GET['clear_notifications'])) {
+    $stmt = $pdo->prepare("DELETE FROM notifications");
+    $stmt->execute();
+    // Redirect after clearing notifications
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 ?>
 
 <!-- Topbar Start -->

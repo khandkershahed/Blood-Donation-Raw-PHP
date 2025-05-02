@@ -125,7 +125,11 @@ if (isset($_GET['clear_notifications'])) {
 
                             if (count($notifications) > 0):
                                 foreach ($notifications as $notification):
-                                    $time_ago = time_ago($notification['created_at']);
+                                    // $time_ago = time_ago($notification['created_at']);
+                                    $createdAt = new DateTime($notification['created_at']);
+                                    $date = $createdAt->format('d F Y');
+                                    $time = $createdAt->format('h:i A');
+
                                     // Determine background color based on notification status
                                     $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-white';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
@@ -134,7 +138,7 @@ if (isset($_GET['clear_notifications'])) {
                                         <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="notify-details <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></p>
-                                            <small class="text-muted <?= $bg_class; ?>"><?= $time_ago; ?></small>
+                                            <small class="text-muted <?= $bg_class; ?>"><?= $time; ?></small>
                                         </div>
                                         <p class="mb-0 user-msg">
                                             <small class="fs-14 <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></small>
@@ -154,12 +158,12 @@ if (isset($_GET['clear_notifications'])) {
 
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <?php
-                    $initials = strtoupper(substr($first_name, 0, 1)) . (isset($last_name) ? strtoupper(substr($last_name, 0, 1)) : '');
+                        <?php
+                        $initials = strtoupper(substr($first_name, 0, 1)) . (isset($last_name) ? strtoupper(substr($last_name, 0, 1)) : '');
 
-                    // Fallback image display (if no image, show the initials)
-                    ?>
-                    <span class="rounded-circle p-1 bg-light" style="border: 1px dashed;">
+                        // Fallback image display (if no image, show the initials)
+                        ?>
+                        <span class="rounded-circle p-1 bg-light" style="border: 1px dashed;">
                             <?php echo $initials; ?>
                         </span>
                         <!-- <img src="<?= ROOT_URL ?>public/admin/images/users/user-13.jpg" alt="user-image" class="rounded-circle" /> -->
@@ -182,4 +186,15 @@ if (isset($_GET['clear_notifications'])) {
         </div>
     </div>
 </div>
+<?php
+if (isset($_SESSION['email_success'])) {
+    echo "<div class='alert alert-success'>" . $_SESSION['email_success'] . "</div>";
+    unset($_SESSION['email_success']);  // Clear the success message
+}
+
+if (isset($_SESSION['email_error'])) {
+    echo "<div class='alert alert-danger'>" . $_SESSION['email_error'] . "</div>";
+    unset($_SESSION['email_error']);  // Clear the error message
+}
+?>
 <!-- end Topbar -->

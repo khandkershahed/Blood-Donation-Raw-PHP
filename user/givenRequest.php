@@ -162,7 +162,7 @@ try {
                                                     <?php
                                                     $createdAt = new DateTime($request['created_at']); // Parse the date
                                                     $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
-                                                    $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
+                                                    $time = $createdAt->format('h:i A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
                                                     ?>
                                                     <span><?php echo $date; ?></span><br>
                                                     <span><?php echo $time; ?></span>

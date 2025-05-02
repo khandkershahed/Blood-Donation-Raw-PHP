@@ -43,8 +43,6 @@ try {
     // Start building the query
     $query = "SELECT * FROM users WHERE registration_type IN ('donor', 'both')";
     // Default condition to fetch all records
-
-    // Add conditions based on filters
     if ($blood_type) {
         $query .= " AND blood_type = :blood_type";
     }

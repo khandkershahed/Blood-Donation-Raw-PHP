@@ -80,7 +80,7 @@
                                              </a>
                                          </li>
                                          <li>
-                                             <a href="<?= ROOT_URL ?>profile.php">
+                                             <a href="<?= ROOT_URL ?>user/myprofile.php">
                                                  Profile
                                              </a>
                                          </li>

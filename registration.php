@@ -1,6 +1,7 @@
 <?php
 require 'config/database.php';
 require 'helper/send_email.php';
+require 'helper/notification.php';
 // require_once __DIR__ . '/helper/send_email.php'; 
 if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] = true) {
     header("Location: dashboard.php");
@@ -157,6 +158,18 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
     ]);
     $recipientEmail = $email;
     $recipientName = $first_name . ' ' . $last_name;
+    $sql = "SELECT id FROM admins ORDER BY id DESC LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $admin_row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $admin_id = $admin_row['id'] ?? null;
+    if ($admin_id) {
+        if ($registration_type == 'both') {
+            $registration_type = 'both donor and receiver';
+        }
+        $notif = "$recipientName ($recipientEmail) has registered as $registration_type.";
+        saveNotification($admin_id, $notif);
+    }
     sendWelcomeEmail($recipientEmail, $recipientName);
     // Redirect to dashboard.php after successful registration
     $_SESSION['success'] = "Registration successful. Please log in.!";
