@@ -11,7 +11,7 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
     $mail = new PHPMailer(true);
 
     try {
-        $requestLink = ROOT_URL . "user/receivedRequest.php"; 
+        $requestLink = ROOT_URL . "user/receivedRequest.php";
         // SMTP configuration
         $mail->isSMTP();
 
@@ -34,40 +34,70 @@ function sendEmailToDonor($recipientEmail, $recipientName, $requesterName, $requ
         $mail->Body = "
                         <html>
                             <head>
-                                <title>New Blood Request</title>
+                                <title>New Blood Donation Request</title>
                             </head>
-                            <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9f9f9;'>
-                                <div style='display:flex;justify-content: center; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>
-                                    <h3 style='color: #d9534f; font-size: 24px; margin-bottom: 20px; text-align: center;'>Hello, $recipientName</h3>
-                                    <p style='font-size: 16px; margin-bottom: 15px; text-align: center; font-weight: 600;'>You have received a new blood donation request:</p>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
-                                        <strong style='color: #333;'>Requester:</strong> $requesterName
+                            <body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f4f7fa;'>
+                                <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);'>
+                                
+                                    <!-- Logo section -->
+                                    <div style='text-align: center; margin-bottom: 20px;'>
+                                        <img src='https://demo.digixsolve.com/public/images/main-logo.png' alt='BloodBond Logo' style='max-width: 200px;'>
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
-                                        <strong style='color: #333;'>Phone:</strong> $requesterPhone
+                        
+                                    <!-- Greeting message -->
+                                    <h3 style='color: #007bff; font-size: 24px; text-align: center; margin-bottom: 20px;'>Hello, $recipientName</h3>
+                                    
+                                    <!-- Introduction text -->
+                                    <p style='font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 10px;'>You have received a new blood donation request:</p>
+                        
+                                    <!-- Request details section -->
+                                    <div style='width: 70%; margin: auto; border-top: 1px solid #eee; padding-top: 10px;'>
+                                        
+                                        <!-- Requester information -->
+                                        <div style='font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between;'>
+                                            <strong style='color: #333;'>Requester:</strong> <span>$requesterName</span>
+                                        </div>
+                                        
+                                        <!-- Requester phone -->
+                                        <div style='font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between;'>
+                                            <strong style='color: #333;'>Phone:</strong> <span>$requesterPhone</span>
+                                        </div>
+                                        
+                                        <!-- Blood type -->
+                                        <div style='font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between;'>
+                                            <strong style='color: #333;'>Blood Type:</strong> <span>$bloodType</span>
+                                        </div>
+                                        
+                                        <!-- Urgency level -->
+                                        <div style='font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between;'>
+                                            <strong style='color: #333;'>Urgency:</strong> <span>$urgency</span>
+                                        </div>
+                                        
+                                        <!-- Location -->
+                                        <div style='font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between;'>
+                                            <strong style='color: #333;'>Location:</strong> <span>$location</span>
+                                        </div>
+                                        
+                                        <!-- Additional message -->
+                                        <div style='font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between;'>
+                                            <strong style='color: #333;'>Message:</strong> <span>$message</span>
+                                        </div>
+                                        
+                                        <!-- View request button -->
+                                        <div style='text-align: center; margin-top: 40px; padding-bottom: 40px;'>
+                                            <a href='$requestLink' style='display: inline-block; background-color: #007bff; color: #ffffff; text-decoration: none; padding: 12px 30px; font-size: 16px; border-radius: 5px; text-transform: uppercase; letter-spacing: 1px;'>View Request</a>
+                                        </div>
                                     </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
-                                        <strong style='color: #333;'>Blood Type:</strong> $bloodType
-                                    </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
-                                        <strong style='color: #333;'>Urgency:</strong> $urgency
-                                    </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
-                                        <strong style='color: #333;'>Location:</strong> $location
-                                    </div>
-                                    <div style='font-size: 16px; margin-bottom: 10px; display: flex; justify-content: center; '>
-                                        <strong style='color: #333;'>Message:</strong> $message
-                                    </div>
-                                <div style='text-align: center; margin-top: 20px;'>
-                                        <a href='$requestLink' style='display: inline-block; background-color: #d9534f; color: #ffffff; text-decoration: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; width: 60%'>View Request</a>
-                                    </div>
-                                    <p style='font-size: 14px; color: #666; margin-bottom: 0px;margin-top: 50px; text-align: center;'>Thank you for your support!</p>
-                                    <p style='font-size: 14px; color: #999; text-align: center;margin:0;'>Sended by <strong style='color: #d9534f;'>BloodBond</strong></p>
+                        
+                                    <!-- Thank you message -->
+                                    <p style='font-size: 14px; color: #666; margin-top: 30px; text-align: center;'>Thank you for your support!</p>
+                                    
+                                    <!-- Footer with company name -->
+                                    <p style='font-size: 14px; color: #999; text-align: center; margin: 0;'>Sent by <strong style='color: #007bff;'>BloodBond</strong></p>
                                 </div>
                             </body>
                         </html>
                         ";
-
 
         // Set timeout to 60 seconds
         $mail->Timeout = 180;

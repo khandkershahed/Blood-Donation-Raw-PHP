@@ -373,9 +373,13 @@ VALUES (:blood_type, :first_name, :last_name, :date_of_birth, :password, :contac
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="weight" class="mb-2">Weight (kg) <span class="text-danger">*</span></label>
                         <input type="number" name="weight" class="form-control rounded-0" placeholder="Enter Your Weight" value="<?= $weight; ?>" required>
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="weight" class="mb-2">Weight (kg) <span class="text-danger">*</span></label>
+                        <input type="number" id="weight" name="weight" class="form-control rounded-0" placeholder="Enter Your Weight" value="<?= $weight; ?>" min="40" required>
                     </div>
                 </div>
 

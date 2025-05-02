@@ -92,7 +92,7 @@ include '../views/admin_partials/sidebar.php';
         <?php endif; ?>
         <div class="container-fluid pt-4">
             <div class="row">
-                <div class="col-3 mx-auto">
+                <div class="col-lg-3 col-12 mx-auto">
                     <div>
                         <div class="status-badge">
                             <span>Available</span>
@@ -136,7 +136,7 @@ include '../views/admin_partials/sidebar.php';
                     </div>
                 </div>
                 <!-- Profile Update Form -->
-                <div class="col-9">
+                <div class="col-lg-9 col-12">
                     <div class="card">
                         <div class="card-body">
                             <form method="POST" action="myprofile_admin.php">

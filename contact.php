@@ -133,7 +133,7 @@ include 'views/partials/header.php';
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    <input type="email" name="email" placeholder="Email" value="<?= isset($email) ? $email : '' ?>">
+                                    <input class="usr-eml-cnt" type="email" name="email" placeholder="Email" value="<?= isset($email) ? $email : '' ?>">
                                 </div>
                                 <div class="col">
                                     <input type="text" name="subject" placeholder="Subject" value="<?= isset($subject) ? $subject : '' ?>">

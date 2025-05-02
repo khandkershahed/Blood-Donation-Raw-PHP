@@ -3,6 +3,17 @@
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
+try {
+    if (isset($_GET['notification_id']) && is_numeric($_GET['notification_id'])) {
+        $notification_id = (int)$_GET['notification_id'];
+        $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id");
+        $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+} catch (PDOException $e) {
+    error_log("Database error: " . $e->getMessage());
+}
+
 // Check if the user is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     // Redirect to login page if not logged in
@@ -92,74 +103,84 @@ try {
             <div class="col-lg-12">
                 <!-- All Requests -->
                 <?php if (isset($_SESSION['error'])): ?>
-                    <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+                    <div class="alert alert-danger"><?= $_SESSION['error'];
+                                                    unset($_SESSION['error']); ?></div>
                 <?php elseif (isset($_SESSION['message'])): ?>
-                    <div class="alert alert-success"><?= $_SESSION['message']; unset($_SESSION['message']); ?></div>
+                    <div class="alert alert-success"><?= $_SESSION['message'];
+                                                        unset($_SESSION['message']); ?></div>
                 <?php endif; ?>
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="mb-3 text-center">My All Requests Lists</h3>
                         <?php if ($no_requests): ?>
                             <p>No requests found.</p>
                         <?php else: ?>
-                            <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" style="width: 5%;">Sl ID</th>
-                                        <th class="text-center" style="width: 10%;">Requester Name</th>
-                                        <th class="text-center" style="width: 10%;">Blood Type</th>
-                                        <th class="text-center" style="width: 25%;">Message</th>
-                                        <th class="text-center" style="width: 15%;">Location</th>
-                                        <th class="text-center" style="width: 10%;">Urgency</th>
-                                        <th class="text-center" style="width: 10%;">Status</th>
-                                        <th class="text-center" style="width: 10%;">Created At</th>
-                                        <th class="text-center" style="width: 10%;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody style="vertical-align: middle;">
-                                    <?php
-                                    $serialNumber = 1; // Initialize serial number before the loop
-                                    foreach ($requests as $request): ?>
+                            <div class="d-flex align-items-center mobile-tb-message">
+                                <p class="mb-0">Swipe Right To Show More
+                                <div>
+                                    <img width="35px" src="<?= ROOT_URL ?>public/frontend/images/swap.svg" alt="">
+                                </div>
+                                </p>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered dt-responsive nowrap mb-0">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center"><?php echo $serialNumber++; ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['requester_name']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
-                                            <td><?php echo htmlspecialchars($request['message']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
-                                            <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
-                                            <td class="text-center">
-                                                <?php
-                                                // Display the status of the request
-                                                if ($request['status'] === 'pending') {
-                                                    echo '<span class="badge bg-warning">Pending</span>';
-                                                } elseif ($request['status'] === 'accepted') {
-                                                    echo '<span class="badge bg-success">Accepted</span>';
-                                                } else {
-                                                    echo '<span class="badge bg-danger">Rejected</span>';
-                                                }
-                                                ?>
-                                            </td>
-                                            <td class="text-center">
-                                                <?php
-                                                $createdAt = new DateTime($request['created_at']); // Parse the date
-                                                $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
-                                                $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
-                                                ?>
-                                                <span><?php echo $date; ?></span><br>
-                                                <span><?php echo $time; ?></span>
-                                            </td>
-                                            <td>
-                                                <!-- Delete button -->
-                                                <div class="d-flex justify-content-center">
-                                                    <a href="allRequest_admin.php?delete_request_id=<?php echo $request['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this request?')">
-                                                        <i class="fas fa-trash-alt text-danger"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            <th class="text-center" style="width: 5%;">Sl ID</th>
+                                            <th class="text-center" style="width: 10%;">Requester Name</th>
+                                            <th class="text-center" style="width: 10%;">Blood Type</th>
+                                            <th class="text-center" style="width: 25%;">Message</th>
+                                            <th class="text-center" style="width: 15%;">Location</th>
+                                            <th class="text-center" style="width: 10%;">Urgency</th>
+                                            <th class="text-center" style="width: 10%;">Status</th>
+                                            <th class="text-center" style="width: 10%;">Created At</th>
+                                            <th class="text-center" style="width: 10%;">Actions</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody style="vertical-align: middle;">
+                                        <?php
+                                        $serialNumber = 1; // Initialize serial number before the loop
+                                        foreach ($requests as $request): ?>
+                                            <tr>
+                                                <td class="text-center"><?php echo $serialNumber++; ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['requester_name']); ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['blood_type']); ?></td>
+                                                <td><?php echo htmlspecialchars($request['message']); ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['location']); ?></td>
+                                                <td class="text-center"><?php echo htmlspecialchars($request['urgency']); ?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    // Display the status of the request
+                                                    if ($request['status'] === 'pending') {
+                                                        echo '<span class="badge bg-warning">Pending</span>';
+                                                    } elseif ($request['status'] === 'accepted') {
+                                                        echo '<span class="badge bg-success">Accepted</span>';
+                                                    } else {
+                                                        echo '<span class="badge bg-danger">Rejected</span>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    $createdAt = new DateTime($request['created_at']); // Parse the date
+                                                    $date = $createdAt->format('d F Y'); // Format as "20 January 2025"
+                                                    $time = $createdAt->format('h:i:s A'); // Format as "01:27:58 PM" in 12-hour format with AM/PM
+                                                    ?>
+                                                    <span><?php echo $date; ?></span><br>
+                                                    <span><?php echo $time; ?></span>
+                                                </td>
+                                                <td>
+                                                    <!-- Delete button -->
+                                                    <div class="d-flex justify-content-center">
+                                                        <a href="allRequest_admin.php?delete_request_id=<?php echo $request['id']; ?>" class="text-center" onclick="return confirm('Are you sure you want to delete this request?')">
+                                                            <i class="fas fa-trash-alt text-danger"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -20,10 +20,10 @@ try {
     $query = "SELECT * FROM users WHERE 1=1";  // Default condition to fetch all records
 
     // Add conditions based on filters
-    
-        $query .= " AND registration_type = both";
-        $query .= " AND registration_type = receiver";
-    
+
+    $query .= " AND registration_type = both";
+    $query .= " AND registration_type = receiver";
+
 
 
     // Prepare the statement
@@ -76,49 +76,55 @@ try {
             <div class="col-lg-12">
                 <!-- All Donors -->
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">All Receivers Lists</h5>
-                    </div>
                     <!-- end card header -->
                     <div class="card-body">
-                        <table
-                            id="datatable-buttons"
-                            class="table table-striped table-bordered dt-responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Sl</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Blood Group</th>
-                                    <th>Status</th>
-                                    <th>Weight</th>
-                                    <th>Join date</th>
-                                    <th>Last Donate</th>
-                                    <th>Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        <img
-                                            src="assets/images/users/user-22.jpg"
-                                            class="avatar avatar-sm rounded-circle me-3" />
-                                    </td>
-                                    <td>Emma Young</td>
-                                    <td>A (+ve)</td>
-                                    <td>
-                                        <span class="badge bg-success">Available</span>
-                                    </td>
-                                    <td>86 kg</td>
-                                    <td>2022-11-30</td>
-                                    <td>2022-11-30</td>
-                                    <td>Mirpur</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="d-flex align-items-center mobile-tb-message">
+                    <p class="mb-0">Swipe Right To Show More
+                            <div>
+                                <img width="35px" src="<?= ROOT_URL ?>public/frontend/images/swap.svg" alt="">
+                            </div>
+                            </p>
+                        </div>
+                        <div class="table-responsive">
+                            <table
+                                id="datatable-buttons"
+                                class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Sl</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Blood Group</th>
+                                        <th>Status</th>
+                                        <th>Weight</th>
+                                        <th>Join date</th>
+                                        <th>Last Donate</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            <img
+                                                src="assets/images/users/user-22.jpg"
+                                                class="avatar avatar-sm rounded-circle me-3" />
+                                        </td>
+                                        <td>Emma Young</td>
+                                        <td>A (+ve)</td>
+                                        <td>
+                                            <span class="badge bg-success">Available</span>
+                                        </td>
+                                        <td>86 kg</td>
+                                        <td>2022-11-30</td>
+                                        <td>2022-11-30</td>
+                                        <td>Mirpur</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

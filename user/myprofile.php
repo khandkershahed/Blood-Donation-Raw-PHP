@@ -129,7 +129,7 @@ include '../views/user_partials/sidebar.php';
         <?php endif; ?>
         <div class="container-fluid pt-4">
             <div class="row">
-                <div class="col-3 mx-auto">
+                <div class="col-lg-3 col-12 mx-auto">
                     <div>
                         <div class="status-badge">
                             <span><?php echo $user['availability'] == 'available' ? 'Available' : 'Not Available'; ?></span>
@@ -174,7 +174,7 @@ include '../views/user_partials/sidebar.php';
                     </div>
                 </div>
                 <!-- Profile Update Form -->
-                <div class="col-9">
+                <div class="col-lg-9 col-12">
                     <div class="card">
                         <div class="card-body">
                             <form method="POST" action="myprofile.php">
@@ -182,15 +182,15 @@ include '../views/user_partials/sidebar.php';
                                     <div class="col-lg-12">
                                         <div class="form-group mb-3">
                                             <label for="blood_type" class="mb-2">What is your Blood type?</label><br>
-                                            <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center blood-groups-pr">
                                                 <input class="pe-2" type="radio" id="O_positive" name="blood_type" value="A+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'A+') ? 'checked' : ''; ?> required> <span class="ps-2">A+</span>
-                                                <input class="ms-3 pe-2" type="radio" id="A_positive" name="blood_type" value="A-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'A-') ? 'checked' : ''; ?> required> <span class="ps-2">A-</span>
-                                                <input class="ms-3 pe-2" type="radio" id="B_positive" name="blood_type" value="B+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'B+') ? 'checked' : ''; ?> required> <span class="ps-2">B+</span>
-                                                <input class="ms-3 pe-2" type="radio" id="AB_positive" name="blood_type" value="B-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'B-') ? 'checked' : ''; ?> required> <span class="ps-2">B- <br></span>
-                                                <input class="ms-3 pe-2" type="radio" id="O_negative" name="blood_type" value="AB+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'AB+') ? 'checked' : ''; ?> required> <span class="ps-2">AB+</span>
-                                                <input class="ms-3 pe-2" type="radio" id="A_negative" name="blood_type" value="AB-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'AB-') ? 'checked' : ''; ?> required> <span class="ps-2">AB-</span>
-                                                <input class="ms-3 pe-2" type="radio" id="B_negative" name="blood_type" value="O+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'O+') ? 'checked' : ''; ?> required> <span class="ps-2">O+</span>
-                                                <input class="ms-3 pe-2" type="radio" id="AB_negative" name="blood_type" value="O-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'O-') ? 'checked' : ''; ?> required> <span class="ps-2">O-</span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="A_positive" name="blood_type" value="A-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'A-') ? 'checked' : ''; ?> required> <span class="ps-2">A-</span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="B_positive" name="blood_type" value="B+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'B+') ? 'checked' : ''; ?> required> <span class="ps-2">B+</span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="AB_positive" name="blood_type" value="B-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'B-') ? 'checked' : ''; ?> required> <span class="ps-2">B- <br></span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="O_negative" name="blood_type" value="AB+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'AB+') ? 'checked' : ''; ?> required> <span class="ps-2">AB+</span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="A_negative" name="blood_type" value="AB-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'AB-') ? 'checked' : ''; ?> required> <span class="ps-2">AB-</span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="B_negative" name="blood_type" value="O+" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'O+') ? 'checked' : ''; ?> required> <span class="ps-2">O+</span>
+                                                <input class="ms-lg-3 ms-0 pe-lg-2 pe-0" type="radio" id="AB_negative" name="blood_type" value="O-" <?= (isset($_SESSION['blood_type']) && $_SESSION['blood_type'] == 'O-') ? 'checked' : ''; ?> required> <span class="ps-2">O-</span>
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +285,6 @@ include '../views/user_partials/sidebar.php';
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

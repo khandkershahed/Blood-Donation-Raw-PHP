@@ -202,7 +202,7 @@ try {
                                                     </p>
                                                     <p class="mt-1 mb-0"><?php echo $user['street_address_1']; ?></p>
                                                 </div>
-                                                <div class="">
+                                                <!-- <div class="">
                                                     <button type="button"
                                                         class="btn btn-sm btn-light me-2"
                                                         <?php if ($user['availability'] != 'available'): ?>
@@ -216,7 +216,7 @@ try {
                                                         Request
                                                     </button>
                                                     <a href="tel:<?php echo $user['contact_number']; ?>" class="btn btn-sm btn-primary">Call Now</a>
-                                                </div>
+                                                </div> -->
 
 
                                                 <div class="modal fade" id="request-blood-<?php echo $user['id']; ?>" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">

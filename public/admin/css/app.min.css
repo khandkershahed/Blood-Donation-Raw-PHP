@@ -14993,3 +14993,19 @@ select.form-select option {
     display: none;
   }
 }
+
+.mobile-tb-message {
+  display: none !important; /* Hide by default */
+}
+
+@media (max-width: 575.98px) {
+  .mobile-tb-message {
+      display: flex !important; /* Show as flex on small screens */
+      align-items: center; /* Optional: Align items */
+  }
+  .blood-groups-pr {
+    display: grid !important; /* Enable grid layout */
+    grid-template-columns: repeat(4, 1fr); /* Create 4 equal-width columns */
+    gap: 5px; /* Adds space between grid items */
+  }
+}

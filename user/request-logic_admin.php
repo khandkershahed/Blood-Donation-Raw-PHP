@@ -95,18 +95,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && $_PO
     $urgency = htmlspecialchars($_POST['urgency']);
 
     // Fetch the requester_id from session (user's logged in ID)
-    $requester_id = $_SESSION['user_id'];
+    $requester_id = $_SESSION['admin_id'];
 
     // Check if the requester exists in the users table
     try {
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE id = :id");
+        $stmt = $pdo->prepare("SELECT id FROM admins WHERE id = :id");
         $stmt->bindValue(':id', $requester_id, PDO::PARAM_INT);
         $stmt->execute();
 
         // If the requester doesn't exist, display error and redirect
         if ($stmt->rowCount() === 0) {
             $_SESSION['error'] = "Requester not found. Please log in again.";
-            header('Location: /login.php');
+            header('Location: /admin_login.php');
             exit();
         }
 
