@@ -220,7 +220,8 @@ try {
         // Send email & notification
         $donor_email = $donor['email'];
         $donor_name = $donor['first_name'] . ' ' . $donor['last_name'];
-
+        $requester_name = htmlspecialchars($requester_name);
+        $requester_phone = htmlspecialchars($requester_phone);
         sendEmailToDonor($donor_email, $donor_name, $requester_name, $requester_phone, $blood_type, $message, $location, $urgency);
 
         $notif = "You have received a blood request from $requester_name for blood type $blood_type.";
