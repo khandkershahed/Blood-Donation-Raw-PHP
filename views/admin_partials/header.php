@@ -128,7 +128,9 @@ if (isset($_GET['clear_notifications'])) {
 
                             if (count($notifications) > 0):
                                 foreach ($notifications as $notification):
-                                    $time_ago = time_ago($notification['created_at']);
+                                    $createdAt = new DateTime($notification['created_at']);
+                                    $date = $createdAt->format('d F Y');
+                                    $time = $createdAt->format('h:i A');
                                     // Determine background color based on notification status
                                     $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-white';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
@@ -138,7 +140,7 @@ if (isset($_GET['clear_notifications'])) {
 
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="notify-details <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></p>
-                                            <small class="text-muted <?= $bg_class; ?>"><?= $time_ago; ?></small>
+                                            <small class="text-muted <?= $bg_class; ?>"><?= $time; ?></small>
                                         </div>
                                         <p class="mb-0 user-msg">
                                             <small class="fs-14 <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></small>
