@@ -16,6 +16,7 @@ try {
     $password = DB_PASS;    // Database password
     $dbport = DB_PORT;      // Database port (8889 for MAMP or 3306 for others)
     $charset = 'utf8mb4';   // Charset for MySQL connection
+    date_default_timezone_set('Asia/Dhaka');
 
     // Create PDO instance
     $pdo = new PDO("mysql:host=$host;port=$dbport;dbname=$dbname;charset=$charset", $username, $password);
