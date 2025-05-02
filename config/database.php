@@ -20,7 +20,7 @@ try {
 
     // Create PDO instance
     $pdo = new PDO("mysql:host=$host;port=$dbport;dbname=$dbname;charset=$charset", $username, $password);
-
+    $pdo->exec("SET time_zone = '+06:00'");
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
