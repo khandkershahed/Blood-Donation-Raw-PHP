@@ -118,7 +118,7 @@ if (isset($_GET['clear_notifications'])) {
                         <div class="noti-scroll" data-simplebar>
                             <?php
                             // Fetch both read and unread notifications
-                            $stmt = $pdo->prepare("SELECT * FROM notifications WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 5");
+                            $stmt = $pdo->prepare("SELECT * FROM notifications WHERE user_id = :user_id ORDER BY created_at DESC");
                             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
                             $stmt->execute();
                             $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);

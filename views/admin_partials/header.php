@@ -136,7 +136,7 @@ if (isset($_GET['clear_notifications'])) {
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
                                     <a href="<?= ROOT_URL ?>user/allRequest_admin.php?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
-                                        <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
+                                        <!-- <a href="<?= ROOT_URL ?>user/allRequest_admin.php?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
 
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="notify-details <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></p>

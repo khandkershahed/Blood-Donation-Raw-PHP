@@ -3,15 +3,15 @@
 require_once __DIR__ . '/../config/constants.php';
 require_once __DIR__ . '/../config/database.php';
 
-try {
-    if (isset($_GET['notification_id']) && is_numeric($_GET['notification_id'])) {
-        $notification_id = (int)$_GET['notification_id'];
-        $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id");
-        $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
-        $stmt->execute();
-    }
-} catch (PDOException $e) {
-    error_log("Database error: " . $e->getMessage());
+if (isset($_GET['notification_id'])) {
+    $notification_id = $_GET['notification_id'];
+
+    $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id");
+    $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    header("Location: allRequest_admin.php"); // clean URL
+    exit();
 }
 
 // Check if the user is logged in
