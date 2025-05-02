@@ -109,7 +109,7 @@ if (isset($_GET['clear_notifications'])) {
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-lg">
-                        <div class="dropdown-item noti-title">
+                        <div class="dropdown-item noti-title border-bottom">
                             <h5 class="m-0">
                                 <span class="float-end"><a href="?clear_notifications=1" class="text-dark"><small>Clear All</small></a></span>Notifications
                             </h5>
@@ -127,12 +127,11 @@ if (isset($_GET['clear_notifications'])) {
                                 foreach ($notifications as $notification):
                                     $time_ago = time_ago($notification['created_at']);
                                     // Determine background color based on notification status
-                                    $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-light';
+                                    $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-white';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
-                                    <a href="<?= ROOT_URL ?>user/receivedRequest.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
+                                    <a href="<?= ROOT_URL ?>user/receivedRequest.php?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
                                         <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
-
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="notify-details <?= $bg_class; ?>"><?= htmlspecialchars($notification['message']); ?></p>
                                             <small class="text-muted <?= $bg_class; ?>"><?= $time_ago; ?></small>

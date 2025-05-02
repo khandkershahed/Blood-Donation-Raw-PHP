@@ -5,6 +5,15 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../helper/send_email.php';  // Email sending helper
 require_once __DIR__ . '/../helper/notification.php';  // Notification helper
 // Check if the user is logged in
+if (isset($_GET['notification_id']) && isset($_SESSION['user_id'])) {
+    $notification_id = $_GET['notification_id'];
+    $user_id = $_SESSION['user_id'];
+
+    $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = :notification_id AND user_id = :user_id");
+    $stmt->bindParam(':notification_id', $notification_id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+}
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
     // Redirect to login page if not logged in
     header('Location: /login.php');

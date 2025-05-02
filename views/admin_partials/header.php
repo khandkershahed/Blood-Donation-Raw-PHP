@@ -129,10 +129,11 @@ function time_ago($timestamp)
                                 foreach ($notifications as $notification):
                                     $time_ago = time_ago($notification['created_at']);
                                     // Determine background color based on notification status
-                                    $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-light';
+                                    $bg_class = $notification['status'] == 'unread' ? 'bg-light' : 'bg-white';
                                     $font_class = $notification['status'] == 'unread' ? 'text-white' : '';
                             ?>
-                                    <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
+                                    <!-- <a href="<?= ROOT_URL ?>user/receivedRequest_admin.php" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
+                                    <a href="<?= ROOT_URL ?>user/receivedRequest.php?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active">
                                         <!-- <a href="?notification_id=<?= $notification['id']; ?>" class="dropdown-item notify-item <?= $bg_class; ?> text-muted link-primary active"> -->
 
                                         <div class="d-flex align-items-center justify-content-between">

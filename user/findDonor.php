@@ -18,11 +18,26 @@ if (empty($_SESSION['csrf_token'])) {
 $user_id = $_SESSION['user_id'];
 
 // Set default filter values (no filter)
-$blood_type = isset($_POST['blood_type']) && !empty($_POST['blood_type']) ? $_POST['blood_type'] : '';
+// $blood_type = isset($_POST['blood_type']) && !empty($_POST['blood_type']) ? $_POST['blood_type'] : '';
+$blood_type = isset($_POST['bloodType']) && !empty($_POST['bloodType']) ? $_POST['bloodType'] : '';
 $availability = isset($_POST['availability']) && !empty($_POST['availability']) ? $_POST['availability'] : '';
 $area = isset($_POST['area']) ? $_POST['area'] : '';
-$city = isset($_POST['city']) ? $_POST['city'] : '';
+// $city = isset($_POST['city']) ? $_POST['city'] : '';
+$raw_city_input = isset($_POST['city']) ? $_POST['city'] : '';
+$city = strtolower(trim(str_replace([' city', '.'], '', $raw_city_input)));
 
+
+try {
+    $city_query = "SELECT DISTINCT LOWER(TRIM(REPLACE(REPLACE(city, ' city', ''), '.', ''))) AS normalized_city
+                   FROM users 
+                   WHERE city IS NOT NULL AND city != ''
+                   GROUP BY normalized_city";
+    $city_stmt = $pdo->query($city_query);
+    $cities = $city_stmt->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    echo "Error fetching cities: " . $e->getMessage();
+    exit();
+}
 // Fetch users from the database based on the filter
 try {
     // Start building the query
@@ -43,7 +58,8 @@ try {
     }
 
     if ($city) {
-        $query .= " AND city LIKE :city";  // Use LIKE for partial matching
+        // $query .= " AND city LIKE :city";  // Use LIKE for partial matching
+        $query .= " AND LOWER(TRIM(REPLACE(REPLACE(city, ' city', ''), '.', ''))) LIKE :city";
     }
 
     // Prepare the statement
@@ -59,9 +75,13 @@ try {
     if ($area) {
         $stmt->bindValue(':area', "%$area%", PDO::PARAM_STR);  // Wildcard search
     }
+    // if ($city) {
+    //     $stmt->bindValue(':city', "%$city%", PDO::PARAM_STR);  // Wildcard search
+    // }
     if ($city) {
-        $stmt->bindValue(':city', "%$city%", PDO::PARAM_STR);  // Wildcard search
+        $stmt->bindValue(':city', "%$city%", PDO::PARAM_STR);
     }
+
 
     // Execute the query
     $stmt->execute();
@@ -136,12 +156,27 @@ try {
                             </div>
 
                             <!-- City Filter -->
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <div class="position-relative topbar-search">
                                     <input type="text" class="form-control ps-4" name="city" placeholder="Search City..." />
                                     <i class="mdi mdi-magnify fs-16 position-absolute text-muted top-50 translate-middle-y ms-2"></i>
                                 </div>
+                            </div> -->
+                            <!-- City Filter -->
+                            <div class="col-lg-2">
+                                <select class="form-select" name="city">
+                                    <option value="">Select City</option>
+                                    <?php foreach ($cities as $city_option): ?>
+                                        <option value="<?= htmlspecialchars($city_option) ?>" <?= strtolower(trim($raw_city_input)) == strtolower(trim($city_option)) ? 'selected' : '' ?>>
+                                            <?= ucfirst($city_option) ?>
+                                        </option>
+
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
+
+
+
 
                             <!-- Submit Button -->
                             <div class="col-lg-2">
