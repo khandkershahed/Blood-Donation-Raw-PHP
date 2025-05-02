@@ -54,7 +54,7 @@ if (isset($_GET['delete_request_id']) && is_numeric($_GET['delete_request_id']))
 
 try {
     // Fetch all requests
-    $query = "SELECT * FROM requests";
+    $query = "SELECT * FROM requests ORDER BY id DESC";
 
     // Prepare the statement
     $stmt = $pdo->prepare($query);
